@@ -40,7 +40,9 @@
   function enable(id, url) {
     var a = $(id);
 
-    if (!a || !url) return false;
+    if (!a || !url) {
+      return false;
+    }
 
     a.href = url;
     a.target = "_blank";
@@ -291,12 +293,14 @@
       "";
 
 
+    // FOLLOW ON X
     enable(
       "follow",
       xUrl
     );
 
 
+    // RETWEET POST
     if (airdropTweetUrl) {
 
       enable(
@@ -332,6 +336,10 @@
     }
 
 
+    // =========================
+    // AIRDROP SUBMIT
+    // =========================
+
     form.addEventListener(
       "submit",
       function (e) {
@@ -366,7 +374,9 @@
           f.website &&
           f.website.value
         ) {
+
           return;
+
         }
 
 
@@ -411,7 +421,7 @@
 
 
         // =========================
-        // WALLET VALIDATION
+        // VALIDATE WALLET
         // =========================
 
         if (
@@ -430,7 +440,7 @@
 
 
         // =========================
-        // X USERNAME VALIDATION
+        // VALIDATE X USERNAME
         // =========================
 
         if (
@@ -447,7 +457,7 @@
 
 
         // =========================
-        // RETWEET URL VALIDATION
+        // VALIDATE RETWEET URL
         // =========================
 
         if (
@@ -515,7 +525,8 @@
 
 
         // =========================
-        // SEND TO GOOGLE APPS SCRIPT
+        // GOOGLE APPS SCRIPT
+        // CROSS-ORIGIN POST
         // =========================
 
         btn.disabled = true;
@@ -524,107 +535,262 @@
           "Sending...";
 
 
-        /*
-         * IMPORTANT:
-         *
-         * Use URLSearchParams instead
-         * of FormData.
-         *
-         * Google Apps Script receives
-         * these values through e.parameter.
-         */
-
-        var data =
-          new URLSearchParams();
+        // Create unique iframe name
+        var iframeName =
+          "meep_airdrop_" +
+          Date.now();
 
 
-        data.append(
-          "wallet",
-          wallet
+        // Create hidden iframe
+        var iframe =
+          document.createElement("iframe");
+
+
+        iframe.name =
+          iframeName;
+
+
+        iframe.id =
+          iframeName;
+
+
+        iframe.style.display =
+          "none";
+
+
+        document.body.appendChild(
+          iframe
         );
 
 
-        data.append(
-          "x_username",
-          user
+        // Create temporary POST form
+        var postForm =
+          document.createElement("form");
+
+
+        postForm.method =
+          "POST";
+
+
+        postForm.action =
+          endpoint;
+
+
+        postForm.target =
+          iframeName;
+
+
+        postForm.style.display =
+          "none";
+
+
+        // =========================
+        // WALLET
+        // =========================
+
+        var walletInput =
+          document.createElement("input");
+
+
+        walletInput.type =
+          "hidden";
+
+
+        walletInput.name =
+          "wallet";
+
+
+        walletInput.value =
+          wallet;
+
+
+        postForm.appendChild(
+          walletInput
         );
 
 
-        data.append(
-          "retweet_url",
-          rt
+        // =========================
+        // X USERNAME
+        // =========================
+
+        var userInput =
+          document.createElement("input");
+
+
+        userInput.type =
+          "hidden";
+
+
+        userInput.name =
+          "x_username";
+
+
+        userInput.value =
+          user;
+
+
+        postForm.appendChild(
+          userInput
         );
 
 
-        /*
-         * no-cors is required here because
-         * the live website and Google Apps
-         * Script are different origins.
-         *
-         * We cannot read the response.
-         * We only need to send the data.
-         */
+        // =========================
+        // RETWEET URL
+        // =========================
 
-        fetch(
-          endpoint,
-          {
-            method: "POST",
-            mode: "no-cors",
-            body: data
-          }
-        )
-        .then(
-          function () {
-
-            form.reset();
+        var retweetInput =
+          document.createElement("input");
 
 
-            msg.textContent =
-              "Registration submitted successfully!";
+        retweetInput.type =
+          "hidden";
 
 
-            btn.textContent =
-              "SUBMITTED";
+        retweetInput.name =
+          "retweet_url";
 
 
-            btn.disabled = true;
+        retweetInput.value =
+          rt;
 
 
-            var shareText =
-              "I just joined the @MEEPNear airdrop! 🐸🚀\n\n" +
-              "Join the MEEP community and don't miss the airdrop!\n\n" +
-              "#Airdrop #MEEP #Memecoin #NEAR #NEARProtocol #Crypto #Web3";
+        postForm.appendChild(
+          retweetInput
+        );
 
 
-            var shareUrl =
-              "https://x.com/intent/post?text=" +
-              encodeURIComponent(
-                shareText
+        // Add form to page
+        document.body.appendChild(
+          postForm
+        );
+
+
+        // =========================
+        // SUBMIT
+        // =========================
+
+        try {
+
+          postForm.submit();
+
+
+          /*
+           * We cannot read the Google Apps
+           * Script response from another domain.
+           *
+           * The POST itself is sent directly
+           * to the Apps Script endpoint.
+           */
+
+
+          setTimeout(
+            function () {
+
+              form.reset();
+
+
+              msg.textContent =
+                "Registration submitted successfully!";
+
+
+              btn.textContent =
+                "SUBMITTED";
+
+
+              btn.disabled = true;
+
+
+              // Clean temporary elements
+              if (
+                postForm.parentNode
+              ) {
+
+                postForm.parentNode
+                  .removeChild(
+                    postForm
+                  );
+
+              }
+
+
+              if (
+                iframe.parentNode
+              ) {
+
+                iframe.parentNode
+                  .removeChild(
+                    iframe
+                  );
+
+              }
+
+
+              // =========================
+              // SHARE ON X
+              // =========================
+
+              var shareText =
+                "I just joined the @MEEPNear airdrop! 🐸🚀\n\n" +
+                "Join the MEEP community and don't miss the airdrop!\n\n" +
+                "#Airdrop #MEEP #Memecoin #NEAR #NEARProtocol #Crypto #Web3";
+
+
+              var shareUrl =
+                "https://x.com/intent/post?text=" +
+                encodeURIComponent(
+                  shareText
+                );
+
+
+              setTimeout(
+                function () {
+
+                  window.location.href =
+                    shareUrl;
+
+                },
+                800
               );
 
 
-            setTimeout(
-              function () {
+            },
+            1200
+          );
 
-                window.location.href =
-                  shareUrl;
 
-              },
-              800
-            );
+        } catch (error) {
+
+          msg.textContent =
+            "❌ Could not send. Please try again.";
+
+
+          btn.disabled = false;
+
+
+          if (
+            postForm.parentNode
+          ) {
+
+            postForm.parentNode
+              .removeChild(
+                postForm
+              );
 
           }
-        )
-        .catch(
-          function () {
 
-            msg.textContent =
-              "❌ Could not send. Please try again.";
 
-            btn.disabled = false;
+          if (
+            iframe.parentNode
+          ) {
+
+            iframe.parentNode
+              .removeChild(
+                iframe
+              );
 
           }
-        );
+
+        }
 
       }
     );
