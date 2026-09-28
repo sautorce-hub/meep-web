@@ -135,14 +135,18 @@
 
         if (!navigator.clipboard) return;
 
+
         navigator.clipboard
           .writeText(ca)
           .then(function () {
 
             $("copy").textContent = "COPIED";
 
+
             setTimeout(function () {
+
               $("copy").textContent = "COPY";
+
             }, 1500);
 
           })
@@ -215,10 +219,7 @@
         }
 
 
-        // =========================
-        // HONEYPOT
-        // =========================
-
+        // Honeypot
         if (f.website && f.website.value) {
           return;
         }
@@ -356,14 +357,10 @@
 
         btn.textContent = "SENDING...";
 
-        msg.textContent =
-          "Sending...";
+        msg.textContent = "Sending...";
 
 
-        // =========================
-        // CREATE HIDDEN IFRAME
-        // =========================
-
+        // Hidden iframe
         var iframe =
           document.createElement("iframe");
 
@@ -376,10 +373,7 @@
         document.body.appendChild(iframe);
 
 
-        // =========================
-        // CREATE POST FORM
-        // =========================
-
+        // Hidden POST form
         var postForm =
           document.createElement("form");
 
@@ -392,10 +386,7 @@
         postForm.style.display = "none";
 
 
-        // =========================
-        // WALLET
-        // =========================
-
+        // Wallet
         var walletInput =
           document.createElement("input");
 
@@ -408,10 +399,7 @@
         postForm.appendChild(walletInput);
 
 
-        // =========================
-        // X USERNAME
-        // =========================
-
+        // X username
         var usernameInput =
           document.createElement("input");
 
@@ -424,10 +412,7 @@
         postForm.appendChild(usernameInput);
 
 
-        // =========================
-        // RETWEET URL
-        // =========================
-
+        // Retweet URL
         var retweetInput =
           document.createElement("input");
 
@@ -440,22 +425,16 @@
         postForm.appendChild(retweetInput);
 
 
-        // =========================
-        // ADD FORM TO PAGE
-        // =========================
-
+        // Add form
         document.body.appendChild(postForm);
 
 
-        // =========================
-        // SEND POST
-        // =========================
-
+        // Submit to Apps Script
         postForm.submit();
 
 
         // =========================
-        // SHOW SUCCESS
+        // SUCCESS MESSAGE
         // =========================
 
         setTimeout(function () {
