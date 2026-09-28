@@ -167,14 +167,28 @@
 
   if (form) {
 
+    // X profile fallback
+    var xUrl =
+      https(c.xUrl) ||
+      "https://x.com/MEEPNear";
+
+    // Airdrop tweet fallback
+    var airdropTweetUrl =
+      https(c.airdropTweetUrl) ||
+      "https://x.com/MEEPNear/status/1961234567890123456";
+
+
+    // FOLLOW ON X
     enable(
       "follow",
-      https(c.xUrl)
+      xUrl
     );
 
+
+    // RETWEET POST
     enable(
       "rt-post",
-      https(c.airdropTweetUrl)
+      airdropTweetUrl
     );
 
 
@@ -313,7 +327,7 @@
 
             handle =
               new URL(
-                https(c.xUrl)
+                xUrl
               )
                 .pathname
                 .split("/")[1] || "";
@@ -380,74 +394,96 @@
 
 
         fetch(endpoint, {
-  method: "POST",
-  body: data
-})
-.then(function (r) {
-  if (!r.ok) {
-    throw new Error("Server error");
-  }
+          method: "POST",
+          body: data
+        })
+        .then(function (r) {
 
-  return r.json();
-})
-.then(function (result) {
+          if (!r.ok) {
+            throw new Error("Server error");
+          }
 
-  if (!result.success) {
-    throw new Error(result.message || "Registration failed.");
-  }
+          return r.json();
 
-  form.reset();
+        })
+        .then(function (result) {
 
-  msg.textContent =
-    "Registration successful. Redirecting to X...";
+          if (!result.success) {
+            throw new Error(
+              result.message ||
+              "Registration failed."
+            );
+          }
 
-  btn.textContent = "SUBMITTED";
-  btn.disabled = true;
 
-  var shareText =
-    "I just joined the @MEEPNear airdrop! 🐸🚀\n\n" +
-    "Join the MEEP community and don't miss the airdrop!\n\n" +
-    "#Airdrop #MEEP #Memecoin #NEAR #NEARProtocol #Crypto #Web3";
+          form.reset();
 
-  var shareUrl =
-    "https://x.com/intent/post?text=" +
-    encodeURIComponent(shareText);
 
-  setTimeout(function () {
-    window.location.href = shareUrl;
-  }, 800);
+          msg.textContent =
+            "Registration successful. Redirecting to X...";
 
-})
-.catch(function (error) {
 
-  var message =
-    String(error.message || "").toLowerCase();
+          btn.textContent =
+            "SUBMITTED";
 
-  if (
-    message.indexOf("wallet") !== -1 &&
-    message.indexOf("already") !== -1
-  ) {
 
-    msg.textContent =
-      "❌ This NEAR wallet has already been registered.";
+          btn.disabled = true;
 
-  } else if (
-    message.indexOf("username") !== -1 &&
-    message.indexOf("already") !== -1
-  ) {
 
-    msg.textContent =
-      "❌ This X username has already been registered.";
+          var shareText =
+            "I just joined the @MEEPNear airdrop! 🐸🚀\n\n" +
+            "Join the MEEP community and don't miss the airdrop!\n\n" +
+            "#Airdrop #MEEP #Memecoin #NEAR #NEARProtocol #Crypto #Web3";
 
-  } else {
 
-    msg.textContent =
-      "❌ Could not send. Please try again.";
+          var shareUrl =
+            "https://x.com/intent/post?text=" +
+            encodeURIComponent(shareText);
 
-  }
 
-  btn.disabled = false;
-});
+          setTimeout(function () {
+
+            window.location.href =
+              shareUrl;
+
+          }, 800);
+
+        })
+        .catch(function (error) {
+
+          var message =
+            String(
+              error.message || ""
+            ).toLowerCase();
+
+
+          if (
+            message.indexOf("wallet") !== -1 &&
+            message.indexOf("already") !== -1
+          ) {
+
+            msg.textContent =
+              "❌ This NEAR wallet has already been registered.";
+
+          } else if (
+            message.indexOf("username") !== -1 &&
+            message.indexOf("already") !== -1
+          ) {
+
+            msg.textContent =
+              "❌ This X username has already been registered.";
+
+          } else {
+
+            msg.textContent =
+              "❌ Could not send. Please try again.";
+
+          }
+
+
+          btn.disabled = false;
+
+        });
 
       }
     );
