@@ -1,6 +1,4 @@
 (function () {
-  "use strict";
-
   var c = window.MEEP || {};
 
   var $ = function (id) {
@@ -12,11 +10,11 @@
   };
 
   var ACCOUNT =
-    /^(([a-z\d]+[-_])*[a-z\d]+\.)*([a-z\d]+[-_])*[a-z\d]+$/i;
+    /^(([a-z\d]+[-_])*[a-z\d]+\.)*([a-z\d]+[-_])*[a-z\d]+$/;
 
 
   // =========================
-  // URL HELPER
+  // HTTPS URL HELPER
   // =========================
 
   function https(v) {
@@ -40,9 +38,7 @@
   function enable(id, url) {
     var a = $(id);
 
-    if (!a || !url) {
-      return false;
-    }
+    if (!a || !url) return;
 
     a.href = url;
     a.target = "_blank";
@@ -51,135 +47,49 @@
     a.classList.remove("off");
     a.removeAttribute("aria-disabled");
 
-    var label = a.getAttribute("data-label");
-
-    if (label) {
-      a.textContent = label;
-    }
-
-    return true;
+    a.textContent = a.getAttribute("data-label");
   }
 
 
   // =========================
-  // ACTIVE NAV
+  // NAVIGATION
   // =========================
 
-  function normalizePath(path) {
+  var cur =
+    (location.pathname.split("/").pop() || "index")
+      .replace(/\.html$/, "");
 
-    path =
-      String(path || "/")
-        .split("?")[0]
-        .split("#")[0];
+  each(document.querySelectorAll(".nav a"), function (a) {
+
+    var h = a.getAttribute("href");
 
     if (
-      path.length > 1 &&
-      path.charAt(path.length - 1) === "/"
+      h &&
+      h.indexOf("#") === -1 &&
+      h.replace(/\.html$/, "") === cur
     ) {
-      path = path.slice(0, -1);
-    }
 
-    if (!path) {
-      path = "/";
-    }
-
-    return path;
-  }
-
-
-  var currentPath =
-    normalizePath(location.pathname);
-
-
-  each(
-    document.querySelectorAll(".nav a"),
-    function (a) {
-
-      var href =
-        a.getAttribute("href");
-
-      if (
-        !href ||
-        href.charAt(0) === "#"
-      ) {
-        return;
-      }
-
-      try {
-
-        var target =
-          new URL(
-            href,
-            location.href
-          );
-
-        var targetPath =
-          normalizePath(
-            target.pathname
-          );
-
-        if (
-          targetPath === currentPath
-        ) {
-
-          a.classList.add("on");
-
-          a.setAttribute(
-            "aria-current",
-            "page"
-          );
-
-        }
-
-      } catch (e) {}
+      a.classList.add("on");
+      a.setAttribute("aria-current", "page");
 
     }
-  );
+
+  });
 
 
   // =========================
-  // GENERAL LINKS
+  // LINKS
   // =========================
 
-  var trade =
-    https(c.tradeUrl);
+  var trade = https(c.tradeUrl);
 
-  var xUrl =
-    https(c.xUrl) ||
-    "https://x.com/MEEPNear";
+  enable("buy", trade);
+  enable("nearly", trade);
+  enable("x", https(c.xUrl));
+  enable("telegram", https(c.telegramUrl));
 
-  var telegramUrl =
-    https(c.telegramUrl);
-
-
-  enable(
-    "buy",
-    trade
-  );
-
-  enable(
-    "nearly",
-    trade
-  );
-
-  enable(
-    "x",
-    xUrl
-  );
-
-  enable(
-    "telegram",
-    telegramUrl
-  );
-
-
-  if (
-    trade &&
-    $("buy-note")
-  ) {
-
+  if (trade && $("buy-note")) {
     $("buy-note").hidden = true;
-
   }
 
 
@@ -192,7 +102,6 @@
       .trim()
       .toLowerCase();
 
-
   if (
     $("ca-title") &&
     ca.length >= 2 &&
@@ -200,23 +109,12 @@
     ACCOUNT.test(ca)
   ) {
 
-    $("ca-title").textContent =
-      "MEEP CONTRACT";
+    $("ca-title").textContent = "MEEP CONTRACT";
 
+    $("ca-empty").hidden = true;
+    $("ca-box").hidden = false;
 
-    if ($("ca-empty")) {
-      $("ca-empty").hidden = true;
-    }
-
-
-    if ($("ca-box")) {
-      $("ca-box").hidden = false;
-    }
-
-
-    if ($("ca-text")) {
-      $("ca-text").textContent = ca;
-    }
+    $("ca-text").textContent = ca;
 
 
     var host =
@@ -227,51 +125,34 @@
 
     enable(
       "explorer",
-      "https://" +
-      host +
-      "/address/" +
-      ca
+      "https://" + host + "/address/" + ca
     );
 
 
     if ($("copy")) {
 
-      $("copy").onclick =
-        function () {
+      $("copy").onclick = function () {
 
-          if (
-            !navigator.clipboard
-          ) {
-            return;
-          }
+        if (!navigator.clipboard) return;
 
 
-          navigator.clipboard
-            .writeText(ca)
-            .then(
-              function () {
+        navigator.clipboard
+          .writeText(ca)
+          .then(function () {
 
-                $("copy").textContent =
-                  "COPIED";
+            $("copy").textContent = "COPIED";
 
 
-                setTimeout(
-                  function () {
+            setTimeout(function () {
 
-                    $("copy").textContent =
-                      "COPY";
+              $("copy").textContent = "COPY";
 
-                  },
-                  1500
-                );
+            }, 1500);
 
-              }
-            )
-            .catch(
-              function () {}
-            );
+          })
+          .catch(function () {});
 
-        };
+      };
 
     }
 
@@ -282,33 +163,19 @@
   // AIRDROP
   // =========================
 
-  var form =
-    $("airdrop-form");
-
+  var form = $("airdrop-form");
 
   if (form) {
 
-    var airdropTweetUrl =
-      https(c.airdropTweetUrl) ||
-      "";
-
-
-    // FOLLOW ON X
     enable(
       "follow",
-      xUrl
+      https(c.xUrl)
     );
 
-
-    // RETWEET POST
-    if (airdropTweetUrl) {
-
-      enable(
-        "rt-post",
-        airdropTweetUrl
-      );
-
-    }
+    enable(
+      "rt-post",
+      https(c.airdropTweetUrl)
+    );
 
 
     var endpoint =
@@ -320,25 +187,18 @@
       $("airdrop-hint").textContent =
         endpoint
           ? "Your details are sent to the MEEP team."
-          : "Submit your details on X to finish registering.";
+          : "This opens X with your details pre-filled as a public post. Post it to finish registering.";
 
     }
 
 
-    if (
-      !endpoint &&
-      $("airdrop-btn")
-    ) {
+    if (!endpoint && $("airdrop-btn")) {
 
       $("airdrop-btn").textContent =
         "SUBMIT ON X";
 
     }
 
-
-    // =========================
-    // AIRDROP SUBMIT
-    // =========================
 
     form.addEventListener(
       "submit",
@@ -347,76 +207,47 @@
         e.preventDefault();
 
 
-        var f =
-          form.elements;
+        var f = form.elements;
 
-        var msg =
-          $("airdrop-msg");
+        var msg = $("airdrop-msg");
 
-        var btn =
-          $("airdrop-btn");
+        var btn = $("airdrop-btn");
 
 
-        if (
-          !f ||
-          !msg ||
-          !btn
-        ) {
+        if (!f || !msg || !btn) {
+          return;
+        }
+
+
+        // Honeypot
+        if (f.website && f.website.value) {
           return;
         }
 
 
         // =========================
-        // HONEYPOT
-        // =========================
-
-        if (
-          f.website &&
-          f.website.value
-        ) {
-
-          return;
-
-        }
-
-
-        // =========================
-        // FORM VALUES
+        // GET FORM VALUES
         // =========================
 
         var wallet =
-          String(
-            f.wallet &&
-            f.wallet.value ||
-            ""
-          )
+          String(f.wallet.value || "")
             .trim()
             .toLowerCase();
 
 
         var user =
-          String(
-            f.x_username &&
-            f.x_username.value ||
-            ""
-          )
+          String(f.x_username.value || "")
             .trim()
             .replace(/^@/, "");
 
 
         var rt =
-          String(
-            f.retweet_url &&
-            f.retweet_url.value ||
-            ""
-          )
+          String(f.retweet_url.value || "")
             .trim();
 
 
         function fail(t) {
-
           msg.textContent = t;
-
         }
 
 
@@ -444,9 +275,7 @@
         // =========================
 
         if (
-          !/^[A-Za-z0-9_]{1,15}$/.test(
-            user
-          )
+          !/^[A-Za-z0-9_]{1,15}$/.test(user)
         ) {
 
           return fail(
@@ -461,9 +290,7 @@
         // =========================
 
         if (
-          !/^https:\/\/(www\.|mobile\.)?(x|twitter)\.com\/[A-Za-z0-9_]{1,15}\/status\/\d+/i.test(
-            rt
-          )
+          !/^https:\/\/(www\.|mobile\.)?(x|twitter)\.com\/[A-Za-z0-9_]{1,15}\/status\/\d+/i.test(rt)
         ) {
 
           return fail(
@@ -485,21 +312,20 @@
           try {
 
             handle =
-              new URL(xUrl)
+              new URL(
+                https(c.xUrl)
+              )
                 .pathname
-                .split("/")[1] ||
-              "";
+                .split("/")[1] || "";
 
           } catch (x) {}
 
 
           var text =
             "Airdrop registration" +
-            (
-              handle
-                ? " @" + handle
-                : ""
-            ) +
+            (handle
+              ? " @" + handle
+              : "") +
             "\nWallet: " +
             wallet +
             "\nX: @" +
@@ -520,13 +346,11 @@
             "Post the message on X to finish registering.";
 
           return;
-
         }
 
 
         // =========================
-        // GOOGLE APPS SCRIPT
-        // CROSS-ORIGIN POST
+        // SEND TO GOOGLE APPS SCRIPT
         // =========================
 
         btn.disabled = true;
@@ -535,262 +359,95 @@
           "Sending...";
 
 
-        // Create unique iframe name
-        var iframeName =
-          "meep_airdrop_" +
-          Date.now();
+        var data =
+          new FormData();
 
 
-        // Create hidden iframe
-        var iframe =
-          document.createElement("iframe");
+        data.append(
+          "wallet",
+          wallet
+        );
 
+        data.append(
+          "x_username",
+          user
+        );
 
-        iframe.name =
-          iframeName;
-
-
-        iframe.id =
-          iframeName;
-
-
-        iframe.style.display =
-          "none";
-
-
-        document.body.appendChild(
-          iframe
+        data.append(
+          "retweet_url",
+          rt
         );
 
 
-        // Create temporary POST form
-        var postForm =
-          document.createElement("form");
+        fetch(endpoint, {
+  method: "POST",
+  body: data
+})
+.then(function (r) {
+  if (!r.ok) {
+    throw new Error("Server error");
+  }
 
+  return r.json();
+})
+.then(function (result) {
 
-        postForm.method =
-          "POST";
+  if (!result.success) {
+    throw new Error(result.message || "Registration failed.");
+  }
 
+  form.reset();
 
-        postForm.action =
-          endpoint;
+  msg.textContent =
+    "Registration successful. Redirecting to X...";
 
+  btn.textContent = "SUBMITTED";
+  btn.disabled = true;
 
-        postForm.target =
-          iframeName;
+  var shareText =
+    "I just joined the @MEEPNear airdrop! ðŸ¸ðŸš€\n\n" +
+    "Join the MEEP community and don't miss the airdrop!\n\n" +
+    "#Airdrop #MEEP #Memecoin #NEAR #NEARProtocol #Crypto #Web3";
 
+  var shareUrl =
+    "https://x.com/intent/post?text=" +
+    encodeURIComponent(shareText);
 
-        postForm.style.display =
-          "none";
+  setTimeout(function () {
+    window.location.href = shareUrl;
+  }, 800);
 
+})
+.catch(function (error) {
 
-        // =========================
-        // WALLET
-        // =========================
+  var message =
+    String(error.message || "").toLowerCase();
 
-        var walletInput =
-          document.createElement("input");
+  if (
+    message.indexOf("wallet") !== -1 &&
+    message.indexOf("already") !== -1
+  ) {
 
+    msg.textContent =
+      "âŒ This NEAR wallet has already been registered.";
 
-        walletInput.type =
-          "hidden";
+  } else if (
+    message.indexOf("username") !== -1 &&
+    message.indexOf("already") !== -1
+  ) {
 
+    msg.textContent =
+      "âŒ This X username has already been registered.";
 
-        walletInput.name =
-          "wallet";
+  } else {
 
+    msg.textContent =
+      "âŒ Could not send. Please try again.";
 
-        walletInput.value =
-          wallet;
+  }
 
-
-        postForm.appendChild(
-          walletInput
-        );
-
-
-        // =========================
-        // X USERNAME
-        // =========================
-
-        var userInput =
-          document.createElement("input");
-
-
-        userInput.type =
-          "hidden";
-
-
-        userInput.name =
-          "x_username";
-
-
-        userInput.value =
-          user;
-
-
-        postForm.appendChild(
-          userInput
-        );
-
-
-        // =========================
-        // RETWEET URL
-        // =========================
-
-        var retweetInput =
-          document.createElement("input");
-
-
-        retweetInput.type =
-          "hidden";
-
-
-        retweetInput.name =
-          "retweet_url";
-
-
-        retweetInput.value =
-          rt;
-
-
-        postForm.appendChild(
-          retweetInput
-        );
-
-
-        // Add form to page
-        document.body.appendChild(
-          postForm
-        );
-
-
-        // =========================
-        // SUBMIT
-        // =========================
-
-        try {
-
-          postForm.submit();
-
-
-          /*
-           * We cannot read the Google Apps
-           * Script response from another domain.
-           *
-           * The POST itself is sent directly
-           * to the Apps Script endpoint.
-           */
-
-
-          setTimeout(
-            function () {
-
-              form.reset();
-
-
-              msg.textContent =
-                "Registration submitted successfully!";
-
-
-              btn.textContent =
-                "SUBMITTED";
-
-
-              btn.disabled = true;
-
-
-              // Clean temporary elements
-              if (
-                postForm.parentNode
-              ) {
-
-                postForm.parentNode
-                  .removeChild(
-                    postForm
-                  );
-
-              }
-
-
-              if (
-                iframe.parentNode
-              ) {
-
-                iframe.parentNode
-                  .removeChild(
-                    iframe
-                  );
-
-              }
-
-
-              // =========================
-              // SHARE ON X
-              // =========================
-
-              var shareText =
-                "I just joined the @MEEPNear airdrop! 🐸🚀\n\n" +
-                "Join the MEEP community and don't miss the airdrop!\n\n" +
-                "#Airdrop #MEEP #Memecoin #NEAR #NEARProtocol #Crypto #Web3";
-
-
-              var shareUrl =
-                "https://x.com/intent/post?text=" +
-                encodeURIComponent(
-                  shareText
-                );
-
-
-              setTimeout(
-                function () {
-
-                  window.location.href =
-                    shareUrl;
-
-                },
-                800
-              );
-
-
-            },
-            1200
-          );
-
-
-        } catch (error) {
-
-          msg.textContent =
-            "❌ Could not send. Please try again.";
-
-
-          btn.disabled = false;
-
-
-          if (
-            postForm.parentNode
-          ) {
-
-            postForm.parentNode
-              .removeChild(
-                postForm
-              );
-
-          }
-
-
-          if (
-            iframe.parentNode
-          ) {
-
-            iframe.parentNode
-              .removeChild(
-                iframe
-              );
-
-          }
-
-        }
+  btn.disabled = false;
+});
 
       }
     );
@@ -799,12 +456,10 @@
 
 
   // =========================
-  // SWAP PREVIEW
+  // SWAP PAGE
   // =========================
 
-  var pay =
-    $("pay");
-
+  var pay = $("pay");
 
   if (pay) {
 
@@ -814,36 +469,28 @@
         : 1000;
 
 
-    var calc =
-      function () {
+    var calc = function () {
 
-        var n =
-          Math.min(
-            parseFloat(
-              pay.value
-            ) || 0,
-            1e9
-          );
+      var n =
+        Math.min(
+          parseFloat(pay.value) || 0,
+          1e9
+        );
 
 
-        if ($("recv")) {
+      $("recv").textContent =
+        (
+          n > 0
+            ? n * rate * 0.97
+            : 0
+        ).toLocaleString(
+          undefined,
+          {
+            maximumFractionDigits: 2
+          }
+        );
 
-          $("recv").textContent =
-            (
-              n > 0
-                ? n * rate * 0.97
-                : 0
-            )
-            .toLocaleString(
-              undefined,
-              {
-                maximumFractionDigits: 2
-              }
-            );
-
-        }
-
-      };
+    };
 
 
     if ($("rate-note")) {
@@ -888,17 +535,16 @@
     document.querySelectorAll(".mint"),
     function (b) {
 
-      b.onclick =
-        function () {
+      b.onclick = function () {
 
-          if ($("nft-msg")) {
+        if ($("nft-msg")) {
 
-            $("nft-msg").textContent =
-              "Minting is launching soon. Nothing was minted.";
+          $("nft-msg").textContent =
+            "Minting is launching soon. Nothing was minted.";
 
-          }
+        }
 
-        };
+      };
 
     }
   );
@@ -914,9 +560,7 @@
 
   var launch =
     new Date(
-      String(
-        c.launchDate || ""
-      ).trim()
+      String(c.launchDate || "").trim()
     );
 
 
@@ -925,14 +569,11 @@
 
   function tick() {
 
-    if (!box) {
-      return;
-    }
+    if (!box) return;
 
 
     var ms =
-      launch -
-      Date.now();
+      launch - Date.now();
 
 
     if (ms <= 0) {
@@ -944,36 +585,31 @@
       clearInterval(timer);
 
       return;
-
     }
 
 
     var s =
-      Math.floor(
-        ms / 1000
-      );
+      Math.floor(ms / 1000);
 
 
     var parts = [
 
       [
         "days",
-        Math.floor(
-          s / 86400
-        )
+        Math.floor(s / 86400)
       ],
 
       [
         "hrs",
         Math.floor(
-          (s % 86400) / 3600
+          s % 86400 / 3600
         )
       ],
 
       [
         "min",
         Math.floor(
-          (s % 3600) / 60
+          s % 3600 / 60
         )
       ],
 
@@ -987,20 +623,17 @@
 
     box.innerHTML =
       parts
-        .map(
-          function (p) {
+        .map(function (p) {
 
-            return (
-              "<div><b>" +
-              String(p[1])
-                .padStart(2, "0") +
-              "</b><span>" +
-              p[0] +
-              "</span></div>"
-            );
+          return (
+            "<div><b>" +
+            String(p[1]).padStart(2, "0") +
+            "</b><span>" +
+            p[0] +
+            "</span></div>"
+          );
 
-          }
-        )
+        })
         .join("");
 
   }
