@@ -1,4 +1,4 @@
-// MEEP site configuration. Empty values intentionally stay in a "soon" state.
+// Fill these in when the real values exist. Empty = the site shows a "soon" state.
 window.MEEP = {
   tradeUrl: "",     // official Nearly.Trade page, must start with https://
   xUrl: "https://x.com/MEEPNear",
