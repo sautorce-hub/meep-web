@@ -116,18 +116,15 @@
 
     $("ca-text").textContent = ca;
 
-
     var host =
       c.network === "testnet"
         ? "testnet.nearblocks.io"
         : "nearblocks.io";
 
-
     enable(
       "explorer",
       "https://" + host + "/address/" + ca
     );
-
 
     if ($("copy")) {
 
@@ -135,18 +132,14 @@
 
         if (!navigator.clipboard) return;
 
-
         navigator.clipboard
           .writeText(ca)
           .then(function () {
 
             $("copy").textContent = "COPIED";
 
-
             setTimeout(function () {
-
               $("copy").textContent = "COPY";
-
             }, 1500);
 
           })
@@ -177,10 +170,8 @@
       https(c.airdropTweetUrl)
     );
 
-
     var endpoint =
       https(c.airdropEndpoint);
-
 
     if ($("airdrop-hint")) {
 
@@ -190,7 +181,6 @@
           : "This opens X with your details pre-filled as a public post. Post it to finish registering.";
 
     }
-
 
     if (!endpoint && $("airdrop-btn")) {
 
@@ -206,20 +196,21 @@
 
         e.preventDefault();
 
-
         var f = form.elements;
 
         var msg = $("airdrop-msg");
 
         var btn = $("airdrop-btn");
 
-
         if (!f || !msg || !btn) {
           return;
         }
 
 
-        // Honeypot
+        // =========================
+        // HONEYPOT
+        // =========================
+
         if (f.website && f.website.value) {
           return;
         }
@@ -234,12 +225,10 @@
             .trim()
             .toLowerCase();
 
-
         var user =
           String(f.x_username.value || "")
             .trim()
             .replace(/^@/, "");
-
 
         var rt =
           String(f.retweet_url.value || "")
@@ -308,7 +297,6 @@
 
           var handle = "";
 
-
           try {
 
             handle =
@@ -350,126 +338,130 @@
 
 
         // =========================
-// SEND TO GOOGLE APPS SCRIPT
-// =========================
+        // SEND TO GOOGLE APPS SCRIPT
+        // =========================
 
-btn.disabled = true;
-
-msg.textContent = "Sending...";
-
-
-// Create hidden iframe
-var iframe = document.createElement("iframe");
-
-iframe.name =
-  "meep-airdrop-submit-" +
-  Date.now();
-
-iframe.style.display = "none";
-
-document.body.appendChild(iframe);
+        btn.disabled = true;
+        btn.textContent = "SENDING...";
+        msg.textContent = "Sending...";
 
 
-// Create POST form
-var postForm =
-  document.createElement("form");
+        var iframe =
+          document.createElement("iframe");
 
-postForm.method = "POST";
-postForm.action = endpoint;
-postForm.target = iframe.name;
-postForm.style.display = "none";
+        iframe.name =
+          "meep-airdrop-" + Date.now();
 
+        iframe.style.display = "none";
 
-// Wallet
-var walletInput =
-  document.createElement("input");
-
-walletInput.type = "hidden";
-walletInput.name = "wallet";
-walletInput.value = wallet;
-
-postForm.appendChild(walletInput);
+        document.body.appendChild(iframe);
 
 
-// X username
-var usernameInput =
-  document.createElement("input");
+        var postForm =
+          document.createElement("form");
 
-usernameInput.type = "hidden";
-usernameInput.name = "x_username";
-usernameInput.value = user;
-
-postForm.appendChild(usernameInput);
+        postForm.method = "POST";
+        postForm.action = endpoint;
+        postForm.target = iframe.name;
+        postForm.style.display = "none";
 
 
-// Retweet URL
-var retweetInput =
-  document.createElement("input");
+        function addField(name, value) {
 
-retweetInput.type = "hidden";
-retweetInput.name = "retweet_url";
-retweetInput.value = rt;
+          var input =
+            document.createElement("input");
 
-postForm.appendChild(retweetInput);
+          input.type = "hidden";
+          input.name = name;
+          input.value = value;
 
+          postForm.appendChild(input);
 
-// Submit
-document.body.appendChild(postForm);
-
-postForm.submit();
+        }
 
 
-// We cannot read the Apps Script response
-// cross-origin, so treat the POST as submitted.
-setTimeout(function () {
-
-  form.reset();
-
-  msg.textContent =
-    " Registration submitted successfully.";
-
-  btn.textContent =
-    "SUBMITTED";
-
-  btn.disabled = true;
+        addField("wallet", wallet);
+        addField("x_username", user);
+        addField("retweet_url", rt);
 
 
-  // Open X share
-  var shareText =
-    "I just joined the @MEEPNear airdrop! \n\n" +
-    "Join the MEEP community and don't miss the airdrop!\n\n" +
-    "#Airdrop #MEEP #Memecoin #NEAR #NEARProtocol #Crypto #Web3";
+        document.body.appendChild(postForm);
 
 
-  var shareUrl =
-    "https://x.com/intent/post?text=" +
-    encodeURIComponent(shareText);
+        try {
+
+          postForm.submit();
+
+        } catch (error) {
+
+          msg.textContent =
+            "❌ Could not send. Please try again.";
+
+          btn.disabled = false;
+          btn.textContent = "SUBMIT";
+
+          if (postForm.parentNode) {
+            postForm.parentNode.removeChild(postForm);
+          }
+
+          if (iframe.parentNode) {
+            iframe.parentNode.removeChild(iframe);
+          }
+
+          return;
+
+        }
 
 
-  setTimeout(function () {
+        // =========================
+        // SUCCESS
+        // =========================
 
-    window.location.href =
-      shareUrl;
+        setTimeout(function () {
 
-  }, 800);
+          form.reset();
 
+          msg.textContent =
+            "Registration submitted successfully.";
 
-  // Cleanup
-  setTimeout(function () {
+          btn.textContent =
+            "SUBMITTED";
 
-    if (postForm.parentNode) {
-      postForm.parentNode.removeChild(postForm);
-    }
-
-    if (iframe.parentNode) {
-      iframe.parentNode.removeChild(iframe);
-    }
-
-  }, 5000);
+          btn.disabled = true;
 
 
-}, 1200);
-});
+          var shareText =
+            "I just joined the @MEEPNear airdrop! 🐸🚀\n\n" +
+            "Join the MEEP community and don't miss the airdrop!\n\n" +
+            "#Airdrop #MEEP #Memecoin #NEAR #NEARProtocol #Crypto #Web3";
+
+
+          var shareUrl =
+            "https://x.com/intent/post?text=" +
+            encodeURIComponent(shareText);
+
+
+          setTimeout(function () {
+
+            window.location.href =
+              shareUrl;
+
+          }, 800);
+
+
+          setTimeout(function () {
+
+            if (postForm.parentNode) {
+              postForm.parentNode.removeChild(postForm);
+            }
+
+            if (iframe.parentNode) {
+              iframe.parentNode.removeChild(iframe);
+            }
+
+          }, 5000);
+
+        }, 1500);
 
       }
     );
@@ -579,12 +571,10 @@ setTimeout(function () {
   var box =
     $("countdown");
 
-
   var launch =
     new Date(
       String(c.launchDate || "").trim()
     );
-
 
   var timer;
 
@@ -592,7 +582,6 @@ setTimeout(function () {
   function tick() {
 
     if (!box) return;
-
 
     var ms =
       launch - Date.now();
@@ -602,7 +591,6 @@ setTimeout(function () {
 
       box.innerHTML =
         '<p class="live">MEEP IS LIVE</p>';
-
 
       clearInterval(timer);
 
@@ -672,7 +660,6 @@ setTimeout(function () {
         tick,
         1000
       );
-
 
     tick();
 
