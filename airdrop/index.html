@@ -1,84 +1,64 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Airdrop — MEEP</title>
-<style>
-*{box-sizing:border-box}
-html,body{margin:0;background:#050706;color:#f2f5e9;font-family:Arial,sans-serif}
-body{min-height:100vh}
-.nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:18px}
-.nav a{color:#f2f5e9;text-decoration:none;padding:10px 14px;border:1px solid #26332c;border-radius:999px}
-.nav a:hover{border-color:#72f5bd}
-.page-head{text-align:center;padding:20px}
-.page-head img{border-radius:50%}
-main{max-width:680px;margin:auto;padding:10px 20px 50px}
-#airdrop{border:1px solid #26332c;border-radius:24px;padding:28px;background:#0a0f0d}
-h1{text-align:center;font-size:48px;margin:5px 0 22px}
-.steps{line-height:1.8;padding-left:25px;color:#aeb9b1}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0}
-.btn{display:flex;align-items:center;justify-content:center;min-height:54px;padding:12px 18px;border-radius:999px;background:#72f5bd;color:#03140c;border:2px solid #72f5bd;font-weight:700;text-decoration:none;cursor:pointer;font-size:16px}
-.btn.ghost{background:transparent;color:#72f5bd}
-.form{display:grid;gap:15px;max-width:460px;margin:0 auto}
-.form label{display:grid;gap:7px;color:#aeb9b1;font-size:14px}
-.form input{display:block;width:100%;height:52px;padding:12px 16px;border:1px solid #35433b;border-radius:14px;background:#0d1511;color:#fff;font-size:17px;outline:none;pointer-events:auto;touch-action:auto;user-select:text;-webkit-user-select:text;-webkit-appearance:none}
-.form input:focus{border-color:#72f5bd;box-shadow:0 0 0 2px rgba(114,245,189,.2)}
-.form button{width:100%;border:0}
-.mut{color:#8e9991}
-.small{font-size:13px;line-height:1.5}
-.msg{text-align:center;min-height:20px}
-.hp{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;opacity:0!important}
-@media(max-width:600px){h1{font-size:38px}.row{grid-template-columns:1fr}.nav{gap:6px}.nav a{font-size:13px;padding:8px 11px}#airdrop{padding:22px 16px}}
-</style>
-</head>
-<body>
-<nav class="nav">
-<a href="../">Home</a><a href="../swap/">Swap</a><a href="../nft/">NFT</a><a href="../airdrop/">Airdrop</a><a href="../#community">Community</a><a href="../#roadmap">Roadmap</a>
-</nav>
-<header class="page-head"><a href="../"><img src="../assets/meep-logo.png" width="84" height="84" alt="MEEP"></a></header>
 
-<main>
-<section id="airdrop">
-<h1>AIRDROP</h1>
-<ol class="steps">
-<li>Follow @MEEPNear on X</li>
-<li>Retweet the campaign post</li>
-<li>Send your details below</li>
-</ol>
-
-<div class="row">
-<a class="btn ghost" href="https://x.com/MEEPNear" target="_blank" rel="noopener noreferrer">FOLLOW ON X</a>
-<a class="btn ghost" href="https://x.com/MEEPNear/status/1961234567890123456" target="_blank" rel="noopener noreferrer">RETWEET POST</a>
-</div>
-
-<form id="airdropForm"
-      class="form"
-      method="POST"
-      action="https://script.google.com/macros/s/AKfycbz8wpU4jtwtX3oNjs5a-BpoAA3H7zuObU0qwTlB0TODlUse9aWBgsUAeE2JBNXqvugm1g/exec">
-
-<label>NEAR wallet address
-<input id="wallet" name="wallet" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="yourname.near" maxlength="64" required>
-</label>
-
-<label>X username
-<input id="x_username" name="x_username" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="@username" maxlength="16" required>
-</label>
-
-<label>Retweet link
-<input id="retweet_url" name="retweet_url" type="url" inputmode="url" placeholder="https://x.com/username/status/..." maxlength="200" required>
-</label>
-
-<!-- Honeypot: should remain empty -->
-<input class="hp" name="website" tabindex="-1" autocomplete="off">
-
-<button id="submitBtn" class="btn" type="submit">SUBMIT</button>
-</form>
-
-<p class="mut small">Only your public wallet address. Never share a seed phrase or private key. Submitting does not guarantee an airdrop.</p>
-</section>
-</main>
-
-<footer><p class="mut small">MEEP is a meme. Nothing here is financial advice or a promise of returns.</p></footer>
-</body>
+<html lang="en">  
+<head>  
+<meta charset="utf-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+<title>Airdrop — MEEP</title>  
+<meta name="description" content="Join the MEEP airdrop: follow, retweet, and register your NEAR wallet.">  
+<meta name="theme-color" content="#050706">  
+<meta property="og:type" content="website">  
+<meta property="og:title" content="Airdrop — MEEP">  
+<meta property="og:description" content="Join the MEEP airdrop: follow, retweet, and register your NEAR wallet.">  
+<meta property="og:image" content="../assets/meep-logo.png">  
+<meta name="twitter:card" content="summary_large_image">  
+<meta name="twitter:site" content="@MEEPNear">  
+<link rel="icon" type="image/png" href="../assets/favicon.png">  
+<link rel="preconnect" href="https://fonts.googleapis.com">  
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap">  
+<link rel="stylesheet" href="../style.css">  
+</head>  
+<body class="page">  <nav class="nav" aria-label="Pages">  
+  <a href="../">Home</a>  
+  <a href="../swap/">Swap</a>  
+  <a href="../nft/">NFT</a>  
+  <a href="../airdrop/">Airdrop</a>  
+  <a href="../#community">Community</a>  
+  <a href="../#roadmap">Roadmap</a>  
+</nav>  <header class="page-head"><a href="../" aria-label="MEEP home"><img src="../assets/meep-logo.png" width="84" height="84" alt="MEEP"></a></header>  <main>  
+  <section id="airdrop">  
+    <h1 class="title">AIRDROP</h1>  
+    <ol class="steps">  
+      <li>Follow @MEEPNear on X</li>  
+      <li>Retweet the campaign post</li>  
+      <li>Send your details below</li>  
+    </ol>  
+    <div class="row">  
+      <a id="follow" class="btn ghost off" data-label="FOLLOW ON X" aria-disabled="true">FOLLOW ON X · soon</a>  
+      <a id="rt-post" class="btn ghost off" data-label="RETWEET POST" aria-disabled="true">RETWEET POST · soon</a>  
+    </div>  
+    <form id="airdrop-form" novalidate>  
+      <fieldset id="airdrop-fields" class="form">  
+        <label>NEAR wallet address  
+          <input name="wallet" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="yourname.near" maxlength="64">  
+        </label>  
+        <label>X username  
+          <input name="x_username" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="@username" maxlength="16">  
+        </label>  
+        <label>Retweet link  
+          <input name="retweet_url" type="url" inputmode="url" placeholder="https://x.com/username/status/..." maxlength="200">  
+        </label>  
+        <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">  
+        <p id="airdrop-hint" class="mut small"></p>  
+        <button id="airdrop-btn" class="btn" type="submit">SUBMIT</button>  
+        <p id="airdrop-msg" role="status"></p>  
+      </fieldset>  
+    </form>  
+    <p class="mut small">Only your public wallet address. Never share a seed phrase or private key. Submitting does not guarantee an airdrop.</p>  
+  </section>  
+</main>  <footer>  
+  <p class="mut">MEEP is a meme. Nothing here is financial advice or a promise of returns.</p>  
+</footer>  <script src="../config.js?v=3"></script>
+<script src="../app.js?v=3"></script>  </body>  
 </html>
