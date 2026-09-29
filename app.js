@@ -350,129 +350,104 @@
 
 
         // =========================
-// SEND TO GOOGLE APPS SCRIPT
-// =========================
+        // SEND TO GOOGLE APPS SCRIPT
+        // =========================
 
-btn.disabled = true;
+        btn.disabled = true;
 
-msg.textContent = "Sending...";
-
-
-// Create hidden iframe
-var iframe = document.createElement("iframe");
-
-iframe.name =
-  "meep-airdrop-submit-" +
-  Date.now();
-
-iframe.style.display = "none";
-
-document.body.appendChild(iframe);
+        msg.textContent =
+          "Sending...";
 
 
-// Create POST form
-var postForm =
-  document.createElement("form");
-
-postForm.method = "POST";
-postForm.action = endpoint;
-postForm.target = iframe.name;
-postForm.style.display = "none";
+        var data =
+          new FormData();
 
 
-// Wallet
-var walletInput =
-  document.createElement("input");
+        data.append(
+          "wallet",
+          wallet
+        );
 
-walletInput.type = "hidden";
-walletInput.name = "wallet";
-walletInput.value = wallet;
+        data.append(
+          "x_username",
+          user
+        );
 
-postForm.appendChild(walletInput);
-
-
-// X username
-var usernameInput =
-  document.createElement("input");
-
-usernameInput.type = "hidden";
-usernameInput.name = "x_username";
-usernameInput.value = user;
-
-postForm.appendChild(usernameInput);
+        data.append(
+          "retweet_url",
+          rt
+        );
 
 
-// Retweet URL
-var retweetInput =
-  document.createElement("input");
+        fetch(endpoint, {
+  method: "POST",
+  body: data
+})
+.then(function (r) {
+  if (!r.ok) {
+    throw new Error("Server error");
+  }
 
-retweetInput.type = "hidden";
-retweetInput.name = "retweet_url";
-retweetInput.value = rt;
+  return r.json();
+})
+.then(function (result) {
 
-postForm.appendChild(retweetInput);
-
-
-// Submit
-document.body.appendChild(postForm);
-
-postForm.submit();
-
-
-// We cannot read the Apps Script response
-// cross-origin, so treat the POST as submitted.
-setTimeout(function () {
+  if (!result.success) {
+    throw new Error(result.message || "Registration failed.");
+  }
 
   form.reset();
 
   msg.textContent =
-    " Registration submitted successfully.";
+    "Registration successful. Redirecting to X...";
 
-  btn.textContent =
-    "SUBMITTED";
-
+  btn.textContent = "SUBMITTED";
   btn.disabled = true;
 
-
-  // Open X share
   var shareText =
-    "I just joined the @MEEPNear airdrop! \n\n" +
+    "I just joined the @MEEPNear airdrop! ðŸ¸ðŸš€\n\n" +
     "Join the MEEP community and don't miss the airdrop!\n\n" +
     "#Airdrop #MEEP #Memecoin #NEAR #NEARProtocol #Crypto #Web3";
-
 
   var shareUrl =
     "https://x.com/intent/post?text=" +
     encodeURIComponent(shareText);
 
-
   setTimeout(function () {
-
-    window.location.href =
-      shareUrl;
-
+    window.location.href = shareUrl;
   }, 800);
 
+})
+.catch(function (error) {
 
-  // Cleanup
-  setTimeout(function () {
+  var message =
+    String(error.message || "").toLowerCase();
 
-    if (postForm.parentNode) {
-      postForm.parentNode.removeChild(postForm);
-    }
+  if (
+    message.indexOf("wallet") !== -1 &&
+    message.indexOf("already") !== -1
+  ) {
 
-    if (iframe.parentNode) {
-      iframe.parentNode.removeChild(iframe);
-    }
+    msg.textContent =
+      "âŒ This NEAR wallet has already been registered.";
 
-  }, 5000);
+  } else if (
+    message.indexOf("username") !== -1 &&
+    message.indexOf("already") !== -1
+  ) {
 
+    msg.textContent =
+      "âŒ This X username has already been registered.";
 
-}, 1200);
+  } else {
+
+    msg.textContent =
+      "âŒ Could not send. Please try again.";
+
+  }
+
+  btn.disabled = false;
 });
-
-      }
-    );
 
   }
 
