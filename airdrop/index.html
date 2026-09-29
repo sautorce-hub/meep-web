@@ -60,5 +60,53 @@ form.addEventListener("submit",async function(e){
 });
 })();
 </script>
+
+<script>
+(function () {
+  const API_URL = "https://script.google.com/macros/s/AKfycbz8wpU4jtwtX3oNjs5a-BpoAA3H7zuObU0qwTlB0TODlUse9aWBgsUAeE2JBNXqvugm1g/exec";
+  const form = document.getElementById("airdropForm");
+  if (!form) return;
+
+  // Prevent normal GET navigation and submit through a hidden iframe.
+  form.removeAttribute("action");
+  form.setAttribute("method", "POST");
+  form.setAttribute("target", "meepAirdropSubmitFrame");
+
+  let frame = document.getElementById("meepAirdropSubmitFrame");
+  if (!frame) {
+    frame = document.createElement("iframe");
+    frame.id = "meepAirdropSubmitFrame";
+    frame.name = "meepAirdropSubmitFrame";
+    frame.style.display = "none";
+    document.body.appendChild(frame);
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const wallet = document.getElementById("wallet");
+    const username = document.getElementById("x_username");
+    const retweet = document.getElementById("retweet_url");
+
+    if (!wallet || !username || !retweet) {
+      alert("Airdrop form fields are missing.");
+      return;
+    }
+
+    if (!wallet.value.trim() || !username.value.trim() || !retweet.value.trim()) {
+      alert("Please complete all fields.");
+      return;
+    }
+
+    // Native browser POST; no fetch/CORS.
+    const oldAction = form.getAttribute("action");
+    form.setAttribute("action", API_URL);
+    HTMLFormElement.prototype.submit.call(form);
+    if (oldAction === null) form.removeAttribute("action");
+    else form.setAttribute("action", oldAction);
+  });
+})();
+</script>
+
 </body>
 </html>
