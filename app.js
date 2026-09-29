@@ -219,7 +219,10 @@
         }
 
 
-        // Honeypot
+        // =========================
+        // HONEYPOT
+        // =========================
+
         if (f.website && f.website.value) {
           return;
         }
@@ -355,99 +358,153 @@
 
         btn.disabled = true;
 
-        msg.textContent =
-          "Sending...";
+        msg.textContent = "Sending...";
 
 
-        var data =
-          new FormData();
+        // =========================
+        // CREATE HIDDEN IFRAME
+        // =========================
+
+        var iframe =
+          document.createElement("iframe");
+
+        iframe.name =
+          "meep-airdrop-submit-" +
+          Date.now();
+
+        iframe.style.display = "none";
+
+        document.body.appendChild(iframe);
 
 
-        data.append(
-          "wallet",
-          wallet
-        );
+        // =========================
+        // CREATE POST FORM
+        // =========================
 
-        data.append(
-          "x_username",
-          user
-        );
+        var postForm =
+          document.createElement("form");
 
-        data.append(
-          "retweet_url",
-          rt
-        );
+        postForm.method = "POST";
+        postForm.action = endpoint;
+        postForm.target = iframe.name;
+        postForm.style.display = "none";
 
 
-        fetch(endpoint, {
-  method: "POST",
-  body: data
-})
-.then(function (r) {
-  if (!r.ok) {
-    throw new Error("Server error");
-  }
+        // =========================
+        // WALLET
+        // =========================
 
-  return r.json();
-})
-.then(function (result) {
+        var walletInput =
+          document.createElement("input");
 
-  if (!result.success) {
-    throw new Error(result.message || "Registration failed.");
-  }
+        walletInput.type = "hidden";
+        walletInput.name = "wallet";
+        walletInput.value = wallet;
 
-  form.reset();
+        postForm.appendChild(walletInput);
 
-  msg.textContent =
-    "Registration successful. Redirecting to X...";
 
-  btn.textContent = "SUBMITTED";
-  btn.disabled = true;
+        // =========================
+        // X USERNAME
+        // =========================
 
-  var shareText =
-    "I just joined the @MEEPNear airdrop! ðŸ¸ðŸš€\n\n" +
-    "Join the MEEP community and don't miss the airdrop!\n\n" +
-    "#Airdrop #MEEP #Memecoin #NEAR #NEARProtocol #Crypto #Web3";
+        var usernameInput =
+          document.createElement("input");
 
-  var shareUrl =
-    "https://x.com/intent/post?text=" +
-    encodeURIComponent(shareText);
+        usernameInput.type = "hidden";
+        usernameInput.name = "x_username";
+        usernameInput.value = user;
 
-  setTimeout(function () {
-    window.location.href = shareUrl;
-  }, 800);
+        postForm.appendChild(usernameInput);
 
-})
-.catch(function (error) {
 
-  var message =
-    String(error.message || "").toLowerCase();
+        // =========================
+        // RETWEET URL
+        // =========================
 
-  if (
-    message.indexOf("wallet") !== -1 &&
-    message.indexOf("already") !== -1
-  ) {
+        var retweetInput =
+          document.createElement("input");
 
-    msg.textContent =
-      "âŒ This NEAR wallet has already been registered.";
+        retweetInput.type = "hidden";
+        retweetInput.name = "retweet_url";
+        retweetInput.value = rt;
 
-  } else if (
-    message.indexOf("username") !== -1 &&
-    message.indexOf("already") !== -1
-  ) {
+        postForm.appendChild(retweetInput);
 
-    msg.textContent =
-      "âŒ This X username has already been registered.";
 
-  } else {
+        // =========================
+        // SUBMIT
+        // =========================
 
-    msg.textContent =
-      "âŒ Could not send. Please try again.";
+        document.body.appendChild(postForm);
 
-  }
+        postForm.submit();
 
-  btn.disabled = false;
-});
+
+        // =========================
+        // RESPONSE
+        // =========================
+
+        // We cannot read the Apps Script response
+        // cross-origin, so treat the POST as submitted.
+
+        setTimeout(function () {
+
+          form.reset();
+
+          msg.textContent =
+            "✅ Registration submitted successfully.";
+
+          btn.textContent =
+            "SUBMITTED";
+
+          btn.disabled = true;
+
+
+          // =========================
+          // OPEN X SHARE
+          // =========================
+
+          var shareText =
+            "I just joined the @MEEPNear airdrop! 🐸🚀\n\n" +
+            "Join the MEEP community and don't miss the airdrop!\n\n" +
+            "#Airdrop #MEEP #Memecoin #NEAR #NEARProtocol #Crypto #Web3";
+
+
+          var shareUrl =
+            "https://x.com/intent/post?text=" +
+            encodeURIComponent(shareText);
+
+
+          setTimeout(function () {
+
+            window.location.href =
+              shareUrl;
+
+          }, 800);
+
+
+          // =========================
+          // CLEANUP
+          // =========================
+
+          setTimeout(function () {
+
+            if (postForm.parentNode) {
+              postForm.parentNode.removeChild(postForm);
+            }
+
+            if (iframe.parentNode) {
+              iframe.parentNode.removeChild(iframe);
+            }
+
+          }, 5000);
+
+
+        }, 1200);
+
+      }
+    );
 
   }
 
