@@ -55,8 +55,10 @@
   // NAVIGATION
   // =========================
 
+  var path = location.pathname.replace(/\/$/, "");
+
   var cur =
-    (location.pathname.split("/").pop() || "index")
+    (path.split("/").pop() || "index")
       .replace(/\.html$/, "");
 
   each(document.querySelectorAll(".nav a"), function (a) {
@@ -219,10 +221,7 @@
         }
 
 
-        // =========================
-        // HONEYPOT
-        // =========================
-
+        // Honeypot
         if (f.website && f.website.value) {
           return;
         }
@@ -358,28 +357,24 @@
 
         btn.disabled = true;
 
+        btn.textContent = "SENDING...";
+
         msg.textContent = "Sending...";
 
 
-        // =========================
-        // CREATE HIDDEN IFRAME
-        // =========================
-
+        // Submit cross-origin without fetch/CORS.
+        // The hidden iframe receives the Apps Script response,
+        // but the website does not try to read that response.
         var iframe =
           document.createElement("iframe");
 
         iframe.name =
-          "meep-airdrop-submit-" +
-          Date.now();
+          "meep-airdrop-" + Date.now();
 
         iframe.style.display = "none";
 
         document.body.appendChild(iframe);
 
-
-        // =========================
-        // CREATE POST FORM
-        // =========================
 
         var postForm =
           document.createElement("form");
@@ -390,80 +385,67 @@
         postForm.style.display = "none";
 
 
-        // =========================
-        // WALLET
-        // =========================
+        function addField(name, value) {
 
-        var walletInput =
-          document.createElement("input");
+          var input =
+            document.createElement("input");
 
-        walletInput.type = "hidden";
-        walletInput.name = "wallet";
-        walletInput.value = wallet;
+          input.type = "hidden";
+          input.name = name;
+          input.value = value;
 
-        postForm.appendChild(walletInput);
+          postForm.appendChild(input);
 
-
-        // =========================
-        // X USERNAME
-        // =========================
-
-        var usernameInput =
-          document.createElement("input");
-
-        usernameInput.type = "hidden";
-        usernameInput.name = "x_username";
-        usernameInput.value = user;
-
-        postForm.appendChild(usernameInput);
+        }
 
 
-        // =========================
-        // RETWEET URL
-        // =========================
+        addField("wallet", wallet);
+        addField("x_username", user);
+        addField("retweet_url", rt);
 
-        var retweetInput =
-          document.createElement("input");
-
-        retweetInput.type = "hidden";
-        retweetInput.name = "retweet_url";
-        retweetInput.value = rt;
-
-        postForm.appendChild(retweetInput);
-
-
-        // =========================
-        // SUBMIT
-        // =========================
 
         document.body.appendChild(postForm);
 
-        postForm.submit();
+
+        try {
+
+          postForm.submit();
+
+        } catch (error) {
+
+          msg.textContent =
+            "❌ Could not send. Please try again.";
+
+          btn.disabled = false;
+          btn.textContent = "SUBMIT";
+
+          if (postForm.parentNode) {
+            postForm.parentNode.removeChild(postForm);
+          }
+
+          if (iframe.parentNode) {
+            iframe.parentNode.removeChild(iframe);
+          }
+
+          return;
+
+        }
 
 
-        // =========================
-        // RESPONSE
-        // =========================
-
-        // We cannot read the Apps Script response
-        // cross-origin, so treat the POST as submitted.
-
+        // We cannot read Apps Script's cross-origin response.
+        // Give the request time to reach the server, then continue.
         setTimeout(function () {
 
           form.reset();
 
           msg.textContent =
-            "✅ Registration submitted successfully.";
+            "Registration submitted successfully.";
 
           btn.textContent =
             "SUBMITTED";
 
           btn.disabled = true;
 
-
-          // =========================
-          // OPEN X SHARE
-          // =========================
 
           var shareText =
             "I just joined the @MEEPNear airdrop! 🐸🚀\n\n" +
@@ -484,10 +466,6 @@
           }, 800);
 
 
-          // =========================
-          // CLEANUP
-          // =========================
-
           setTimeout(function () {
 
             if (postForm.parentNode) {
@@ -500,8 +478,7 @@
 
           }, 5000);
 
-
-        }, 1200);
+        }, 1500);
 
       }
     );
