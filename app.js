@@ -116,15 +116,18 @@
 
     $("ca-text").textContent = ca;
 
+
     var host =
       c.network === "testnet"
         ? "testnet.nearblocks.io"
         : "nearblocks.io";
 
+
     enable(
       "explorer",
       "https://" + host + "/address/" + ca
     );
+
 
     if ($("copy")) {
 
@@ -132,14 +135,18 @@
 
         if (!navigator.clipboard) return;
 
+
         navigator.clipboard
           .writeText(ca)
           .then(function () {
 
             $("copy").textContent = "COPIED";
 
+
             setTimeout(function () {
+
               $("copy").textContent = "COPY";
+
             }, 1500);
 
           })
@@ -170,8 +177,10 @@
       https(c.airdropTweetUrl)
     );
 
+
     var endpoint =
       https(c.airdropEndpoint);
+
 
     if ($("airdrop-hint")) {
 
@@ -181,6 +190,7 @@
           : "This opens X with your details pre-filled as a public post. Post it to finish registering.";
 
     }
+
 
     if (!endpoint && $("airdrop-btn")) {
 
@@ -196,21 +206,20 @@
 
         e.preventDefault();
 
+
         var f = form.elements;
 
         var msg = $("airdrop-msg");
 
         var btn = $("airdrop-btn");
 
+
         if (!f || !msg || !btn) {
           return;
         }
 
 
-        // =========================
-        // HONEYPOT
-        // =========================
-
+        // Honeypot
         if (f.website && f.website.value) {
           return;
         }
@@ -225,10 +234,12 @@
             .trim()
             .toLowerCase();
 
+
         var user =
           String(f.x_username.value || "")
             .trim()
             .replace(/^@/, "");
+
 
         var rt =
           String(f.retweet_url.value || "")
@@ -297,6 +308,7 @@
 
           var handle = "";
 
+
           try {
 
             handle =
@@ -342,126 +354,100 @@
         // =========================
 
         btn.disabled = true;
-        btn.textContent = "SENDING...";
-        msg.textContent = "Sending...";
+
+        msg.textContent =
+          "Sending...";
 
 
-        var iframe =
-          document.createElement("iframe");
-
-        iframe.name =
-          "meep-airdrop-" + Date.now();
-
-        iframe.style.display = "none";
-
-        document.body.appendChild(iframe);
+        var data =
+          new FormData();
 
 
-        var postForm =
-          document.createElement("form");
+        data.append(
+          "wallet",
+          wallet
+        );
 
-        postForm.method = "POST";
-        postForm.action = endpoint;
-        postForm.target = iframe.name;
-        postForm.style.display = "none";
+        data.append(
+          "x_username",
+          user
+        );
 
-
-        function addField(name, value) {
-
-          var input =
-            document.createElement("input");
-
-          input.type = "hidden";
-          input.name = name;
-          input.value = value;
-
-          postForm.appendChild(input);
-
-        }
+        data.append(
+          "retweet_url",
+          rt
+        );
 
 
-        addField("wallet", wallet);
-        addField("x_username", user);
-        addField("retweet_url", rt);
+        fetch(endpoint, {
+  method: "POST",
+  body: data
+})
+.then(function (r) {
+  if (!r.ok) {
+    throw new Error("Server error");
+  }
 
+  return r.json();
+})
+.then(function (result) {
 
-        document.body.appendChild(postForm);
+  if (!result.success) {
+    throw new Error(result.message || "Registration failed.");
+  }
 
+  form.reset();
 
-        try {
+  msg.textContent =
+    "Registration successful. Redirecting to X...";
 
-          postForm.submit();
+  btn.textContent = "SUBMITTED";
+  btn.disabled = true;
 
-        } catch (error) {
+  var shareText =
+    "I just joined the @MEEPNear airdrop! ðŸ¸ðŸš€\n\n" +
+    "Join the MEEP community and don't miss the airdrop!\n\n" +
+    "#Airdrop #MEEP #Memecoin #NEAR #NEARProtocol #Crypto #Web3";
 
-          msg.textContent =
-            "❌ Could not send. Please try again.";
+  var shareUrl =
+    "https://x.com/intent/post?text=" +
+    encodeURIComponent(shareText);
 
-          btn.disabled = false;
-          btn.textContent = "SUBMIT";
+  setTimeout(function () {
+    window.location.href = shareUrl;
+  }, 800);
 
-          if (postForm.parentNode) {
-            postForm.parentNode.removeChild(postForm);
-          }
+})
+.catch(function (error) {
 
-          if (iframe.parentNode) {
-            iframe.parentNode.removeChild(iframe);
-          }
+  var message =
+    String(error.message || "").toLowerCase();
 
-          return;
+  if (
+    message.indexOf("wallet") !== -1 &&
+    message.indexOf("already") !== -1
+  ) {
 
-        }
+    msg.textContent =
+      "âŒ This NEAR wallet has already been registered.";
 
+  } else if (
+    message.indexOf("username") !== -1 &&
+    message.indexOf("already") !== -1
+  ) {
 
-        // =========================
-        // SUCCESS
-        // =========================
+    msg.textContent =
+      "âŒ This X username has already been registered.";
 
-        setTimeout(function () {
+  } else {
 
-          form.reset();
+    msg.textContent =
+      "âŒ Could not send. Please try again.";
 
-          msg.textContent =
-            "Registration submitted successfully.";
+  }
 
-          btn.textContent =
-            "SUBMITTED";
-
-          btn.disabled = true;
-
-
-          var shareText =
-            "I just joined the @MEEPNear airdrop! 🐸🚀\n\n" +
-            "Join the MEEP community and don't miss the airdrop!\n\n" +
-            "#Airdrop #MEEP #Memecoin #NEAR #NEARProtocol #Crypto #Web3";
-
-
-          var shareUrl =
-            "https://x.com/intent/post?text=" +
-            encodeURIComponent(shareText);
-
-
-          setTimeout(function () {
-
-            window.location.href =
-              shareUrl;
-
-          }, 800);
-
-
-          setTimeout(function () {
-
-            if (postForm.parentNode) {
-              postForm.parentNode.removeChild(postForm);
-            }
-
-            if (iframe.parentNode) {
-              iframe.parentNode.removeChild(iframe);
-            }
-
-          }, 5000);
-
-        }, 1500);
+  btn.disabled = false;
+});
 
       }
     );
@@ -571,10 +557,12 @@
   var box =
     $("countdown");
 
+
   var launch =
     new Date(
       String(c.launchDate || "").trim()
     );
+
 
   var timer;
 
@@ -582,6 +570,7 @@
   function tick() {
 
     if (!box) return;
+
 
     var ms =
       launch - Date.now();
@@ -591,6 +580,7 @@
 
       box.innerHTML =
         '<p class="live">MEEP IS LIVE</p>';
+
 
       clearInterval(timer);
 
@@ -660,6 +650,7 @@
         tick,
         1000
       );
+
 
     tick();
 
