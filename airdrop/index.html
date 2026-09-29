@@ -33,33 +33,7 @@
 </section>
 </main>
 <footer><p class="mut small">MEEP is a meme. Nothing here is financial advice or a promise of returns.</p></footer>
-<script>
-(function(){
-const API_URL="https://script.google.com/macros/s/AKfycbz8wpU4jtwtX3oNjs5a-BpoAA3H7zuObU0qwTlB0TODlUse9aWBgsUAeE2JBNXqvugm1g/exec";
-const form=document.getElementById("airdropForm");
-const btn=document.getElementById("submitBtn");
-const msg=document.getElementById("message");
-form.addEventListener("submit",async function(e){
- e.preventDefault();
- const wallet=document.getElementById("wallet").value.trim().toLowerCase();
- const username=document.getElementById("x_username").value.trim().replace(/^@/,"");
- const retweet=document.getElementById("retweet_url").value.trim();
- msg.className="msg";
- if(!wallet||!username||!retweet){msg.textContent="Please complete all fields.";msg.className="msg error";return;}
- if(!/^(([a-z0-9]+[-_])*[a-z0-9]+\.)*([a-z0-9]+[-_])*[a-z0-9]+$/.test(wallet)){msg.textContent="Enter a valid NEAR wallet address.";msg.className="msg error";return;}
- if(!/^[A-Za-z0-9_]{1,15}$/.test(username)){msg.textContent="Enter a valid X username.";msg.className="msg error";return;}
- if(!/^https:\/\/(www\.|mobile\.)?(x|twitter)\.com\/[A-Za-z0-9_]{1,15}\/status\/\d+/i.test(retweet)){msg.textContent="Paste a valid X retweet link.";msg.className="msg error";return;}
- btn.disabled=true;msg.textContent="Sending...";
- try{
-  const data=new FormData();data.append("wallet",wallet);data.append("x_username",username);data.append("retweet_url",retweet);
-  const response=await fetch(API_URL,{method:"POST",body:data});
-  const result=await response.json();
-  if(!result.success)throw new Error(result.message||"Registration failed.");
-  form.reset();msg.textContent=result.message||"Registration successful.";msg.className="msg success";
- }catch(err){msg.textContent=err.message||"Unable to submit registration.";msg.className="msg error";btn.disabled=false;}
-});
-})();
-</script>
+
 
 <script>
 (function () {
