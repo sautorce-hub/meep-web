@@ -2,9 +2,12 @@ const SPREADSHEET_ID = "1sGChL20nBGCyorIxb0qnpt8RzQc1LYzdoOwPX0dsiBo";
 const SHEET_NAME = "Sheet1";
 
 function doPost(e) {
-  try {
+  const lock = LockService.getScriptLock();
 
-    // Read FormData sent from website
+  try {
+    // Prevent two registrations at the same time
+    lock.waitLock(10000);
+
     const wallet = String(e.parameter.wallet || "")
       .trim()
       .toLowerCase();
@@ -17,15 +20,14 @@ function doPost(e) {
     const retweet = String(e.parameter.retweet_url || "")
       .trim();
 
-    // Validate required fields
+    // Required fields
     if (!wallet || !username || !retweet) {
       return response({
         success: false,
-        message: "Missing required fields."
+        message: "Please complete all required fields."
       });
     }
 
-    // Open Google Sheet
     const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
     const sheet = spreadsheet.getSheetByName(SHEET_NAME);
 
@@ -36,7 +38,6 @@ function doPost(e) {
       });
     }
 
-    // Get existing registrations
     const lastRow = sheet.getLastRow();
 
     if (lastRow >= 2) {
@@ -58,7 +59,6 @@ function doPost(e) {
 
         // Duplicate wallet
         if (existingWallet === wallet) {
-
           return response({
             success: false,
             message: "This NEAR wallet has already been registered."
@@ -67,7 +67,6 @@ function doPost(e) {
 
         // Duplicate X username
         if (existingUsername === username) {
-
           return response({
             success: false,
             message: "This X username has already been registered."
@@ -76,7 +75,7 @@ function doPost(e) {
       }
     }
 
-    // Save new registration
+    // Save registration
     sheet.appendRow([
       wallet,
       "@" + username,
@@ -84,7 +83,8 @@ function doPost(e) {
       new Date()
     ]);
 
-    // Success
+    SpreadsheetApp.flush();
+
     return response({
       success: true,
       message: "Registration successful. Thanks for joining."
@@ -94,18 +94,25 @@ function doPost(e) {
 
     return response({
       success: false,
-      message: "Server error."
+      message: "Server error: " + error.message
     });
+
+  } finally {
+
+    try {
+      lock.releaseLock();
+    } catch (e) {}
+
   }
 }
 
 
-// JSON response
 function response(data) {
   return ContentService
     .createTextOutput(JSON.stringify(data))
     .setMimeType(ContentService.MimeType.JSON);
 }
+
 
 function doGet() {
   return ContentService
