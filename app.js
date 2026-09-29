@@ -202,6 +202,134 @@
     }
 
 
+    // =========================
+    // CHECK REGISTRATION
+    // =========================
+
+    function checkRegistration(
+      wallet,
+      user,
+      done
+    ) {
+
+      var callbackName =
+        "__meepCheck_" +
+        Date.now() +
+        "_" +
+        Math.floor(
+          Math.random() * 100000
+        );
+
+
+      var script =
+        document.createElement("script");
+
+
+      var finished = false;
+
+
+      function cleanup() {
+
+        if (script.parentNode) {
+
+          script.parentNode.removeChild(
+            script
+          );
+
+        }
+
+
+        try {
+
+          delete window[callbackName];
+
+        } catch (e) {
+
+          window[callbackName] =
+            undefined;
+
+        }
+
+      }
+
+
+      function finish(data) {
+
+        if (finished) return;
+
+        finished = true;
+
+        cleanup();
+
+        done(data);
+
+      }
+
+
+      window[callbackName] =
+        function (data) {
+
+          finish(data);
+
+        };
+
+
+      script.onerror =
+        function () {
+
+          finish({
+            success: false,
+            registered: false,
+            message:
+              "Could not verify registration."
+          });
+
+        };
+
+
+      var url =
+        endpoint +
+        "?action=check" +
+        "&wallet=" +
+        encodeURIComponent(wallet) +
+        "&x_username=" +
+        encodeURIComponent(user) +
+        "&callback=" +
+        encodeURIComponent(callbackName);
+
+
+      script.src = url;
+
+      document.body.appendChild(
+        script
+      );
+
+
+      setTimeout(
+        function () {
+
+          if (!finished) {
+
+            finish({
+              success: false,
+              registered: false,
+              message:
+                "Verification timed out."
+            });
+
+          }
+
+        },
+        10000
+      );
+
+    }
+
+
+    // =========================
+    // SUBMIT
+    // =========================
+
     form.addEventListener(
       "submit",
       function (e) {
@@ -221,9 +349,17 @@
         }
 
 
-        // Honeypot
-        if (f.website && f.website.value) {
+        // =========================
+        // HONEYPOT
+        // =========================
+
+        if (
+          f.website &&
+          f.website.value
+        ) {
+
           return;
+
         }
 
 
@@ -232,24 +368,32 @@
         // =========================
 
         var wallet =
-          String(f.wallet.value || "")
+          String(
+            f.wallet.value || ""
+          )
             .trim()
             .toLowerCase();
 
 
         var user =
-          String(f.x_username.value || "")
+          String(
+            f.x_username.value || ""
+          )
             .trim()
             .replace(/^@/, "");
 
 
         var rt =
-          String(f.retweet_url.value || "")
+          String(
+            f.retweet_url.value || ""
+          )
             .trim();
 
 
         function fail(t) {
+
           msg.textContent = t;
+
         }
 
 
@@ -325,9 +469,11 @@
 
           var text =
             "Airdrop registration" +
-            (handle
-              ? " @" + handle
-              : "") +
+            (
+              handle
+                ? " @" + handle
+                : ""
+            ) +
             "\nWallet: " +
             wallet +
             "\nX: @" +
@@ -348,6 +494,7 @@
             "Post the message on X to finish registering.";
 
           return;
+
         }
 
 
@@ -357,54 +504,104 @@
 
         btn.disabled = true;
 
-        btn.textContent = "SENDING...";
+        btn.textContent =
+          "SENDING...";
 
-        msg.textContent = "Sending...";
+        msg.textContent =
+          "Sending...";
 
 
-        // Submit cross-origin without fetch/CORS.
-        // The hidden iframe receives the Apps Script response,
-        // but the website does not try to read that response.
+        // =========================
+        // HIDDEN IFRAME POST
+        // =========================
+
         var iframe =
           document.createElement("iframe");
 
+
         iframe.name =
-          "meep-airdrop-" + Date.now();
+          "meep-airdrop-" +
+          Date.now();
 
-        iframe.style.display = "none";
 
-        document.body.appendChild(iframe);
+        iframe.style.display =
+          "none";
+
+
+        document.body.appendChild(
+          iframe
+        );
 
 
         var postForm =
           document.createElement("form");
 
-        postForm.method = "POST";
-        postForm.action = endpoint;
-        postForm.target = iframe.name;
-        postForm.style.display = "none";
+
+        postForm.method =
+          "POST";
 
 
-        function addField(name, value) {
+        postForm.action =
+          endpoint;
+
+
+        postForm.target =
+          iframe.name;
+
+
+        postForm.style.display =
+          "none";
+
+
+        function addField(
+          name,
+          value
+        ) {
 
           var input =
             document.createElement("input");
 
-          input.type = "hidden";
-          input.name = name;
-          input.value = value;
 
-          postForm.appendChild(input);
+          input.type =
+            "hidden";
+
+
+          input.name =
+            name;
+
+
+          input.value =
+            value;
+
+
+          postForm.appendChild(
+            input
+          );
 
         }
 
 
-        addField("wallet", wallet);
-        addField("x_username", user);
-        addField("retweet_url", rt);
+        addField(
+          "wallet",
+          wallet
+        );
 
 
-        document.body.appendChild(postForm);
+        addField(
+          "x_username",
+          user
+        );
+
+
+        addField(
+          "retweet_url",
+          rt
+        );
+
+
+        document.body.appendChild(
+          postForm
+        );
 
 
         try {
@@ -416,69 +613,229 @@
           msg.textContent =
             "❌ Could not send. Please try again.";
 
+
           btn.disabled = false;
-          btn.textContent = "SUBMIT";
 
-          if (postForm.parentNode) {
-            postForm.parentNode.removeChild(postForm);
+          btn.textContent =
+            "SUBMIT";
+
+
+          if (
+            postForm.parentNode
+          ) {
+
+            postForm.parentNode.removeChild(
+              postForm
+            );
+
           }
 
-          if (iframe.parentNode) {
-            iframe.parentNode.removeChild(iframe);
+
+          if (
+            iframe.parentNode
+          ) {
+
+            iframe.parentNode.removeChild(
+              iframe
+            );
+
           }
+
 
           return;
 
         }
 
 
-        // We cannot read Apps Script's cross-origin response.
-        // Give the request time to reach the server, then continue.
-        setTimeout(function () {
+        // =========================
+        // VERIFY REGISTRATION
+        // =========================
 
-          form.reset();
-
-          msg.textContent =
-            "Registration submitted successfully.";
-
-          btn.textContent =
-            "SUBMITTED";
-
-          btn.disabled = true;
+        msg.textContent =
+          "Checking registration...";
 
 
-          var shareText =
-            "I just joined the @MEEPNear airdrop! 🐸🚀\n\n" +
-            "Join the MEEP community and don't miss the airdrop!\n\n" +
-            "#Airdrop #MEEP #Memecoin #NEAR #NEARProtocol #Crypto #Web3";
+        setTimeout(
+          function () {
+
+            checkRegistration(
+              wallet,
+              user,
+              function (result) {
 
 
-          var shareUrl =
-            "https://x.com/intent/post?text=" +
-            encodeURIComponent(shareText);
+                // =====================
+                // WALLET DUPLICATE
+                // =====================
+
+                if (
+                  result &&
+                  result.walletRegistered
+                ) {
+
+                  msg.textContent =
+                    "❌ This NEAR wallet has already been registered.";
 
 
-          setTimeout(function () {
+                  btn.disabled = false;
 
-            window.location.href =
-              shareUrl;
-
-          }, 800);
+                  btn.textContent =
+                    "SUBMIT";
 
 
-          setTimeout(function () {
+                  cleanupPost();
 
-            if (postForm.parentNode) {
-              postForm.parentNode.removeChild(postForm);
-            }
+                  return;
 
-            if (iframe.parentNode) {
-              iframe.parentNode.removeChild(iframe);
-            }
+                }
 
-          }, 5000);
 
-        }, 1500);
+                // =====================
+                // USERNAME DUPLICATE
+                // =====================
+
+                if (
+                  result &&
+                  result.usernameRegistered
+                ) {
+
+                  msg.textContent =
+                    "❌ This X username has already been registered.";
+
+
+                  btn.disabled = false;
+
+                  btn.textContent =
+                    "SUBMIT";
+
+
+                  cleanupPost();
+
+                  return;
+
+                }
+
+
+                // =====================
+                // SERVER ERROR
+                // =====================
+
+                if (
+                  !result ||
+                  result.success === false
+                ) {
+
+                  msg.textContent =
+                    "❌ " +
+                    (
+                      result &&
+                      result.message
+                        ? result.message
+                        : "Could not verify registration."
+                    );
+
+
+                  btn.disabled = false;
+
+                  btn.textContent =
+                    "SUBMIT";
+
+
+                  cleanupPost();
+
+                  return;
+
+                }
+
+
+                // =====================
+                // SUCCESS
+                // =====================
+
+                form.reset();
+
+
+                msg.textContent =
+                  "✅ Registration submitted successfully.";
+
+
+                btn.textContent =
+                  "SUBMITTED";
+
+
+                btn.disabled = true;
+
+
+                var shareText =
+                  "I just joined the @MEEPNear airdrop! 🐸🚀\n\n" +
+                  "Join the MEEP community and don't miss the airdrop!\n\n" +
+                  "#Airdrop #MEEP #Memecoin #NEAR #NEARProtocol #Crypto #Web3";
+
+
+                var shareUrl =
+                  "https://x.com/intent/post?text=" +
+                  encodeURIComponent(
+                    shareText
+                  );
+
+
+                setTimeout(
+                  function () {
+
+                    window.location.href =
+                      shareUrl;
+
+                  },
+                  800
+                );
+
+
+                cleanupPost();
+
+
+              }
+            );
+
+          },
+          1800
+        );
+
+
+        // =========================
+        // CLEANUP
+        // =========================
+
+        function cleanupPost() {
+
+          setTimeout(
+            function () {
+
+              if (
+                postForm.parentNode
+              ) {
+
+                postForm.parentNode.removeChild(
+                  postForm
+                );
+
+              }
+
+
+              if (
+                iframe.parentNode
+              ) {
+
+                iframe.parentNode.removeChild(
+                  iframe
+                );
+
+              }
+
+            },
+            500
+          );
+
+        }
 
       }
     );
