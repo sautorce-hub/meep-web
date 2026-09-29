@@ -246,9 +246,23 @@
       https(c.airdropEndpoint);
 
 
-    // =========================
+    // ==================================================
+    // LOCAL STORAGE KEYS
+    // ==================================================
+
+    var STORAGE_SUBMITTED =
+      "meep_airdrop_submitted";
+
+    var STORAGE_WALLET =
+      "meep_airdrop_wallet";
+
+    var STORAGE_USERNAME =
+      "meep_airdrop_username";
+
+
+    // ==================================================
     // AIRDROP HINT
-    // =========================
+    // ==================================================
 
     if (
       $("airdrop-hint")
@@ -257,14 +271,10 @@
       $("airdrop-hint").textContent =
         endpoint
           ? "Your details are sent to the MEEP team."
-          : "This opens X with your details pre-filled as a public post. Post it to finish registering.";
+          : "This opens X with your details pre-filled as a public post.";
 
     }
 
-
-    // =========================
-    // NO BACKEND BUTTON
-    // =========================
 
     if (
       !endpoint &&
@@ -279,8 +289,7 @@
 
     // ==================================================
     // CHECK REGISTRATION
-    // IMPORTANT:
-    // THIS RUNS BEFORE POST
+    // CHECK BEFORE POST
     // ==================================================
 
     function checkRegistration(
@@ -309,7 +318,7 @@
 
 
       // =========================
-      // CLEANUP JSONP
+      // CLEANUP
       // =========================
 
       function cleanup() {
@@ -344,7 +353,7 @@
 
 
       // =========================
-      // FINISH CHECK
+      // FINISH
       // =========================
 
       function finish(data) {
@@ -367,7 +376,7 @@
 
 
       // =========================
-      // JSONP CALLBACK
+      // CALLBACK
       // =========================
 
       window[
@@ -398,7 +407,7 @@
 
 
       // =========================
-      // CHECK URL
+      // URL
       // =========================
 
       var url =
@@ -506,7 +515,7 @@
 
 
       // =========================
-      // ADD FIELD
+      // FIELD
       // =========================
 
       function addField(
@@ -563,7 +572,7 @@
 
 
       // =========================
-      // POST
+      // SUBMIT
       // =========================
 
       try {
@@ -587,7 +596,7 @@
 
 
       // =========================
-      // WAIT FOR APPS SCRIPT
+      // WAIT
       // =========================
 
       setTimeout(
@@ -607,7 +616,7 @@
 
 
       // =========================
-      // CLEANUP POST
+      // CLEANUP
       // =========================
 
       function cleanup() {
@@ -641,7 +650,108 @@
 
 
     // ==================================================
-    // AIRDROP FORM SUBMIT
+    // RESTORE SUBMITTED STATE
+    // ==================================================
+
+    var savedSubmitted =
+      localStorage.getItem(
+        STORAGE_SUBMITTED
+      );
+
+
+    var savedWallet =
+      localStorage.getItem(
+        STORAGE_WALLET
+      );
+
+
+    var savedUsername =
+      localStorage.getItem(
+        STORAGE_USERNAME
+      );
+
+
+    if (
+      savedSubmitted === "true"
+    ) {
+
+      var savedBtn =
+        $("airdrop-btn");
+
+
+      var savedMsg =
+        $("airdrop-msg");
+
+
+      if (savedBtn) {
+
+        savedBtn.textContent =
+          "SUBMITTED";
+
+        savedBtn.disabled =
+          true;
+
+      }
+
+
+      if (savedMsg) {
+
+        savedMsg.textContent =
+          "✅ Registration already submitted.";
+
+      }
+
+
+      var fields =
+        form.elements;
+
+
+      if (fields) {
+
+        if (
+          fields.wallet &&
+          savedWallet
+        ) {
+
+          fields.wallet.value =
+            savedWallet;
+
+          fields.wallet.readOnly =
+            true;
+
+        }
+
+
+        if (
+          fields.x_username &&
+          savedUsername
+        ) {
+
+          fields.x_username.value =
+            "@" + savedUsername;
+
+          fields.x_username.readOnly =
+            true;
+
+        }
+
+
+        if (
+          fields.retweet_url
+        ) {
+
+          fields.retweet_url.readOnly =
+            true;
+
+        }
+
+      }
+
+    }
+
+
+    // ==================================================
+    // SUBMIT
     // ==================================================
 
     form.addEventListener(
@@ -649,6 +759,21 @@
       function (e) {
 
         e.preventDefault();
+
+
+        // ==============================================
+        // ALREADY SUBMITTED IN THIS BROWSER
+        // ==============================================
+
+        if (
+          localStorage.getItem(
+            STORAGE_SUBMITTED
+          ) === "true"
+        ) {
+
+          return;
+
+        }
 
 
         var f =
@@ -689,7 +814,7 @@
 
 
         // =========================
-        // FORM VALUES
+        // VALUES
         // =========================
 
         var wallet =
@@ -719,7 +844,7 @@
 
 
         // =========================
-        // FAIL MESSAGE
+        // FAIL
         // =========================
 
         function fail(text) {
@@ -731,7 +856,7 @@
 
 
         // =========================
-        // VALIDATE WALLET
+        // WALLET VALIDATION
         // =========================
 
         if (
@@ -750,7 +875,7 @@
 
 
         // =========================
-        // VALIDATE X USERNAME
+        // USERNAME VALIDATION
         // =========================
 
         if (
@@ -767,7 +892,7 @@
 
 
         // =========================
-        // VALIDATE RETWEET URL
+        // RETWEET VALIDATION
         // =========================
 
         if (
@@ -864,7 +989,7 @@
 
 
             // ==========================================
-            // CHECK FAILED
+            // CHECK ERROR
             // ==========================================
 
             if (
@@ -896,7 +1021,7 @@
 
 
             // ==========================================
-            // WALLET DUPLICATE
+            // WALLET ALREADY REGISTERED
             // ==========================================
 
             if (
@@ -922,7 +1047,7 @@
 
 
             // ==========================================
-            // USERNAME DUPLICATE
+            // USERNAME ALREADY REGISTERED
             // ==========================================
 
             if (
@@ -950,7 +1075,7 @@
             // ==========================================
             // STEP 2
             // NOT REGISTERED
-            // NOW POST
+            // POST NOW
             // ==========================================
 
             btn.textContent =
@@ -972,7 +1097,7 @@
 
 
                 // ======================================
-                // POST FAILED
+                // POST ERROR
                 // ======================================
 
                 if (!ok) {
@@ -996,6 +1121,28 @@
 
 
                 // ======================================
+                // SAVE LOCAL STATUS
+                // ======================================
+
+                localStorage.setItem(
+                  STORAGE_SUBMITTED,
+                  "true"
+                );
+
+
+                localStorage.setItem(
+                  STORAGE_WALLET,
+                  wallet
+                );
+
+
+                localStorage.setItem(
+                  STORAGE_USERNAME,
+                  user
+                );
+
+
+                // ======================================
                 // SUCCESS
                 // ======================================
 
@@ -1012,6 +1159,46 @@
 
                 btn.disabled =
                   true;
+
+
+                // ======================================
+                // LOCK FIELDS
+                // ======================================
+
+                if (
+                  f.wallet
+                ) {
+
+                  f.wallet.value =
+                    wallet;
+
+                  f.wallet.readOnly =
+                    true;
+
+                }
+
+
+                if (
+                  f.x_username
+                ) {
+
+                  f.x_username.value =
+                    "@" + user;
+
+                  f.x_username.readOnly =
+                    true;
+
+                }
+
+
+                if (
+                  f.retweet_url
+                ) {
+
+                  f.retweet_url.readOnly =
+                    true;
+
+                }
 
 
                 // ======================================
@@ -1096,7 +1283,9 @@
       };
 
 
-    if ($("rate-note")) {
+    if (
+      $("rate-note")
+    ) {
 
       $("rate-note").textContent =
         "Preview rate: 1 NEAR = " +
@@ -1115,7 +1304,9 @@
     calc();
 
 
-    if ($("swap-btn")) {
+    if (
+      $("swap-btn")
+    ) {
 
       $("swap-btn").onclick =
         function () {
@@ -1143,7 +1334,9 @@
       b.onclick =
         function () {
 
-          if ($("nft-msg")) {
+          if (
+            $("nft-msg")
+          ) {
 
             $("nft-msg").textContent =
               "Minting is launching soon. Nothing was minted.";
