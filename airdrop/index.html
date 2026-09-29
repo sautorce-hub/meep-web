@@ -1,153 +1,98 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Airdrop — MEEP</title>
-<meta name="description" content="Join the MEEP airdrop: follow, retweet, and register your NEAR wallet.">
-<link rel="icon" type="image/png" href="../assets/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap">
-<link rel="stylesheet" href="../style.css">
+
+<html lang="en">  
+<head>  
+<meta charset="utf-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+<title>Airdrop — MEEP</title>  
+<meta name="description" content="Join the MEEP airdrop: follow, retweet, and register your NEAR wallet.">  
+<meta name="theme-color" content="#050706">  
+<meta property="og:type" content="website">  
+<meta property="og:title" content="Airdrop — MEEP">  
+<meta property="og:description" content="Join the MEEP airdrop: follow, retweet, and register your NEAR wallet.">  
+<meta property="og:image" content="../assets/meep-logo.png">  
+<meta name="twitter:card" content="summary_large_image">  
+<meta name="twitter:site" content="@MEEPNear">  
+<link rel="icon" type="image/png" href="../assets/favicon.png">  
+<link rel="preconnect" href="https://fonts.googleapis.com">  
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap">  
+<link rel="stylesheet" href="../style.css">  
+
 <style>
-/* Airdrop-only fixes: never inherit the old "soon/off" state. */
-#airdrop .row { position:relative; z-index:20; }
-#airdrop .row .btn.off {
-  background:rgba(118,246,185,.045);
-  color:var(--mint);
-  border-color:var(--line2);
-  cursor:pointer;
-  pointer-events:auto;
-  opacity:1;
-}
-#airdrop .row .btn.off:hover { transform:translateY(-3px); background:rgba(118,246,185,.08); }
-#airdrop-form, #airdrop-fields, #airdrop-fields label { position:relative; z-index:20; }
-#airdrop-fields { pointer-events:auto !important; opacity:1 !important; }
-#airdrop-fields input {
-  position:relative;
-  z-index:21;
-  pointer-events:auto !important;
-  user-select:text !important;
-  -webkit-user-select:text !important;
-  touch-action:manipulation;
-  cursor:text;
-}
-#airdrop-fields button { position:relative; z-index:21; pointer-events:auto !important; }
+/* Airdrop must stay active and interactive even if app.js is cached/blocked. */
+#airdrop-fields{position:relative;z-index:20;pointer-events:auto!important}
+#airdrop-fields input,#airdrop-fields button{pointer-events:auto!important;position:relative;z-index:21}
+#airdrop-fields input{cursor:text;-webkit-user-select:text;user-select:text;touch-action:manipulation}
+#follow,#rt-post{pointer-events:auto!important;cursor:pointer!important}
+#follow.off,#rt-post.off{pointer-events:auto!important;cursor:pointer!important;background:transparent;color:var(--mint);border-color:var(--mint)}
+
+/* MOBILE INPUT FIX: keep the form above all visual layers and explicitly editable */
+#airdrop-form,#airdrop-fields,#airdrop-fields label{position:relative;z-index:1000;pointer-events:auto!important;touch-action:auto!important}
+#airdrop-fields input{position:relative;z-index:1001;display:block;pointer-events:auto!important;touch-action:auto!important;-webkit-user-select:text!important;user-select:text!important;-webkit-touch-callout:default!important;opacity:1!important;visibility:visible!important}
+#airdrop-fields input:disabled{opacity:1!important;pointer-events:auto!important}
+#airdrop-fields input:focus{outline:3px solid var(--mint)!important;outline-offset:2px}
+#airdrop-fields .hp{pointer-events:none!important}
 </style>
-</head>
-<body class="page">
-<nav class="nav" aria-label="Pages">
-  <a href="../">Home</a>
-  <a href="../swap/">Swap</a>
-  <a href="../nft/">NFT</a>
-  <a href="../airdrop/" class="on" aria-current="page">Airdrop</a>
-  <a href="../#community">Community</a>
-</nav>
-
-<header class="page-head">
-  <a href="../" aria-label="MEEP home"><img src="../assets/meep-logo.png" width="84" height="84" alt="MEEP"></a>
-</header>
-
-<main>
-<section id="airdrop">
-  <h1 class="title">AIRDROP</h1>
-  <ol class="steps">
-    <li>Follow @MEEPNear on X</li>
-    <li>Retweet the campaign post</li>
-    <li>Send your details below</li>
-  </ol>
-
-  <div class="row">
-    <a id="follow" class="btn ghost" href="https://x.com/MEEPNear" target="_blank" rel="noopener noreferrer">FOLLOW ON X</a>
-    <a id="rt-post" class="btn ghost" href="https://x.com/MEEPNear/status/1961234567890123456" target="_blank" rel="noopener noreferrer">RETWEET POST</a>
-  </div>
-
-  <form id="airdrop-form" novalidate>
-    <fieldset id="airdrop-fields" class="form">
-      <label>NEAR wallet address
-        <input name="wallet" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="yourname.near" maxlength="64">
-      </label>
-      <label>X username
-        <input name="x_username" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="@username" maxlength="16">
-      </label>
-      <label>Retweet link
-        <input name="retweet_url" type="url" inputmode="url" placeholder="https://x.com/username/status/..." maxlength="200">
-      </label>
-      <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <p id="airdrop-hint" class="mut small">Your details are sent to the MEEP team.</p>
-      <button id="airdrop-btn" class="btn" type="submit">SUBMIT</button>
-      <p id="airdrop-msg" role="status"></p>
-    </fieldset>
-  </form>
-  <p class="mut small">Only your public wallet address. Never share a seed phrase or private key. Submitting does not guarantee an airdrop.</p>
-</section>
-</main>
-
-<footer>
-  <p class="mut">MEEP is a meme. Nothing here is financial advice or a promise of returns.</p>
-</footer>
-
+</head>  
+<body class="page">  <nav class="nav" aria-label="Pages">  
+  <a href="../">Home</a>  
+  <a href="../swap/">Swap</a>  
+  <a href="../nft/">NFT</a>  
+  <a href="../airdrop/">Airdrop</a>  
+  <a href="../#community">Community</a>  
+  <a href="../#roadmap">Roadmap</a>  
+</nav>  <header class="page-head"><a href="../" aria-label="MEEP home"><img src="../assets/meep-logo.png" width="84" height="84" alt="MEEP"></a></header>  <main>  
+  <section id="airdrop">  
+    <h1 class="title">AIRDROP</h1>  
+    <ol class="steps">  
+      <li>Follow @MEEPNear on X</li>  
+      <li>Retweet the campaign post</li>  
+      <li>Send your details below</li>  
+    </ol>  
+    <div class="row">  
+      <a id="follow" class="btn ghost" href="https://x.com/MEEPNear" target="_blank" rel="noopener noreferrer" data-label="FOLLOW ON X">FOLLOW ON X</a>  
+      <a id="rt-post" class="btn ghost" href="https://x.com/MEEPNear/status/1961234567890123456" target="_blank" rel="noopener noreferrer" data-label="RETWEET POST">RETWEET POST</a>  
+    </div>  
+    <form id="airdrop-form" novalidate>  
+      <div id="airdrop-fields" class="form">  
+        <label>NEAR wallet address  
+          <input name="wallet" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="yourname.near" maxlength="64">  
+        </label>  
+        <label>X username  
+          <input name="x_username" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="@username" maxlength="16">  
+        </label>  
+        <label>Retweet link  
+          <input name="retweet_url" type="url" inputmode="url" placeholder="https://x.com/username/status/..." maxlength="200">  
+        </label>  
+        <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">  
+        <p id="airdrop-hint" class="mut small"></p>  
+        <button id="airdrop-btn" class="btn" type="submit">SUBMIT</button>  
+        <p id="airdrop-msg" role="status"></p>  
+      </div>  
+    </form>  
+    <p class="mut small">Only your public wallet address. Never share a seed phrase or private key. Submitting does not guarantee an airdrop.</p>  
+  </section>  
+</main>  <footer>  
+  <p class="mut">MEEP is a meme. Nothing here is financial advice or a promise of returns.</p>  
+</footer>  
 <script>
-(function () {
-  var ENDPOINT = "https://script.google.com/macros/s/AKfycbz8wpU4jtwtX3oNjs5a-BpoAA3H7zuObU0qwTlB0TODlUse9aWBgsUAeE2JBNXqvugm1g/exec";
-  var form = document.getElementById("airdrop-form");
-  if (!form) return;
-
-  var msg = document.getElementById("airdrop-msg");
-  var btn = document.getElementById("airdrop-btn");
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var f = form.elements;
-    if (f.website && f.website.value) return;
-
-    var wallet = String(f.wallet.value || "").trim().toLowerCase();
-    var user = String(f.x_username.value || "").trim().replace(/^@/, "");
-    var rt = String(f.retweet_url.value || "").trim();
-
-    if (!/^(([a-z\\d]+[-_])*[a-z\\d]+\\.)*([a-z\\d]+[-_])*[a-z\\d]+$/.test(wallet) || wallet.length < 2 || wallet.length > 64) {
-      msg.textContent = "Enter a valid NEAR wallet address."; return;
-    }
-    if (!/^[A-Za-z0-9_]{1,15}$/.test(user)) {
-      msg.textContent = "Enter your X username (letters, numbers, underscore)."; return;
-    }
-    if (!/^https:\/\/(www\\.|mobile\\.)?(x|twitter)\\.com\/[A-Za-z0-9_]{1,15}\/status\/\\d+/i.test(rt)) {
-      msg.textContent = "Paste a valid X retweet/post link."; return;
-    }
-
-    btn.disabled = true;
-    msg.textContent = "Sending...";
-
-    var data = new FormData();
-    data.append("wallet", wallet);
-    data.append("x_username", user);
-    data.append("retweet_url", rt);
-
-    fetch(ENDPOINT, { method: "POST", body: data, redirect: "follow" })
-      .then(function (r) {
-        if (!r.ok) throw new Error("Server error");
-        return r.json();
-      })
-      .then(function (result) {
-        if (!result.success) throw new Error(result.message || "Registration failed.");
-        form.reset();
-        msg.textContent = "Registration successful!";
-        btn.textContent = "SUBMITTED";
-      })
-      .catch(function (err) {
-        var m = String(err.message || "").toLowerCase();
-        if (m.indexOf("wallet") !== -1 && m.indexOf("already") !== -1) {
-          msg.textContent = "❌ This NEAR wallet has already been registered.";
-        } else if (m.indexOf("username") !== -1 && m.indexOf("already") !== -1) {
-          msg.textContent = "❌ This X username has already been registered.";
-        } else {
-          msg.textContent = "❌ Could not send. Please try again.";
-        }
-        btn.disabled = false;
-      });
-  });
+(function(){
+  var f=document.getElementById('follow');
+  var r=document.getElementById('rt-post');
+  if(f){f.href='https://x.com/MEEPNear';f.target='_blank';f.rel='noopener noreferrer';f.classList.remove('off');f.removeAttribute('aria-disabled');f.textContent='FOLLOW ON X';}
+  if(r){r.href='https://x.com/MEEPNear/status/1961234567890123456';r.target='_blank';r.rel='noopener noreferrer';r.classList.remove('off');r.removeAttribute('aria-disabled');r.textContent='RETWEET POST';}
+  var form=document.getElementById('airdrop-form');
+  if(form){
+    form.removeAttribute('disabled');
+    Array.prototype.forEach.call(form.querySelectorAll('input'),function(i){
+      i.removeAttribute('disabled');
+      i.style.pointerEvents='auto';
+      i.style.userSelect='text';
+      i.style.webkitUserSelect='text';
+    });
+  }
 })();
 </script>
-</body>
+<script src="../config.js"></script>  <script src="../app.js"></script>  </body>  
 </html>
