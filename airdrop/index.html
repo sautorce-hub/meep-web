@@ -18,6 +18,30 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap">  
 <link rel="stylesheet" href="../style.css">  
+
+<style>
+/* Airdrop input fix: keep fields interactive above decorative layers */
+#airdrop-fields, #airdrop-fields label, #airdrop-fields input, #airdrop-fields button {
+  pointer-events: auto !important;
+}
+#airdrop-fields {
+  position: relative;
+  z-index: 10;
+}
+#airdrop-fields input {
+  position: relative;
+  z-index: 11;
+  cursor: text;
+  -webkit-user-select: text;
+  user-select: text;
+  touch-action: manipulation;
+}
+#airdrop-fields input:focus {
+  border-color: var(--mint) !important;
+  outline: 3px solid var(--mint);
+  outline-offset: 2px;
+}
+</style>
 </head>  
 <body class="page">  <nav class="nav" aria-label="Pages">  
   <a href="../">Home</a>  
