@@ -5,10 +5,7 @@
 
 <meta charset="utf-8">
 
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
->
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Swap — MEEP</title>
 
@@ -20,36 +17,6 @@
 <meta
   name="theme-color"
   content="#050706"
->
-
-<meta
-  property="og:type"
-  content="website"
->
-
-<meta
-  property="og:title"
-  content="Swap — MEEP"
->
-
-<meta
-  property="og:description"
-  content="Swap MEEP on NEAR."
->
-
-<meta
-  property="og:image"
-  content="../assets/meep-logo.png"
->
-
-<meta
-  name="twitter:card"
-  content="summary_large_image"
->
-
-<meta
-  name="twitter:site"
-  content="@MEEPNear"
 >
 
 <link
@@ -79,7 +46,108 @@
   href="../style.css"
 >
 
-<!-- NEAR WALLET SELECTOR MODAL CSS -->
+<!-- =================================================
+     NEAR WALLET SELECTOR
+================================================= -->
+
+<script
+  async
+  src="https://ga.jspm.io/npm:es-module-shims@2.6.2/dist/es-module-shims.js"
+  crossorigin="anonymous">
+</script>
+
+
+<script type="importmap">
+{
+  "imports": {
+
+    "@near-wallet-selector/core":
+      "https://ga.jspm.io/npm:@near-wallet-selector/core@9.4.0/index.js",
+
+    "@near-wallet-selector/modal-ui-js":
+      "https://ga.jspm.io/npm:@near-wallet-selector/modal-ui-js@9.4.0/index.js",
+
+    "@near-wallet-selector/my-near-wallet":
+      "https://ga.jspm.io/npm:@near-wallet-selector/my-near-wallet@9.4.0/index.js",
+
+    "@near-wallet-selector/meteor-wallet":
+      "https://ga.jspm.io/npm:@near-wallet-selector/meteor-wallet@9.4.0/index.js",
+
+    "@near-wallet-selector/sender":
+      "https://ga.jspm.io/npm:@near-wallet-selector/sender@9.4.0/index.js",
+
+    "@near-wallet-selector/near-mobile-wallet":
+      "https://ga.jspm.io/npm:@near-wallet-selector/near-mobile-wallet@9.4.0/index.js",
+
+    "@near-wallet-selector/hot-wallet":
+      "https://ga.jspm.io/npm:@near-wallet-selector/hot-wallet@9.4.0/index.js",
+
+    "@near-wallet-selector/wallet-utils":
+      "https://ga.jspm.io/npm:@near-wallet-selector/wallet-utils@9.4.0/index.js",
+
+    "buffer":
+      "https://ga.jspm.io/npm:@jspm/core@2.1.0/nodelibs/browser/buffer.js",
+
+    "process":
+      "https://ga.jspm.io/npm:@jspm/core@2.1.0/nodelibs/browser/process.js",
+
+    "tslib":
+      "https://ga.jspm.io/npm:tslib@2.8.1/tslib.es6.mjs",
+
+    "rxjs":
+      "https://ga.jspm.io/npm:rxjs@7.8.1/dist/esm/index.js"
+  },
+
+  "scopes": {
+
+    "https://ga.jspm.io/": {
+
+      "@near-js/accounts":
+        "https://ga.jspm.io/npm:@near-js/accounts@1.3.0/lib/commonjs/index.cjs",
+
+      "@near-js/crypto":
+        "https://ga.jspm.io/npm:@near-js/crypto@1.4.0/lib/commonjs/index.cjs",
+
+      "@near-js/keystores":
+        "https://ga.jspm.io/npm:@near-js/keystores@0.2.0/lib/commonjs/index.cjs",
+
+      "@near-js/keystores-browser":
+        "https://ga.jspm.io/npm:@near-js/keystores-browser@0.2.0/lib/commonjs/index.cjs",
+
+      "@near-js/providers":
+        "https://ga.jspm.io/npm:@near-js/providers@1.0.0/lib/commonjs/index.cjs",
+
+      "@near-js/transactions":
+        "https://ga.jspm.io/npm:@near-js/transactions@1.3.0/lib/commonjs/index.cjs",
+
+      "@near-js/types":
+        "https://ga.jspm.io/npm:@near-js/types@0.1.0/lib/commonjs/index.cjs",
+
+      "@near-js/utils":
+        "https://ga.jspm.io/npm:@near-js/utils@0.2.0/lib/commonjs/index.cjs",
+
+      "@meteorwallet/sdk":
+        "https://ga.jspm.io/npm:@meteorwallet/sdk@1.0.24/dist/index.js",
+
+      "borsh":
+        "https://ga.jspm.io/npm:borsh@1.0.0/lib/esm/index.js",
+
+      "bn.js":
+        "https://ga.jspm.io/npm:bn.js@5.2.1/lib/bn.js",
+
+      "bs58":
+        "https://ga.jspm.io/npm:bs58@5.0.0/index.js",
+
+      "js-sha256":
+        "https://ga.jspm.io/npm:js-sha256@0.11.0/src/sha256.js",
+
+      "near-api-js":
+        "https://ga.jspm.io/npm:near-api-js@5.0.0/lib/browser-index.js"
+    }
+  }
+}
+</script>
+
 
 <link
   rel="stylesheet"
@@ -90,7 +158,7 @@
 <style>
 
 /* =================================================
-   SWAP PAGE
+   SWAP
 ================================================= */
 
 .swap-page{
@@ -98,11 +166,6 @@
   max-width:520px;
   margin:0 auto;
 }
-
-
-/* =================================================
-   CONNECT WALLET
-================================================= */
 
 .swap-wallet{
   width:100%;
@@ -136,35 +199,24 @@
 
   position:relative;
 
-  z-index:20;
+  z-index:50;
 
-  transition:
-    background .2s ease,
-    border-color .2s ease;
+  transition:.2s ease;
 
 }
 
 .connect-wallet:hover{
-
   background:
     rgba(114,232,187,.12);
-
-  border-color:
-    rgba(114,232,187,.45);
-
 }
 
 .connect-wallet:active{
-
   transform:scale(.99);
-
 }
 
 .connect-wallet.connected{
-
   background:
     rgba(114,232,187,.13);
-
 }
 
 
@@ -192,11 +244,6 @@
     0 20px 60px rgba(0,0,0,.25);
 
 }
-
-
-/* =================================================
-   CARD HEADER
-================================================= */
 
 .swap-card-head{
 
@@ -237,7 +284,7 @@
 
 
 /* =================================================
-   TOKEN BOX
+   TOKEN
 ================================================= */
 
 .token-box{
@@ -344,9 +391,7 @@
 }
 
 .token-input{
-
   -moz-appearance:textfield;
-
 }
 
 .token-select{
@@ -422,7 +467,7 @@
 
 
 /* =================================================
-   PRESET
+   PRESETS
 ================================================= */
 
 .presets{
@@ -524,7 +569,7 @@
 
 
 /* =================================================
-   RATE
+   INFO
 ================================================= */
 
 .swap-rate{
@@ -554,11 +599,6 @@
   white-space:nowrap;
 
 }
-
-
-/* =================================================
-   INFO
-================================================= */
 
 .swap-info{
 
@@ -597,7 +637,7 @@
 
 
 /* =================================================
-   BUY BUTTON
+   BUY
 ================================================= */
 
 .swap-main{
@@ -688,48 +728,29 @@
 
 @media(max-width:600px){
 
-  .swap-page{
-
-    max-width:100%;
-
-  }
-
   .swap-card{
-
     padding:14px;
-
   }
 
   .token-box{
-
     min-height:148px;
-
     padding:15px;
-
   }
 
   .token-input,
   .token-output{
-
     font-size:32px;
-
   }
 
   .token-select{
-
     flex-basis:132px;
-
   }
 
   .near-logo,
   .meep-logo{
-
     width:28px;
-
     height:28px;
-
     flex-basis:28px;
-
   }
 
 }
@@ -821,9 +842,7 @@
   <div class="swap-page">
 
 
-    <!-- ============================================
-         CONNECT WALLET
-    ============================================= -->
+    <!-- CONNECT -->
 
     <div class="swap-wallet">
 
@@ -838,9 +857,7 @@
     </div>
 
 
-    <!-- ============================================
-         SWAP CARD
-    ============================================= -->
+    <!-- SWAP CARD -->
 
     <div class="swap-card">
 
@@ -858,9 +875,7 @@
       </div>
 
 
-      <!-- ==========================================
-           YOU PAY
-      =========================================== -->
+      <!-- PAY -->
 
       <div class="token-box">
 
@@ -911,40 +926,38 @@
       </div>
 
 
-      <!-- ==========================================
-           PRESETS
-      =========================================== -->
+      <!-- PRESETS -->
 
       <div class="presets">
 
         <button
           class="preset"
-          type="button"
           data-amount="10"
+          type="button"
         >
           10 N
         </button>
 
         <button
           class="preset"
-          type="button"
           data-amount="50"
+          type="button"
         >
           50 N
         </button>
 
         <button
           class="preset"
-          type="button"
           data-amount="100"
+          type="button"
         >
           100 N
         </button>
 
         <button
           class="preset"
-          type="button"
           data-amount="500"
+          type="button"
         >
           500 N
         </button>
@@ -952,9 +965,7 @@
       </div>
 
 
-      <!-- ==========================================
-           ARROW
-      =========================================== -->
+      <!-- ARROW -->
 
       <div class="swap-arrow-wrap">
 
@@ -965,9 +976,7 @@
       </div>
 
 
-      <!-- ==========================================
-           YOU RECEIVE
-      =========================================== -->
+      <!-- RECEIVE -->
 
       <div class="token-box">
 
@@ -1013,9 +1022,7 @@
       </div>
 
 
-      <!-- ==========================================
-           RATE
-      =========================================== -->
+      <!-- RATE -->
 
       <div class="swap-rate">
 
@@ -1030,9 +1037,7 @@
       </div>
 
 
-      <!-- ==========================================
-           DETAILS
-      =========================================== -->
+      <!-- INFO -->
 
       <div class="swap-info">
 
@@ -1056,7 +1061,7 @@
             Pool fee
           </span>
 
-          <strong id="pool-fee">
+          <strong>
             1%
           </strong>
 
@@ -1082,7 +1087,7 @@
             Price impact
           </span>
 
-          <strong id="price-impact">
+          <strong>
             —
           </strong>
 
@@ -1095,7 +1100,7 @@
             Minimum received
           </span>
 
-          <strong id="minimum">
+          <strong>
             —
           </strong>
 
@@ -1105,9 +1110,7 @@
       </div>
 
 
-      <!-- ==========================================
-           BUY
-      =========================================== -->
+      <!-- BUY -->
 
       <button
         id="swap-btn"
@@ -1129,9 +1132,7 @@
     </div>
 
 
-    <!-- ============================================
-         WARNING
-    ============================================= -->
+    <!-- WARNING -->
 
     <div class="swap-warning">
 
@@ -1166,9 +1167,7 @@
 </main>
 
 
-<!-- =================================================
-     FOOTER
-================================================= -->
+<!-- FOOTER -->
 
 <footer>
 
@@ -1184,27 +1183,80 @@
 
 
 <!-- =================================================
-     WALLET SELECTOR
+     WALLET JAVASCRIPT
 ================================================= -->
 
 <script type="module">
 
-/*
-======================================================
-MEEP WALLET CONNECTION
-NEAR MAINNET
-======================================================
-*/
+import {
+  setupWalletSelector
+}
+from
+"@near-wallet-selector/core";
+
+
+import {
+  setupModal
+}
+from
+"@near-wallet-selector/modal-ui-js";
+
+
+import {
+  setupMyNearWallet
+}
+from
+"@near-wallet-selector/my-near-wallet";
+
+
+import {
+  setupMeteorWallet
+}
+from
+"@near-wallet-selector/meteor-wallet";
+
+
+import {
+  setupSender
+}
+from
+"@near-wallet-selector/sender";
+
+
+import {
+  setupNearMobileWallet
+}
+from
+"@near-wallet-selector/near-mobile-wallet";
+
+
+import {
+  setupHotWallet
+}
+from
+"@near-wallet-selector/hot-wallet";
+
+
+import {
+  Buffer
+}
+from
+"buffer";
+
+
+window.Buffer =
+  Buffer;
+
+
+/* =================================================
+   DOM
+================================================= */
 
 const connectButton =
   document.getElementById(
     "connect-wallet"
   );
 
-const message =
-  document.getElementById(
-    "swap-msg"
-  );
 
 const swapButton =
   document.getElementById(
@@ -1212,13 +1264,20 @@ const swapButton =
   );
 
 
+const message =
+  document.getElementById(
+    "swap-msg"
+  );
+
+
+/* =================================================
+   STATE
+================================================= */
+
 let selector =
   null;
 
 let modal =
-  null;
-
-let wallet =
   null;
 
 let accountId =
@@ -1226,15 +1285,257 @@ let accountId =
 
 
 /* =================================================
-   SHOW MESSAGE
+   MESSAGE
 ================================================= */
 
-function showMessage(text){
+function messageText(text){
 
-  if(message){
+  message.textContent =
+    text || "";
 
-    message.textContent =
-      text || "";
+}
+
+
+/* =================================================
+   WALLET INITIALIZATION
+================================================= */
+
+async function initWallet(){
+
+  try{
+
+    console.log(
+      "MEEP: initializing wallet..."
+    );
+
+
+    messageText(
+      "Loading NEAR wallet..."
+    );
+
+
+    const modules = [];
+
+
+    /*
+      My NEAR
+    */
+
+    modules.push(
+      setupMyNearWallet()
+    );
+
+
+    /*
+      HOT Wallet
+    */
+
+    try{
+
+      modules.push(
+        setupHotWallet()
+      );
+
+    }catch(error){
+
+      console.warn(
+        "HOT wallet unavailable:",
+        error
+      );
+
+    }
+
+
+    /*
+      Meteor
+    */
+
+    try{
+
+      modules.push(
+        setupMeteorWallet()
+      );
+
+    }catch(error){
+
+      console.warn(
+        "Meteor unavailable:",
+        error
+      );
+
+    }
+
+
+    /*
+      Sender
+    */
+
+    try{
+
+      modules.push(
+        setupSender()
+      );
+
+    }catch(error){
+
+      console.warn(
+        "Sender unavailable:",
+        error
+      );
+
+    }
+
+
+    /*
+      Near Mobile
+    */
+
+    try{
+
+      modules.push(
+        setupNearMobileWallet()
+      );
+
+    }catch(error){
+
+      console.warn(
+        "Near Mobile unavailable:",
+        error
+      );
+
+    }
+
+
+    console.log(
+      "Wallet modules:",
+      modules
+    );
+
+
+    /*
+      CREATE SELECTOR
+    */
+
+    selector =
+      await setupWalletSelector({
+
+        network:
+          "mainnet",
+
+        modules:
+          modules
+
+      });
+
+
+    console.log(
+      "MEEP: selector ready"
+    );
+
+
+    /*
+      CREATE MODAL
+    */
+
+    modal =
+      setupModal(
+
+        selector,
+
+        {
+
+          contractId:
+            "aggregatedex.near"
+
+        }
+
+      );
+
+
+    console.log(
+      "MEEP: modal ready"
+    );
+
+
+    /*
+      EXISTING ACCOUNT
+    */
+
+    const state =
+      selector.store.getState();
+
+
+    if(
+      state.accounts &&
+      state.accounts.length
+    ){
+
+      accountId =
+        state.accounts[0].accountId;
+
+
+      walletConnected();
+
+    }
+
+
+    /*
+      WATCH ACCOUNT
+    */
+
+    selector.store.observable.subscribe(
+
+      function(state){
+
+        console.log(
+          "MEEP wallet state:",
+          state
+        );
+
+
+        if(
+          state.accounts &&
+          state.accounts.length
+        ){
+
+          accountId =
+            state.accounts[0].accountId;
+
+
+          walletConnected();
+
+        }
+
+      }
+
+    );
+
+
+    messageText("");
+
+    console.log(
+      "MEEP: wallet system ready"
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "MEEP WALLET INIT ERROR:",
+      error
+    );
+
+
+    messageText(
+      "Wallet failed to load."
+    );
+
+
+    connectButton.disabled =
+      false;
+
+    connectButton.textContent =
+      "CONNECT WALLET";
 
   }
 
@@ -1242,142 +1543,47 @@ function showMessage(text){
 
 
 /* =================================================
-   CONNECT BUTTON
+   CONNECT
 ================================================= */
 
 connectButton.addEventListener(
+
   "click",
 
   async function(){
 
     console.log(
-      "MEEP CONNECT CLICK"
-    );
-
-    connectButton.disabled =
-      true;
-
-    connectButton.textContent =
-      "LOADING...";
-
-    showMessage(
-      "Loading NEAR wallet..."
+      "MEEP: CONNECT clicked"
     );
 
 
     try{
 
+      /*
+        Safety:
+        initialize if not ready.
+      */
 
-      /* ==========================================
-         LOAD CORE
-      =========================================== */
+      if(!selector || !modal){
 
-      const core =
-        await import(
-          "https://ga.jspm.io/npm:@near-wallet-selector/core@9.4.0/index.js"
+        await initWallet();
+
+      }
+
+
+      if(!modal){
+
+        throw new Error(
+          "Wallet modal is unavailable."
         );
 
-
-      /* ==========================================
-         LOAD MODAL
-      =========================================== */
-
-      const modalModule =
-        await import(
-          "https://ga.jspm.io/npm:@near-wallet-selector/modal-ui-js@9.4.0/index.js"
-        );
-
-
-      /* ==========================================
-         LOAD MY NEAR
-      =========================================== */
-
-      const myNearModule =
-        await import(
-          "https://ga.jspm.io/npm:@near-wallet-selector/my-near-wallet@9.4.0/index.js"
-        );
-
-
-      /* ==========================================
-         LOAD METEOR
-      =========================================== */
-
-      const meteorModule =
-        await import(
-          "https://ga.jspm.io/npm:@near-wallet-selector/meteor-wallet@9.4.0/index.js"
-        );
-
-
-      /* ==========================================
-         LOAD SENDER
-      =========================================== */
-
-      const senderModule =
-        await import(
-          "https://ga.jspm.io/npm:@near-wallet-selector/sender@9.4.0/index.js"
-        );
+      }
 
 
       console.log(
-        "Wallet modules loaded"
+        "MEEP: opening modal"
       );
 
-
-      /* ==========================================
-         CREATE WALLET SELECTOR
-      =========================================== */
-
-      selector =
-        await core.setupWalletSelector({
-
-          network:
-            "mainnet",
-
-          modules: [
-
-            myNearModule.setupMyNearWallet(),
-
-            meteorModule.setupMeteorWallet(),
-
-            senderModule.setupSender()
-
-          ]
-
-        });
-
-
-      console.log(
-        "Wallet Selector initialized"
-      );
-
-
-      /* ==========================================
-         CREATE MODAL
-      =========================================== */
-
-      modal =
-        modalModule.setupModal(
-
-          selector,
-
-          {
-
-            contractId:
-              "aggregatedex.near"
-
-          }
-
-        );
-
-
-      console.log(
-        "Wallet modal initialized"
-      );
-
-
-      /* ==========================================
-         OPEN MODAL
-      =========================================== */
 
       modal.show();
 
@@ -1385,92 +1591,20 @@ connectButton.addEventListener(
       connectButton.disabled =
         false;
 
+
       connectButton.textContent =
         "CONNECT WALLET";
 
 
-      showMessage(
+      messageText(
         "Select your NEAR wallet."
       );
 
 
-      /* ==========================================
-         WATCH WALLET
-      =========================================== */
-
-      selector.store.observable.subscribe(
-
-        async function(state){
-
-          console.log(
-            "Wallet state:",
-            state
-          );
-
-
-          if(
-            state.accounts &&
-            state.accounts.length > 0
-          ){
-
-            accountId =
-              state.accounts[0].accountId;
-
-
-            connectButton.textContent =
-              accountId;
-
-
-            connectButton.classList.add(
-              "connected"
-            );
-
-
-            showMessage(
-              "Wallet connected."
-            );
-
-
-            swapButton.disabled =
-              false;
-
-
-            swapButton.textContent =
-              "BUY MEEP";
-
-
-            try{
-
-              wallet =
-                await selector.wallet();
-
-              console.log(
-                "Wallet ready:",
-                wallet
-              );
-
-            }catch(error){
-
-              console.error(
-                "Wallet API error:",
-                error
-              );
-
-            }
-
-          }
-
-        }
-
-      );
-
-
-    }
-
-    catch(error){
+    }catch(error){
 
       console.error(
-        "MEEP WALLET ERROR:",
+        "MEEP CONNECT ERROR:",
         error
       );
 
@@ -1483,8 +1617,8 @@ connectButton.addEventListener(
         "CONNECT WALLET";
 
 
-      showMessage(
-        "Wallet failed to load. Please refresh and try again."
+      messageText(
+        "Unable to open wallet."
       );
 
     }
@@ -1495,51 +1629,89 @@ connectButton.addEventListener(
 
 
 /* =================================================
-   PRESET BUTTONS
+   CONNECTED
 ================================================= */
 
-document
-  .querySelectorAll(
-    ".preset"
-  )
-  .forEach(
+function walletConnected(){
 
-    function(button){
-
-      button.addEventListener(
-        "click",
-
-        function(){
-
-          const amount =
-            button.dataset.amount;
-
-          document.getElementById(
-            "pay"
-          ).value =
-            amount;
-
-        }
-
-      );
-
-    }
-
+  console.log(
+    "MEEP connected:",
+    accountId
   );
 
 
+  connectButton.textContent =
+    accountId;
+
+
+  connectButton.classList.add(
+    "connected"
+  );
+
+
+  swapButton.disabled =
+    false;
+
+
+  swapButton.textContent =
+    "BUY MEEP";
+
+
+  messageText(
+    "Wallet connected."
+  );
+
+}
+
+
 /* =================================================
-   BUY BUTTON
+   PRESETS
+================================================= */
+
+document
+.querySelectorAll(
+  ".preset"
+)
+.forEach(
+
+  function(button){
+
+    button.addEventListener(
+
+      "click",
+
+      function(){
+
+        const pay =
+          document.getElementById(
+            "pay"
+          );
+
+        pay.value =
+          button.dataset.amount;
+
+      }
+
+    );
+
+  }
+
+);
+
+
+/* =================================================
+   BUY
 ================================================= */
 
 swapButton.addEventListener(
+
   "click",
 
   function(){
 
     if(!accountId){
 
-      showMessage(
+      messageText(
         "Connect your NEAR wallet first."
       );
 
@@ -1548,7 +1720,7 @@ swapButton.addEventListener(
     }
 
 
-    showMessage(
+    messageText(
       "Wallet connected. Swap transaction will be added next."
     );
 
@@ -1556,8 +1728,16 @@ swapButton.addEventListener(
 
 );
 
+
+/* =================================================
+   START
+================================================= */
+
+initWallet();
+
 </script>
 
 
 </body>
+
 </html>
