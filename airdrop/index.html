@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap">
 <link rel="stylesheet" href="../style.css">
 </head>
+
 <body class="page">
 
 <nav class="nav" aria-label="Pages">
@@ -29,46 +30,313 @@
   <a href="../#roadmap">Roadmap</a>
 </nav>
 
-<header class="page-head"><a href="../" aria-label="MEEP home"><img src="assets/meep-logo.png" width="84" height="84" alt="MEEP"></a></header>
+<header class="page-head">
+  <a href="../" aria-label="MEEP home">
+    <img src="../assets/meep-logo.png" width="84" height="84" alt="MEEP">
+  </a>
+</header>
 
 <main>
   <section id="airdrop">
+
     <h1 class="title">AIRDROP</h1>
+
+    <!-- AIRDROP PROGRESS -->
+    <div id="airdrop-progress">
+
+      <div class="progress-title">
+        <span>🦆 MEEP AIRDROP</span>
+        <strong id="progress-count">...</strong>
+      </div>
+
+      <div class="progress-bar">
+        <div id="progress-fill" class="progress-fill"></div>
+      </div>
+
+      <div class="progress-info">
+        <span id="progress-percent">Loading...</span>
+        <span>10,000 MEEP / USER</span>
+      </div>
+
+      <div class="progress-note">
+        🎁 FIRST 500 ELIGIBLE USERS
+      </div>
+
+    </div>
+
     <ol class="steps">
       <li>Follow @MEEPNear on X</li>
       <li>Retweet the campaign post</li>
       <li>Send your details below</li>
     </ol>
+
     <div class="row">
-      <a id="follow" class="btn ghost off" data-label="FOLLOW ON X" aria-disabled="true">FOLLOW ON X · soon</a>
-      <a id="rt-post" class="btn ghost off" data-label="RETWEET POST" aria-disabled="true">RETWEET POST · soon</a>
+      <a id="follow" class="btn ghost off" data-label="FOLLOW ON X" aria-disabled="true">
+        FOLLOW ON X · soon
+      </a>
+
+      <a id="rt-post" class="btn ghost off" data-label="RETWEET POST" aria-disabled="true">
+        RETWEET POST · soon
+      </a>
     </div>
+
     <form id="airdrop-form" novalidate>
+
       <fieldset id="airdrop-fields" class="form">
-        <label>NEAR wallet address
-          <input name="wallet" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="yourname.near" maxlength="64">
+
+        <label>
+          NEAR wallet address
+          <input
+            name="wallet"
+            type="text"
+            autocomplete="off"
+            autocapitalize="none"
+            spellcheck="false"
+            placeholder="yourname.near"
+            maxlength="64">
         </label>
-        <label>X username
-          <input name="x_username" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="@username" maxlength="16">
+
+        <label>
+          X username
+          <input
+            name="x_username"
+            type="text"
+            autocomplete="off"
+            autocapitalize="none"
+            spellcheck="false"
+            placeholder="@username"
+            maxlength="16">
         </label>
-        <label>Retweet link
-          <input name="retweet_url" type="url" inputmode="url" placeholder="https://x.com/username/status/..." maxlength="200">
+
+        <label>
+          Retweet link
+          <input
+            name="retweet_url"
+            type="url"
+            inputmode="url"
+            placeholder="https://x.com/username/status/..."
+            maxlength="200">
         </label>
-        <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <input
+          class="hp"
+          name="website"
+          type="text"
+          tabindex="-1"
+          autocomplete="off"
+          aria-hidden="true">
+
         <p id="airdrop-hint" class="mut small"></p>
-        <button id="airdrop-btn" class="btn" type="submit">SUBMIT</button>
+
+        <button id="airdrop-btn" class="btn" type="submit">
+          SUBMIT
+        </button>
+
         <p id="airdrop-msg" role="status"></p>
+
       </fieldset>
+
     </form>
-    <p class="mut small">Only your public wallet address. Never share a seed phrase or private key. Submitting does not guarantee an airdrop.</p>
+
+    <p class="mut small">
+      Only your public wallet address. Never share a seed phrase or private key.
+      Submitting does not guarantee an airdrop.
+    </p>
+
   </section>
 </main>
 
 <footer>
-  <p class="mut">MEEP is a meme. Nothing here is financial advice or a promise of returns.</p>
+  <p class="mut">
+    MEEP is a meme. Nothing here is financial advice or a promise of returns.
+  </p>
 </footer>
+
+<style>
+/* ================================
+   AIRDROP PROGRESS
+================================ */
+
+#airdrop-progress {
+  width: min(520px, calc(100% - 30px));
+  margin: 24px auto 30px;
+  padding: 20px;
+  box-sizing: border-box;
+
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.09),
+      rgba(255,255,255,.025)
+    );
+
+  box-shadow:
+    0 12px 40px rgba(0,0,0,.25);
+
+  backdrop-filter: blur(8px);
+}
+
+.progress-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  margin-bottom: 15px;
+
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.progress-title strong {
+  font-size: 20px;
+  white-space: nowrap;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 14px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: rgba(255,255,255,.10);
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ffffff,
+      #9cff57
+    );
+
+  box-shadow:
+    0 0 18px rgba(156,255,87,.45);
+
+  transition:
+    width .8s ease;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+
+  margin-top: 10px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  opacity: .7;
+}
+
+.progress-note {
+  margin-top: 15px;
+  padding: 10px;
+
+  text-align: center;
+
+  border-radius: 12px;
+
+  background: rgba(156,255,87,.08);
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+/* MOBILE */
+@media (max-width: 480px) {
+
+  #airdrop-progress {
+    width: calc(100% - 20px);
+    padding: 17px;
+  }
+
+  .progress-title {
+    font-size: 13px;
+  }
+
+  .progress-title strong {
+    font-size: 18px;
+  }
+
+  .progress-info {
+    font-size: 9px;
+  }
+
+}
+</style>
+
 
 <script src="../config.js?v=5"></script>
 <script src="../app.js?v=5"></script>
+
+
+<!-- GET AIRDROP STATS -->
+<script>
+function meepAirdropStats(data) {
+
+  if (!data || !data.success) {
+    return;
+  }
+
+  const count =
+    Math.min(
+      Math.max(Number(data.count) || 0, 0),
+      Number(data.max) || 500
+    );
+
+  const max =
+    Number(data.max) || 500;
+
+  const percent =
+    Math.min(
+      Math.round((count / max) * 100),
+      100
+    );
+
+  const countElement =
+    document.getElementById("progress-count");
+
+  const percentElement =
+    document.getElementById("progress-percent");
+
+  const fillElement =
+    document.getElementById("progress-fill");
+
+  if (countElement) {
+    countElement.textContent =
+      count + " / " + max;
+  }
+
+  if (percentElement) {
+    percentElement.textContent =
+      percent + "% CLAIMED";
+  }
+
+  if (fillElement) {
+    fillElement.style.width =
+      percent + "%";
+  }
+}
+</script>
+
+
+<script
+  src="https://script.google.com/macros/s/AKfycbzd0-VTlGVcN27vqhHM4DO4LOWrlNDk2Xn26uFhO7tS1KOGcCRfjP0w59InHAi7v0UVHg/exec?action=stats&callback=meepAirdropStats">
+</script>
+
+
 </body>
 </html>
