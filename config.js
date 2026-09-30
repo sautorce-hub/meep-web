@@ -7,6 +7,6 @@ window.MEEP = {
   launchDate: "",
   network: "mainnet",
   previewRate: 1000,
-  airdropEndpoint: "https://script.google.com/macros/s/AKfycbwf1cT6d76GDgc14PzUyMpKHc3NmzFvdgzgB1ylyHCyaklyEu18DjXK4x9ETtckN6vAkA/exec",
+  airdropEndpoint: "https://script.google.com/macros/s/AKfycbzd0-VTlGVcN27vqhHM4DO4LOWrlNDk2Xn26uFhO7tS1KOGcCRfjP0w59InHAi7v0UVHg/exec",
   airdropTweetUrl: "https://x.com/MEEPNear/status/2104921422686740761"
 };
