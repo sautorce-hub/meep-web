@@ -3,7 +3,7 @@
 <head>
 
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Swap — MEEP</title>
 
@@ -20,15 +20,12 @@
   href="../assets/favicon.png"
 >
 
-<link
-  rel="stylesheet"
-  href="../style.css"
->
+<link rel="stylesheet" href="../style.css">
 
-<!-- NEAR Wallet Selector CSS -->
+<!-- Wallet Selector v10 -->
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@near-wallet-selector/modal-ui-js@9.0.3/styles.css"
+  href="https://cdn.jsdelivr.net/npm/@near-wallet-selector/modal-ui-js@10.1.4/styles.css"
 >
 
 <style>
@@ -47,18 +44,13 @@
 .connect-wallet{
   width:100%;
   height:56px;
-
   border:1px solid rgba(114,232,187,.28);
   border-radius:18px;
-
   background:rgba(114,232,187,.06);
-
   color:#72e8bb;
-
   font-family:inherit;
   font-size:15px;
   font-weight:700;
-
   cursor:pointer;
 }
 
@@ -74,21 +66,16 @@
   width:100%;
   padding:18px;
   box-sizing:border-box;
-
   border:1px solid rgba(255,255,255,.09);
   border-radius:25px;
-
   background:rgba(255,255,255,.018);
-
-  box-shadow:
-    0 20px 60px rgba(0,0,0,.25);
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
 }
 
 .swap-card-head{
   display:flex;
   align-items:center;
   justify-content:space-between;
-
   margin-bottom:16px;
 }
 
@@ -99,13 +86,9 @@
 
 .swap-status{
   padding:7px 10px;
-
   border-radius:10px;
-
   background:rgba(114,232,187,.07);
-
   color:#72e8bb;
-
   font-size:9px;
   font-weight:700;
 }
@@ -113,14 +96,10 @@
 .token-box{
   width:100%;
   min-height:150px;
-
   padding:17px;
-
   box-sizing:border-box;
-
   border:1px solid rgba(255,255,255,.07);
   border-radius:19px;
-
   background:#080d0b;
 }
 
@@ -128,52 +107,39 @@
   display:flex;
   align-items:center;
   justify-content:space-between;
-
   margin-bottom:14px;
 }
 
 .token-label{
   color:rgba(255,255,255,.55);
-
   font-size:13px;
   font-weight:600;
 }
 
 .token-balance{
   color:rgba(255,255,255,.38);
-
   font-size:11px;
 }
 
 .token-input-row{
   width:100%;
-
   display:flex;
   align-items:center;
-
   gap:12px;
 }
 
 .token-input,
 .token-output{
   flex:1 1 auto;
-
   width:0;
   min-width:0;
-
   height:52px;
-
   padding:0;
-
   border:0;
   outline:0;
-
   background:transparent;
-
   color:#fff;
-
   font-family:inherit;
-
   font-size:36px;
   font-weight:700;
 }
@@ -190,24 +156,15 @@
 
 .token-select{
   flex:0 0 145px;
-
   height:52px;
-
   box-sizing:border-box;
-
   display:flex;
   align-items:center;
-
   gap:9px;
-
   padding:7px 12px;
-
   border-radius:15px;
-
   background:rgba(255,255,255,.065);
-
   color:#fff;
-
   font-size:15px;
   font-weight:700;
 }
@@ -215,20 +172,14 @@
 .near-logo{
   width:30px;
   height:30px;
-
   flex:0 0 30px;
-
   border-radius:50%;
-
   background:#fff;
   color:#111;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   font-family:Arial,sans-serif;
-
   font-size:17px;
   font-weight:900;
 }
@@ -236,123 +187,86 @@
 .meep-logo{
   width:30px;
   height:30px;
-
   flex:0 0 30px;
-
   border-radius:50%;
-
   object-fit:cover;
 }
 
 .swap-arrow-wrap{
   height:0;
-
   position:relative;
-
   z-index:10;
 }
 
 .swap-arrow{
   width:43px;
   height:43px;
-
   position:relative;
-
   top:-22px;
-
   margin:0 auto;
-
   border:4px solid #050706;
   border-radius:50%;
-
   background:#72e8bb;
   color:#06100c;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   font-size:17px;
   font-weight:900;
-
-  box-shadow:
-    0 5px 20px rgba(0,0,0,.45);
+  box-shadow:0 5px 20px rgba(0,0,0,.45);
 }
 
 .presets{
   display:flex;
-
   gap:8px;
-
   margin:14px 0;
 }
 
 .preset{
   flex:1;
-
   height:36px;
-
   border:1px solid rgba(255,255,255,.08);
   border-radius:10px;
-
   background:rgba(255,255,255,.035);
-
   color:rgba(255,255,255,.7);
-
   font-family:inherit;
-
   font-size:11px;
   font-weight:700;
-
   cursor:pointer;
 }
 
 .preset:hover{
   border-color:rgba(114,232,187,.35);
-
   color:#72e8bb;
 }
 
 .swap-rate{
   display:flex;
-
   align-items:center;
   justify-content:space-between;
-
   gap:12px;
-
   margin:18px 3px 0;
-
   color:rgba(255,255,255,.5);
-
   font-size:12px;
 }
 
 .swap-rate strong{
   color:rgba(255,255,255,.8);
-
   white-space:nowrap;
 }
 
 .swap-info{
   margin-top:17px;
-
   padding-top:14px;
-
-  border-top:
-    1px solid rgba(255,255,255,.07);
+  border-top:1px solid rgba(255,255,255,.07);
 }
 
 .swap-info-row{
   display:flex;
-
   align-items:center;
   justify-content:space-between;
-
   min-height:31px;
-
   color:rgba(255,255,255,.48);
-
   font-size:12px;
 }
 
@@ -363,55 +277,38 @@
 .swap-main{
   width:100%;
   height:58px;
-
   margin-top:16px;
-
   border:0;
   border-radius:17px;
-
   background:#72e8bb;
   color:#06100c;
-
   font-family:inherit;
-
   font-size:16px;
   font-weight:700;
-
   cursor:pointer;
 }
 
 .swap-main:disabled{
   opacity:.45;
-
   cursor:not-allowed;
 }
 
 .swap-message{
   min-height:22px;
-
   margin:10px 0 0;
-
   text-align:center;
-
   font-size:12px;
 }
 
 .swap-warning{
   margin:16px auto 0;
-
   padding:12px 15px;
-
   border:1px solid rgba(255,255,255,.06);
   border-radius:14px;
-
   background:rgba(255,255,255,.02);
-
   color:rgba(255,255,255,.42);
-
   text-align:center;
-
   font-size:11px;
-
   line-height:1.5;
 }
 
@@ -453,26 +350,17 @@
 <nav class="nav" aria-label="Pages">
 
   <a href="../">Home</a>
-
   <a href="../swap/">Swap</a>
-
   <a href="../nft/">NFT</a>
-
   <a href="../airdrop/">Airdrop</a>
-
   <a href="../#community">Community</a>
-
   <a href="../#roadmap">Roadmap</a>
 
 </nav>
 
-
 <header class="page-head">
 
-  <a
-    href="../"
-    aria-label="MEEP home"
-  >
+  <a href="../" aria-label="MEEP home">
 
     <img
       src="../assets/meep-logo.png"
@@ -485,346 +373,328 @@
 
 </header>
 
-
 <main>
 
 <section id="swap">
 
 <h1 class="title">SWAP</h1>
 
-<p class="soon">
-  MEEP / NEAR
-</p>
-
+<p class="soon">MEEP / NEAR</p>
 
 <div class="swap-page">
 
+  <!-- CONNECT WALLET -->
 
-<!-- CONNECT WALLET -->
+  <div class="swap-wallet">
 
-<div class="swap-wallet">
-
-  <button
-    id="connect-wallet"
-    class="connect-wallet"
-    type="button"
-  >
-    CONNECT WALLET
-  </button>
-
-</div>
-
-
-<!-- SWAP CARD -->
-
-<div class="swap-card">
-
-
-<div class="swap-card-head">
-
-  <span class="swap-card-title">
-    Swap
-  </span>
-
-  <span
-    id="swap-status"
-    class="swap-status"
-  >
-    RHEA
-  </span>
-
-</div>
-
-
-<!-- NEAR INPUT -->
-
-<div class="token-box">
-
-  <div class="token-top">
-
-    <span class="token-label">
-      You pay
-    </span>
-
-    <span
-      id="near-balance"
-      class="token-balance"
+    <button
+      id="connect-wallet"
+      class="connect-wallet"
+      type="button"
     >
-      Balance: —
-    </span>
+      CONNECT WALLET
+    </button>
 
   </div>
 
 
-  <div class="token-input-row">
+  <!-- SWAP CARD -->
 
-    <input
-      id="pay"
-      class="token-input"
-      type="number"
-      inputmode="decimal"
-      min="0"
-      step="any"
-      value="1"
-      aria-label="NEAR amount"
-    >
+  <div class="swap-card">
 
+    <div class="swap-card-head">
 
-    <div class="token-select">
-
-      <span class="near-logo">
-        Ⓝ
+      <span class="swap-card-title">
+        Swap
       </span>
 
-      <span>
-        NEAR
-      </span>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- PRESETS -->
-
-<div class="presets">
-
-  <button
-    class="preset"
-    data-amount="10"
-    type="button"
-  >
-    10 N
-  </button>
-
-  <button
-    class="preset"
-    data-amount="50"
-    type="button"
-  >
-    50 N
-  </button>
-
-  <button
-    class="preset"
-    data-amount="100"
-    type="button"
-  >
-    100 N
-  </button>
-
-  <button
-    class="preset"
-    data-amount="500"
-    type="button"
-  >
-    500 N
-  </button>
-
-</div>
-
-
-<!-- ARROW -->
-
-<div class="swap-arrow-wrap">
-
-  <div class="swap-arrow">
-    ↓
-  </div>
-
-</div>
-
-
-<!-- MEEP OUTPUT -->
-
-<div class="token-box">
-
-  <div class="token-top">
-
-    <span class="token-label">
-      You receive
-    </span>
-
-    <span class="token-balance">
-      MEEP
-    </span>
-
-  </div>
-
-
-  <div class="token-input-row">
-
-    <output
-      id="recv"
-      class="token-output"
-    >
-      —
-    </output>
-
-
-    <div class="token-select">
-
-      <img
-        class="meep-logo"
-        src="../assets/meep-logo.png"
-        alt="MEEP"
+      <span
+        id="swap-status"
+        class="swap-status"
       >
-
-      <span>
-        MEEP
+        RHEA
       </span>
 
     </div>
 
+
+    <!-- NEAR -->
+
+    <div class="token-box">
+
+      <div class="token-top">
+
+        <span class="token-label">
+          You pay
+        </span>
+
+        <span
+          id="near-balance"
+          class="token-balance"
+        >
+          Balance: —
+        </span>
+
+      </div>
+
+      <div class="token-input-row">
+
+        <input
+          id="pay"
+          class="token-input"
+          type="number"
+          inputmode="decimal"
+          min="0"
+          step="any"
+          value="1"
+          aria-label="NEAR amount"
+        >
+
+        <div class="token-select">
+
+          <span class="near-logo">
+            Ⓝ
+          </span>
+
+          <span>
+            NEAR
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- PRESETS -->
+
+    <div class="presets">
+
+      <button
+        class="preset"
+        type="button"
+        data-amount="10"
+      >
+        10 N
+      </button>
+
+      <button
+        class="preset"
+        type="button"
+        data-amount="50"
+      >
+        50 N
+      </button>
+
+      <button
+        class="preset"
+        type="button"
+        data-amount="100"
+      >
+        100 N
+      </button>
+
+      <button
+        class="preset"
+        type="button"
+        data-amount="500"
+      >
+        500 N
+      </button>
+
+    </div>
+
+
+    <!-- ARROW -->
+
+    <div class="swap-arrow-wrap">
+
+      <div class="swap-arrow">
+        ↓
+      </div>
+
+    </div>
+
+
+    <!-- MEEP -->
+
+    <div class="token-box">
+
+      <div class="token-top">
+
+        <span class="token-label">
+          You receive
+        </span>
+
+        <span class="token-balance">
+          MEEP
+        </span>
+
+      </div>
+
+      <div class="token-input-row">
+
+        <output
+          id="recv"
+          class="token-output"
+        >
+          —
+        </output>
+
+        <div class="token-select">
+
+          <img
+            class="meep-logo"
+            src="../assets/meep-logo.png"
+            alt="MEEP"
+          >
+
+          <span>
+            MEEP
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- RATE -->
+
+    <div class="swap-rate">
+
+      <span>
+        Exchange rate
+      </span>
+
+      <strong id="rate">
+        —
+      </strong>
+
+    </div>
+
+
+    <!-- DETAILS -->
+
+    <div class="swap-info">
+
+      <div class="swap-info-row">
+
+        <span>
+          Network
+        </span>
+
+        <strong>
+          NEAR
+        </strong>
+
+      </div>
+
+      <div class="swap-info-row">
+
+        <span>
+          Pool fee
+        </span>
+
+        <strong id="pool-fee">
+          —
+        </strong>
+
+      </div>
+
+      <div class="swap-info-row">
+
+        <span>
+          Slippage
+        </span>
+
+        <strong>
+          3%
+        </strong>
+
+      </div>
+
+      <div class="swap-info-row">
+
+        <span>
+          Price impact
+        </span>
+
+        <strong id="price-impact">
+          —
+        </strong>
+
+      </div>
+
+      <div class="swap-info-row">
+
+        <span>
+          Minimum received
+        </span>
+
+        <strong id="minimum">
+          —
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- BUY -->
+
+    <button
+      id="swap-btn"
+      class="swap-main"
+      type="button"
+      disabled
+    >
+      CONNECT WALLET
+    </button>
+
+    <p
+      id="swap-msg"
+      class="swap-message mut"
+      role="status"
+    ></p>
+
   </div>
 
-</div>
 
+  <div class="swap-warning">
 
-<!-- RATE -->
+    Rhea SmartRouter automatically finds
+    the available MEEP / NEAR route.
 
-<div class="swap-rate">
+    <br>
 
-  <span>
-    Exchange rate
-  </span>
-
-  <strong id="rate">
-    —
-  </strong>
-
-</div>
-
-
-<!-- INFO -->
-
-<div class="swap-info">
-
-  <div class="swap-info-row">
-
-    <span>
-      Network
-    </span>
-
-    <strong>
-      NEAR
-    </strong>
+    Always check the transaction
+    before signing.
 
   </div>
 
 
-  <div class="swap-info-row">
-
-    <span>
-      Pool fee
-    </span>
-
-    <strong id="pool-fee">
-      —
-    </strong>
-
-  </div>
-
-
-  <div class="swap-info-row">
-
-    <span>
-      Slippage
-    </span>
-
-    <strong>
-      3%
-    </strong>
-
-  </div>
-
-
-  <div class="swap-info-row">
-
-    <span>
-      Price impact
-    </span>
-
-    <strong id="price-impact">
-      —
-    </strong>
-
-  </div>
-
-
-  <div class="swap-info-row">
-
-    <span>
-      Minimum received
-    </span>
-
-    <strong id="minimum">
-      —
-    </strong>
-
-  </div>
-
-</div>
-
-
-<!-- BUY -->
-
-<button
-  id="swap-btn"
-  class="swap-main"
-  type="button"
-  disabled
->
-  CONNECT WALLET
-</button>
-
-
-<p
-  id="swap-msg"
-  class="swap-message mut"
-  role="status"
-></p>
-
-
-</div>
-
-
-<div class="swap-warning">
-
-  Rhea SmartRouter finds the available
-  MEEP / NEAR route automatically.
-
-  <br>
-
-  Always check the amount before signing
-  the transaction.
-
-</div>
-
-
-<div
-  class="row"
-  style="margin-top:22px;"
->
-
-  <a
-    class="btn ghost"
-    href="../"
+  <div
+    class="row"
+    style="margin-top:22px;"
   >
-    BACK HOME
-  </a>
 
-</div>
+    <a
+      class="btn ghost"
+      href="../"
+    >
+      BACK HOME
+    </a>
 
+  </div>
 
 </div>
 
 </section>
 
 </main>
-
 
 <footer>
 
@@ -841,52 +711,51 @@ or a promise of returns.
 
 <script type="module">
 
-/*
-==================================================
-MEEP SWAP
-NEAR MAINNET
-RHEA SMART ROUTER
-==================================================
-*/
+/* =====================================================
+   MEEP SWAP
+   NEAR MAINNET
+   WALLET SELECTOR V10
+   RHEA SMART ROUTER
+===================================================== */
 
 
-/* ================================
+/* =====================================================
    WALLET SELECTOR
-================================ */
+===================================================== */
 
 import {
   setupWalletSelector
 } from
-"https://esm.sh/@near-wallet-selector/core@9.0.3";
+"https://esm.sh/@near-wallet-selector/core@10.1.4";
 
 
 import {
   setupModal
 } from
-"https://esm.sh/@near-wallet-selector/modal-ui-js@9.0.3";
+"https://esm.sh/@near-wallet-selector/modal-ui-js@10.1.4";
 
 
 import {
   setupMyNearWallet
 } from
-"https://esm.sh/@near-wallet-selector/my-near-wallet@9.0.3";
+"https://esm.sh/@near-wallet-selector/my-near-wallet@10.1.4";
 
 
 import {
   setupMeteorWallet
 } from
-"https://esm.sh/@near-wallet-selector/meteor-wallet@9.0.3";
+"https://esm.sh/@near-wallet-selector/meteor-wallet@10.1.4";
 
 
 import {
   setupSender
 } from
-"https://esm.sh/@near-wallet-selector/sender@9.0.3";
+"https://esm.sh/@near-wallet-selector/sender@10.1.4";
 
 
-/* ================================
+/* =====================================================
    CONFIG
-================================ */
+===================================================== */
 
 const NETWORK =
   "mainnet";
@@ -912,9 +781,9 @@ const SLIPPAGE =
   0.03;
 
 
-/* ================================
+/* =====================================================
    DOM
-================================ */
+===================================================== */
 
 const connectBtn =
   document.getElementById(
@@ -970,29 +839,22 @@ const poolFee =
   );
 
 
-/* ================================
+/* =====================================================
    STATE
-================================ */
+===================================================== */
 
-let selector =
-  null;
+let selector = null;
 
+let modal = null;
 
-let modal =
-  null;
+let wallet = null;
 
-
-let wallet =
-  null;
+let accountId = null;
 
 
-let accountId =
-  null;
-
-
-/* ================================
+/* =====================================================
    MESSAGE
-================================ */
+===================================================== */
 
 function setMessage(text){
 
@@ -1002,9 +864,9 @@ function setMessage(text){
 }
 
 
-/* ================================
+/* =====================================================
    YOCTO
-================================ */
+===================================================== */
 
 function nearToYocto(value){
 
@@ -1031,9 +893,9 @@ function nearToYocto(value){
 }
 
 
-/* ================================
+/* =====================================================
    FORMAT
-================================ */
+===================================================== */
 
 function formatNumber(value){
 
@@ -1060,13 +922,18 @@ function formatNumber(value){
 }
 
 
-/* ================================
-   INIT WALLET
-================================ */
+/* =====================================================
+   INITIALIZE WALLET SELECTOR
+===================================================== */
 
 async function initWallet(){
 
   try{
+
+    setMessage(
+      "Loading wallet..."
+    );
+
 
     selector =
       await setupWalletSelector({
@@ -1097,6 +964,11 @@ async function initWallet(){
       );
 
 
+    console.log(
+      "Wallet Selector initialized"
+    );
+
+
     /*
       Existing session
     */
@@ -1107,7 +979,7 @@ async function initWallet(){
 
     if(
       state.accounts &&
-      state.accounts.length
+      state.accounts.length > 0
     ){
 
       accountId =
@@ -1120,15 +992,15 @@ async function initWallet(){
 
 
     /*
-      Listen for changes
+      Listen for account changes
     */
 
     selector.store.observable.subscribe(
-      async state => {
+      async (state) => {
 
         if(
           state.accounts &&
-          state.accounts.length
+          state.accounts.length > 0
         ){
 
           accountId =
@@ -1143,21 +1015,18 @@ async function initWallet(){
     );
 
 
-    console.log(
-      "MEEP Wallet Selector ready"
-    );
-
+    setMessage("");
 
   }catch(error){
 
     console.error(
-      "Wallet initialization error:",
+      "Wallet Selector error:",
       error
     );
 
 
     setMessage(
-      "Wallet system could not load."
+      "Wallet system failed to load."
     );
 
   }
@@ -1165,9 +1034,9 @@ async function initWallet(){
 }
 
 
-/* ================================
+/* =====================================================
    CONNECT BUTTON
-================================ */
+===================================================== */
 
 connectBtn.addEventListener(
   "click",
@@ -1182,23 +1051,33 @@ connectBtn.addEventListener(
       }
 
 
-      if(modal){
+      if(!modal){
 
-        modal.show();
-
-      }else{
-
-        setMessage(
-          "Wallet selector is loading..."
+        throw new Error(
+          "Wallet selector is not ready."
         );
 
       }
 
+
+      console.log(
+        "Opening wallet selector..."
+      );
+
+
+      modal.show();
+
+
     }catch(error){
 
-      console.error(error);
+      console.error(
+        "Connect error:",
+        error
+      );
+
 
       setMessage(
+        error.message ||
         "Unable to open wallet selector."
       );
 
@@ -1208,9 +1087,9 @@ connectBtn.addEventListener(
 );
 
 
-/* ================================
+/* =====================================================
    WALLET CONNECTED
-================================ */
+===================================================== */
 
 async function walletConnected(){
 
@@ -1265,9 +1144,9 @@ async function walletConnected(){
 }
 
 
-/* ================================
-   BALANCE
-================================ */
+/* =====================================================
+   NEAR BALANCE
+===================================================== */
 
 async function updateBalance(){
 
@@ -1362,9 +1241,9 @@ async function updateBalance(){
 }
 
 
-/* ================================
+/* =====================================================
    RHEA QUOTE
-================================ */
+===================================================== */
 
 async function getQuote(){
 
@@ -1443,7 +1322,7 @@ async function getQuote(){
     if(!response.ok){
 
       throw new Error(
-        "Rhea quote request failed."
+        "Rhea quote failed."
       );
 
     }
@@ -1513,9 +1392,7 @@ async function getQuote(){
       "1%";
 
 
-    setMessage(
-      ""
-    );
+    setMessage("");
 
 
     return data;
@@ -1543,7 +1420,7 @@ async function getQuote(){
 
     setMessage(
       error.message ||
-      "Unable to get Rhea quote."
+      "Unable to get quote."
     );
 
 
@@ -1554,12 +1431,11 @@ async function getQuote(){
 }
 
 
-/* ================================
+/* =====================================================
    INPUT
-================================ */
+===================================================== */
 
-let quoteTimer =
-  null;
+let quoteTimer = null;
 
 
 pay.addEventListener(
@@ -1585,9 +1461,9 @@ pay.addEventListener(
 );
 
 
-/* ================================
-   PRESETS
-================================ */
+/* =====================================================
+   PRESET BUTTONS
+===================================================== */
 
 document
 .querySelectorAll(
@@ -1613,9 +1489,9 @@ document
 );
 
 
-/* ================================
-   SWAP
-================================ */
+/* =====================================================
+   BUY MEEP
+===================================================== */
 
 swapBtn.addEventListener(
   "click",
@@ -1672,8 +1548,8 @@ swapBtn.addEventListener(
 
 
       /*
-        Get fresh quote immediately
-        before signing.
+        Always get a fresh quote
+        immediately before signing.
       */
 
       const quote =
@@ -1689,25 +1565,13 @@ swapBtn.addEventListener(
       }
 
 
-      /*
-        IMPORTANT
-
-        Rhea requires:
-        wrap.near deposit first,
-        then ft_transfer_call.
-
-        These are two separate
-        transactions.
-      */
-
-
       const amountIn =
         nearToYocto(
           amount
         );
 
 
-      const message =
+      const rheaMessage =
         JSON.stringify({
 
           msg:
@@ -1719,121 +1583,105 @@ swapBtn.addEventListener(
         });
 
 
+      /*
+        IMPORTANT:
+
+        The first transaction wraps
+        native NEAR into wNEAR.
+
+        The second transaction calls
+        ft_transfer_call on wrap.near.
+
+        Rhea receives the wrapped NEAR.
+      */
+
+
       setMessage(
-        "Confirm NEAR wrapping in your wallet..."
+        "Confirm NEAR → wNEAR..."
       );
 
 
-      /*
-        STEP 1
-        NEAR -> wrap.near
-      */
+      await wallet.signAndSendTransaction({
 
-      const wrapResult =
-        await wallet.signAndSendTransactions({
+        receiverId:
+          WRAP,
 
-          transactions:[
+        actions:[
 
-            {
+          {
 
-              receiverId:
-                WRAP,
+            type:
+              "FunctionCall",
 
-              actions:[
+            params:{
 
-                {
+              methodName:
+                "near_deposit",
 
-                  type:
-                    "FunctionCall",
+              args:{},
 
-                  params:{
+              gas:
+                "30000000000000",
 
-                    methodName:
-                      "near_deposit",
-
-                    args:{},
-
-                    gas:
-                      "30000000000000",
-
-                    deposit:
-                      amountIn
-
-                  }
-
-                }
-
-              ]
+              deposit:
+                amountIn
 
             }
 
-          ]
+          }
 
-        });
+        ]
 
-
-      console.log(
-        "Wrap result:",
-        wrapResult
-      );
+      });
 
 
       /*
-        STEP 2
-        wrap.near -> Rhea
+        Now send wNEAR to Rhea.
       */
 
       setMessage(
-        "Confirm MEEP swap in your wallet..."
+        "Confirm MEEP swap..."
       );
 
 
-      const swapResult =
-        await wallet.signAndSendTransactions({
+      const result =
+        await wallet.signAndSendTransaction({
 
-          transactions:[
+          receiverId:
+            WRAP,
+
+          actions:[
 
             {
 
-              receiverId:
-                WRAP,
+              type:
+                "FunctionCall",
 
-              actions:[
+              params:{
 
-                {
+                methodName:
+                  "ft_transfer_call",
 
-                  type:
-                    "FunctionCall",
+                args:{
 
-                  params:{
+                  receiver_id:
+                    AGGREGATED_DEX,
 
-                    methodName:
-                      "ft_transfer_call",
+                  amount:
+                    amountIn,
 
-                    args:{
+                  msg:
+                    rheaMessage
 
-                      receiver_id:
-                        AGGREGATED_DEX,
+                },
 
-                      amount:
-                        amountIn,
+                gas:
+                  "300000000000000",
 
-                      msg:
-                        message
+                deposit:
+                  "1"
 
-                    },
-
-                    gas:
-                      "300000000000000",
-
-                    deposit:
-                      "1"
-
-                  }
-
-                }
-
-              ]
+              }
 
             }
 
@@ -1844,7 +1692,7 @@ swapBtn.addEventListener(
 
       console.log(
         "Rhea swap result:",
-        swapResult
+        result
       );
 
 
@@ -1870,7 +1718,7 @@ swapBtn.addEventListener(
     }catch(error){
 
       console.error(
-        "Swap failed:",
+        "Swap error:",
         error
       );
 
@@ -1894,9 +1742,9 @@ swapBtn.addEventListener(
 );
 
 
-/* ================================
+/* =====================================================
    START
-================================ */
+===================================================== */
 
 initWallet();
 
