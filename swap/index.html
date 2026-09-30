@@ -49,107 +49,40 @@
   href="../style.css"
 >
 
-<!-- NEAR WALLET SELECTOR CSS -->
-
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@near-wallet-selector/modal-ui-js@9.4.0/styles.css"
->
-
 
 <style>
 
-/* =================================================
-   SWAP PAGE
-================================================= */
+/* ================================================
+   MEEP RHEA EMBED
+================================================ */
 
-.swap-page{
+.rhea-page{
+
   width:100%;
-  max-width:520px;
+
+  max-width:620px;
+
   margin:0 auto;
+
 }
 
 
-/* =================================================
-   CONNECT WALLET
-================================================= */
+/* ================================================
+   RHEA CARD
+================================================ */
 
-.swap-wallet{
-  width:100%;
-  margin:0 auto 18px;
-}
-
-.connect-wallet{
+.rhea-card{
 
   width:100%;
-
-  height:58px;
-
-  border:1px solid
-    rgba(114,232,187,.30);
-
-  border-radius:18px;
-
-  background:
-    rgba(114,232,187,.055);
-
-  color:#72e8bb;
-
-  font-family:inherit;
-
-  font-size:15px;
-
-  font-weight:700;
-
-  cursor:pointer;
-
-  pointer-events:auto;
-
-  position:relative;
-
-  z-index:999;
-
-  transition:.2s ease;
-
-}
-
-.connect-wallet:hover{
-
-  background:
-    rgba(114,232,187,.12);
-
-}
-
-.connect-wallet:active{
-
-  transform:scale(.98);
-
-}
-
-.connect-wallet.connected{
-
-  background:
-    rgba(114,232,187,.13);
-
-}
-
-
-/* =================================================
-   SWAP CARD
-================================================= */
-
-.swap-card{
-
-  width:100%;
-
-  padding:18px;
 
   box-sizing:border-box;
+
+  padding:12px;
 
   border:
     1px solid rgba(255,255,255,.09);
 
-  border-radius:25px;
+  border-radius:26px;
 
   background:
     rgba(255,255,255,.018);
@@ -159,498 +92,125 @@
 
 }
 
-.swap-card-head{
 
-  display:flex;
+/* ================================================
+   EMBED
+================================================ */
 
-  align-items:center;
+.rhea-frame{
 
-  justify-content:space-between;
-
-  margin-bottom:16px;
-
-}
-
-.swap-card-title{
-
-  font-size:18px;
-
-  font-weight:700;
-
-}
-
-.swap-status{
-
-  padding:7px 10px;
-
-  border-radius:10px;
-
-  background:
-    rgba(114,232,187,.07);
-
-  color:#72e8bb;
-
-  font-size:9px;
-
-  font-weight:700;
-
-}
-
-
-/* =================================================
-   TOKEN BOX
-================================================= */
-
-.token-box{
+  display:block;
 
   width:100%;
 
-  min-height:150px;
-
-  padding:17px;
-
-  box-sizing:border-box;
-
-  border:
-    1px solid rgba(255,255,255,.07);
-
-  border-radius:19px;
-
-  background:#080d0b;
-
-}
-
-.token-top{
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  margin-bottom:14px;
-
-}
-
-.token-label{
-
-  color:
-    rgba(255,255,255,.55);
-
-  font-size:13px;
-
-  font-weight:600;
-
-}
-
-.token-balance{
-
-  color:
-    rgba(255,255,255,.38);
-
-  font-size:11px;
-
-}
-
-.token-input-row{
-
-  width:100%;
-
-  display:flex;
-
-  align-items:center;
-
-  gap:12px;
-
-}
-
-.token-input,
-.token-output{
-
-  flex:1 1 auto;
-
-  width:0;
-
-  min-width:0;
-
-  height:52px;
-
-  padding:0;
+  height:760px;
 
   border:0;
 
-  outline:0;
+  border-radius:20px;
 
-  background:transparent;
-
-  color:#fff;
-
-  font-family:inherit;
-
-  font-size:36px;
-
-  font-weight:700;
-
-  line-height:52px;
-
-}
-
-.token-input::-webkit-outer-spin-button,
-.token-input::-webkit-inner-spin-button{
-
-  -webkit-appearance:none;
-
-  margin:0;
-
-}
-
-.token-input{
-
-  -moz-appearance:textfield;
-
-}
-
-.token-select{
-
-  flex:0 0 140px;
-
-  height:52px;
-
-  box-sizing:border-box;
-
-  display:flex;
-
-  align-items:center;
-
-  gap:9px;
-
-  padding:7px 12px;
-
-  border-radius:15px;
-
-  background:
-    rgba(255,255,255,.065);
-
-  color:#fff;
-
-  font-size:15px;
-
-  font-weight:700;
-
-}
-
-.near-logo{
-
-  width:30px;
-
-  height:30px;
-
-  flex:0 0 30px;
-
-  border-radius:50%;
-
-  background:#fff;
-
-  color:#111;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  font-family:Arial,sans-serif;
-
-  font-size:17px;
-
-  font-weight:900;
-
-}
-
-.meep-logo{
-
-  width:30px;
-
-  height:30px;
-
-  flex:0 0 30px;
-
-  border-radius:50%;
-
-  object-fit:cover;
+  background:#050706;
 
 }
 
 
-/* =================================================
-   PRESETS
-================================================= */
+/* ================================================
+   LOADING
+================================================ */
 
-.presets{
+.rhea-loading{
 
-  display:flex;
+  padding:15px;
 
-  gap:8px;
-
-  margin:14px 0;
-
-}
-
-.preset{
-
-  flex:1;
-
-  height:38px;
-
-  border:
-    1px solid rgba(255,255,255,.08);
-
-  border-radius:10px;
-
-  background:
-    rgba(255,255,255,.035);
+  text-align:center;
 
   color:
-    rgba(255,255,255,.70);
-
-  font-family:inherit;
-
-  font-size:11px;
-
-  font-weight:700;
-
-  cursor:pointer;
-
-}
-
-.preset:hover{
-
-  border-color:
-    rgba(114,232,187,.35);
-
-  color:#72e8bb;
-
-}
-
-
-/* =================================================
-   ARROW
-================================================= */
-
-.swap-arrow-wrap{
-
-  height:0;
-
-  position:relative;
-
-  z-index:10;
-
-}
-
-.swap-arrow{
-
-  width:43px;
-
-  height:43px;
-
-  position:relative;
-
-  top:-22px;
-
-  margin:0 auto;
-
-  border:
-    4px solid #050706;
-
-  border-radius:50%;
-
-  background:#72e8bb;
-
-  color:#06100c;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  font-size:17px;
-
-  font-weight:900;
-
-  box-shadow:
-    0 5px 20px rgba(0,0,0,.45);
-
-}
-
-
-/* =================================================
-   RATE
-================================================= */
-
-.swap-rate{
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  gap:12px;
-
-  margin:18px 3px 0;
-
-  color:
-    rgba(255,255,255,.50);
+    rgba(255,255,255,.45);
 
   font-size:12px;
 
 }
 
-.swap-rate strong{
 
-  color:
-    rgba(255,255,255,.80);
+/* ================================================
+   FALLBACK
+================================================ */
 
-  white-space:nowrap;
+.rhea-fallback{
+
+  margin-top:14px;
+
+  padding:15px;
+
+  border:
+    1px solid rgba(114,232,187,.12);
+
+  border-radius:16px;
+
+  background:
+    rgba(114,232,187,.035);
+
+  text-align:center;
 
 }
 
 
-/* =================================================
+.rhea-fallback p{
+
+  margin:0 0 12px;
+
+  color:
+    rgba(255,255,255,.45);
+
+  font-size:11px;
+
+  line-height:1.5;
+
+}
+
+
+.rhea-button{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  min-width:190px;
+
+  height:48px;
+
+  padding:0 20px;
+
+  box-sizing:border-box;
+
+  border-radius:14px;
+
+  background:#72e8bb;
+
+  color:#06100c;
+
+  text-decoration:none;
+
+  font-family:inherit;
+
+  font-size:14px;
+
+  font-weight:700;
+
+}
+
+
+/* ================================================
    INFO
-================================================= */
+================================================ */
 
-.swap-info{
+.rhea-info{
 
-  margin-top:17px;
+  margin-top:15px;
 
-  padding-top:14px;
-
-  border-top:
-    1px solid rgba(255,255,255,.07);
-
-}
-
-.swap-info-row{
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  min-height:31px;
-
-  color:
-    rgba(255,255,255,.48);
-
-  font-size:12px;
-
-}
-
-.swap-info-row strong{
-
-  color:
-    rgba(255,255,255,.78);
-
-}
-
-
-/* =================================================
-   BUY
-================================================= */
-
-.swap-main{
-
-  width:100%;
-
-  height:58px;
-
-  margin-top:16px;
-
-  border:0;
-
-  border-radius:17px;
-
-  background:#72e8bb;
-
-  color:#06100c;
-
-  font-family:inherit;
-
-  font-size:16px;
-
-  font-weight:700;
-
-  cursor:pointer;
-
-}
-
-.swap-main:disabled{
-
-  opacity:.45;
-
-  cursor:not-allowed;
-
-}
-
-
-/* =================================================
-   MESSAGE
-================================================= */
-
-.swap-message{
-
-  min-height:22px;
-
-  margin:10px 0 0;
-
-  text-align:center;
-
-  font-size:12px;
-
-}
-
-
-/* =================================================
-   DEBUG
-================================================= */
-
-.wallet-debug{
-
-  margin-top:8px;
-
-  padding:8px 10px;
-
-  border-radius:10px;
-
-  background:
-    rgba(255,255,255,.025);
-
-  color:
-    rgba(255,255,255,.30);
-
-  font-family:monospace;
-
-  font-size:9px;
-
-  text-align:center;
-
-  word-break:break-word;
-
-}
-
-
-/* =================================================
-   WARNING
-================================================= */
-
-.swap-warning{
-
-  margin:16px auto 0;
-
-  padding:12px 15px;
+  padding:13px 15px;
 
   border:
     1px solid rgba(255,255,255,.06);
@@ -661,58 +221,36 @@
     rgba(255,255,255,.02);
 
   color:
-    rgba(255,255,255,.42);
-
-  text-align:center;
+    rgba(255,255,255,.40);
 
   font-size:11px;
 
   line-height:1.5;
 
+  text-align:center;
+
 }
 
 
-/* =================================================
+/* ================================================
    MOBILE
-================================================= */
+================================================ */
 
 @media(max-width:600px){
 
-  .swap-card{
+  .rhea-card{
 
-    padding:14px;
+    padding:7px;
 
-  }
-
-  .token-box{
-
-    min-height:148px;
-
-    padding:15px;
+    border-radius:20px;
 
   }
 
-  .token-input,
-  .token-output{
+  .rhea-frame{
 
-    font-size:32px;
+    height:720px;
 
-  }
-
-  .token-select{
-
-    flex-basis:132px;
-
-  }
-
-  .near-logo,
-  .meep-logo{
-
-    width:28px;
-
-    height:28px;
-
-    flex-basis:28px;
+    border-radius:15px;
 
   }
 
@@ -726,9 +264,9 @@
 <body class="page">
 
 
-<!-- =================================================
+<!-- ================================================
      NAV
-================================================= -->
+================================================ -->
 
 <nav
   class="nav"
@@ -762,9 +300,9 @@
 </nav>
 
 
-<!-- =================================================
+<!-- ================================================
      HEADER
-================================================= -->
+================================================ -->
 
 <header class="page-head">
 
@@ -785,366 +323,131 @@
 </header>
 
 
-<!-- =================================================
+<!-- ================================================
      MAIN
-================================================= -->
+================================================ -->
 
 <main>
 
 <section id="swap">
 
-  <h1 class="title">
-    SWAP
-  </h1>
 
-  <p class="soon">
-    MEEP / NEAR
-  </p>
+<h1 class="title">
+  SWAP
+</h1>
 
 
-  <div class="swap-page">
+<p class="soon">
+  MEEP / NEAR
+</p>
 
 
-    <!-- ============================================
-         CONNECT WALLET
-    ============================================= -->
+<div class="rhea-page">
 
-    <div class="swap-wallet">
 
-      <button
-        id="connect-wallet"
-        class="connect-wallet"
-        type="button"
-      >
-        CONNECT WALLET
-      </button>
+  <!-- ============================================
+       RHEA
+  ============================================= -->
 
-    </div>
-
-
-    <!-- ============================================
-         SWAP CARD
-    ============================================= -->
-
-    <div class="swap-card">
-
-
-      <div class="swap-card-head">
-
-        <span class="swap-card-title">
-          Swap
-        </span>
-
-        <span class="swap-status">
-          RHEA
-        </span>
-
-      </div>
-
-
-      <!-- PAY -->
-
-      <div class="token-box">
-
-        <div class="token-top">
-
-          <span class="token-label">
-            You pay
-          </span>
-
-          <span
-            id="near-balance"
-            class="token-balance"
-          >
-            Balance: —
-          </span>
-
-        </div>
-
-
-        <div class="token-input-row">
-
-          <input
-            id="pay"
-            class="token-input"
-            type="number"
-            inputmode="decimal"
-            min="0"
-            step="any"
-            value="1"
-            aria-label="NEAR amount"
-          >
-
-
-          <div class="token-select">
-
-            <span class="near-logo">
-              Ⓝ
-            </span>
-
-            <span>
-              NEAR
-            </span>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- PRESETS -->
-
-      <div class="presets">
-
-        <button
-          class="preset"
-          data-amount="10"
-          type="button"
-        >
-          10 N
-        </button>
-
-        <button
-          class="preset"
-          data-amount="50"
-          type="button"
-        >
-          50 N
-        </button>
-
-        <button
-          class="preset"
-          data-amount="100"
-          type="button"
-        >
-          100 N
-        </button>
-
-        <button
-          class="preset"
-          data-amount="500"
-          type="button"
-        >
-          500 N
-        </button>
-
-      </div>
-
-
-      <!-- ARROW -->
-
-      <div class="swap-arrow-wrap">
-
-        <div class="swap-arrow">
-          ↓
-        </div>
-
-      </div>
-
-
-      <!-- RECEIVE -->
-
-      <div class="token-box">
-
-        <div class="token-top">
-
-          <span class="token-label">
-            You receive
-          </span>
-
-          <span class="token-balance">
-            MEEP
-          </span>
-
-        </div>
-
-
-        <div class="token-input-row">
-
-          <output
-            id="recv"
-            class="token-output"
-          >
-            —
-          </output>
-
-
-          <div class="token-select">
-
-            <img
-              class="meep-logo"
-              src="../assets/meep-logo.png"
-              alt="MEEP"
-            >
-
-            <span>
-              MEEP
-            </span>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- RATE -->
-
-      <div class="swap-rate">
-
-        <span>
-          Exchange rate
-        </span>
-
-        <strong id="rate">
-          —
-        </strong>
-
-      </div>
-
-
-      <!-- INFO -->
-
-      <div class="swap-info">
-
-
-        <div class="swap-info-row">
-
-          <span>
-            Network
-          </span>
-
-          <strong>
-            NEAR
-          </strong>
-
-        </div>
-
-
-        <div class="swap-info-row">
-
-          <span>
-            Pool fee
-          </span>
-
-          <strong>
-            1%
-          </strong>
-
-        </div>
-
-
-        <div class="swap-info-row">
-
-          <span>
-            Slippage
-          </span>
-
-          <strong>
-            3%
-          </strong>
-
-        </div>
-
-
-        <div class="swap-info-row">
-
-          <span>
-            Price impact
-          </span>
-
-          <strong>
-            —
-          </strong>
-
-        </div>
-
-
-        <div class="swap-info-row">
-
-          <span>
-            Minimum received
-          </span>
-
-          <strong>
-            —
-          </strong>
-
-        </div>
-
-
-      </div>
-
-
-      <!-- BUY -->
-
-      <button
-        id="swap-btn"
-        class="swap-main"
-        type="button"
-        disabled
-      >
-        CONNECT WALLET
-      </button>
-
-
-      <p
-        id="swap-msg"
-        class="swap-message mut"
-        role="status"
-      ></p>
-
-
-      <div
-        id="wallet-debug"
-        class="wallet-debug"
-      >
-        Wallet system ready.
-      </div>
-
-
-    </div>
-
-
-    <!-- WARNING -->
-
-    <div class="swap-warning">
-
-      Connect your NEAR wallet to continue.
-
-      <br>
-
-      Never share your seed phrase or private key.
-
-    </div>
+  <div class="rhea-card">
 
 
     <div
-      class="row"
-      style="margin-top:22px;"
+      id="rhea-loading"
+      class="rhea-loading"
     >
-
-      <a
-        class="btn ghost"
-        href="../"
-      >
-        BACK HOME
-      </a>
-
+      Loading Rhea Swap...
     </div>
 
 
+    <iframe
+      id="rhea-frame"
+      class="rhea-frame"
+      title="Rhea Swap"
+      src="https://app.rhea.finance/"
+      loading="eager"
+      allow="clipboard-read; clipboard-write"
+      referrerpolicy="strict-origin-when-cross-origin"
+    ></iframe>
+
+
   </div>
+
+
+  <!-- ============================================
+       FALLBACK
+  ============================================= -->
+
+  <div class="rhea-fallback">
+
+    <p>
+
+      If the Rhea Swap interface does not load
+      inside this page, open Rhea directly.
+
+    </p>
+
+
+    <a
+      class="rhea-button"
+      href="https://app.rhea.finance/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      OPEN RHEA SWAP
+    </a>
+
+  </div>
+
+
+  <!-- ============================================
+       INFO
+  ============================================= -->
+
+  <div class="rhea-info">
+
+    MEEP contract:
+
+    <strong>
+      meep-2.nearlytrade.near
+    </strong>
+
+    <br>
+
+    Network:
+
+    <strong>
+      NEAR Mainnet
+    </strong>
+
+  </div>
+
+
+  <div
+    class="row"
+    style="margin-top:22px;"
+  >
+
+    <a
+      class="btn ghost"
+      href="../"
+    >
+      BACK HOME
+    </a>
+
+  </div>
+
+
+</div>
 
 </section>
 
 </main>
 
 
-<!-- =================================================
+<!-- ================================================
      FOOTER
-================================================= -->
+================================================ -->
 
 <footer>
 
@@ -1159,524 +462,35 @@
 </footer>
 
 
-<!-- =================================================
+<!-- ================================================
      JAVASCRIPT
-================================================= -->
+================================================ -->
 
 <script>
 
-/*
-======================================================
-MEEP SWAP WALLET TEST
-======================================================
-*/
-
 (function(){
 
-  const button =
+  const frame =
     document.getElementById(
-      "connect-wallet"
+      "rhea-frame"
     );
 
-  const message =
+  const loading =
     document.getElementById(
-      "swap-msg"
-    );
-
-  const debug =
-    document.getElementById(
-      "wallet-debug"
-    );
-
-  const swapButton =
-    document.getElementById(
-      "swap-btn"
+      "rhea-loading"
     );
 
 
-  let selector = null;
-
-  let modal = null;
-
-  let accountId = null;
-
-
-  function msg(text){
-
-    message.textContent =
-      text || "";
-
-  }
-
-
-  function dbg(text){
-
-    debug.textContent =
-      text || "";
-
-    console.log(
-      "MEEP:",
-      text
-    );
-
-  }
-
-
-  /*
-  ====================================================
-  CONNECT BUTTON
-  ====================================================
-  */
-
-  button.addEventListener(
-    "click",
-
-    async function(){
-
-      /*
-        IMPORTANT:
-        This happens BEFORE
-        loading any wallet library.
-      */
-
-      msg(
-        "Button clicked. Loading wallet..."
-      );
-
-      dbg(
-        "CLICK OK — loading Wallet Selector..."
-      );
-
-
-      button.textContent =
-        "LOADING WALLET...";
-
-
-      button.disabled =
-        true;
-
-
-      try{
-
-
-        /*
-        ==============================================
-        LOAD CORE
-        ==============================================
-        */
-
-        const core =
-          await import(
-            "https://ga.jspm.io/npm:@near-wallet-selector/core@9.4.0/index.js"
-          );
-
-
-        dbg(
-          "Core loaded."
-        );
-
-
-        /*
-        ==============================================
-        LOAD MODAL
-        ==============================================
-        */
-
-        const modalModule =
-          await import(
-            "https://ga.jspm.io/npm:@near-wallet-selector/modal-ui-js@9.4.0/index.js"
-          );
-
-
-        dbg(
-          "Modal loaded."
-        );
-
-
-        /*
-        ==============================================
-        LOAD MY NEAR WALLET
-        ==============================================
-        */
-
-        const myNear =
-          await import(
-            "https://ga.jspm.io/npm:@near-wallet-selector/my-near-wallet@9.4.0/index.js"
-          );
-
-
-        dbg(
-          "MyNearWallet loaded."
-        );
-
-
-        /*
-        ==============================================
-        LOAD METEOR
-        ==============================================
-        */
-
-        let meteor = null;
-
-        try{
-
-          meteor =
-            await import(
-              "https://ga.jspm.io/npm:@near-wallet-selector/meteor-wallet@9.4.0/index.js"
-            );
-
-          dbg(
-            "Meteor loaded."
-          );
-
-        }catch(error){
-
-          console.warn(
-            "Meteor failed:",
-            error
-          );
-
-          dbg(
-            "Meteor unavailable — continuing."
-          );
-
-        }
-
-
-        /*
-        ==============================================
-        LOAD SENDER
-        ==============================================
-        */
-
-        let sender = null;
-
-        try{
-
-          sender =
-            await import(
-              "https://ga.jspm.io/npm:@near-wallet-selector/sender@9.4.0/index.js"
-            );
-
-          dbg(
-            "Sender loaded."
-          );
-
-        }catch(error){
-
-          console.warn(
-            "Sender failed:",
-            error
-          );
-
-          dbg(
-            "Sender unavailable — continuing."
-          );
-
-        }
-
-
-        /*
-        ==============================================
-        CREATE MODULE LIST
-        ==============================================
-        */
-
-        const modules = [];
-
-
-        modules.push(
-          myNear.setupMyNearWallet()
-        );
-
-
-        if(
-          meteor &&
-          meteor.setupMeteorWallet
-        ){
-
-          modules.push(
-            meteor.setupMeteorWallet()
-          );
-
-        }
-
-
-        if(
-          sender &&
-          sender.setupSender
-        ){
-
-          modules.push(
-            sender.setupSender()
-          );
-
-        }
-
-
-        /*
-        ==============================================
-        CREATE SELECTOR
-        ==============================================
-        */
-
-        dbg(
-          "Creating Wallet Selector..."
-        );
-
-
-        selector =
-          await core.setupWalletSelector({
-
-            network:
-              "mainnet",
-
-            modules:
-              modules
-
-          });
-
-
-        dbg(
-          "Wallet Selector ready."
-        );
-
-
-        /*
-        ==============================================
-        CREATE MODAL
-        ==============================================
-        */
-
-        modal =
-          modalModule.setupModal(
-
-            selector,
-
-            {
-
-              contractId:
-                "aggregatedex.near"
-
-            }
-
-          );
-
-
-        dbg(
-          "Wallet modal ready."
-        );
-
-
-        /*
-        ==============================================
-        WATCH WALLET
-        ==============================================
-        */
-
-        selector.store.observable.subscribe(
-
-          function(state){
-
-            console.log(
-              "Wallet state:",
-              state
-            );
-
-
-            if(
-              state.accounts &&
-              state.accounts.length
-            ){
-
-              accountId =
-                state.accounts[0].accountId;
-
-
-              button.textContent =
-                accountId;
-
-
-              button.classList.add(
-                "connected"
-              );
-
-
-              button.disabled =
-                false;
-
-
-              swapButton.disabled =
-                false;
-
-
-              swapButton.textContent =
-                "BUY MEEP";
-
-
-              msg(
-                "Wallet connected."
-              );
-
-
-              dbg(
-                "Connected: " +
-                accountId
-              );
-
-            }
-
-          }
-
-        );
-
-
-        /*
-        ==============================================
-        OPEN MODAL
-        ==============================================
-        */
-
-        dbg(
-          "Opening wallet..."
-        );
-
-
-        button.disabled =
-          false;
-
-
-        button.textContent =
-          "CONNECT WALLET";
-
-
-        modal.show();
-
-
-        msg(
-          "Select your NEAR wallet."
-        );
-
-
-      }
-
-      catch(error){
-
-        console.error(
-          "MEEP WALLET ERROR:",
-          error
-        );
-
-
-        button.disabled =
-          false;
-
-
-        button.textContent =
-          "CONNECT WALLET";
-
-
-        msg(
-          "Wallet failed to load."
-        );
-
-
-        /*
-          SHOW REAL ERROR ON PAGE
-        */
-
-        const errorText =
-          error &&
-          error.message
-            ? error.message
-            : String(error);
-
-
-        dbg(
-          "ERROR: " +
-          errorText
-        );
-
-      }
-
-    }
-
-  );
-
-
-  /*
-  ====================================================
-  PRESET BUTTONS
-  ====================================================
-  */
-
-  document
-    .querySelectorAll(
-      ".preset"
-    )
-    .forEach(
-
-      function(preset){
-
-        preset.addEventListener(
-          "click",
-
-          function(){
-
-            document.getElementById(
-              "pay"
-            ).value =
-              preset.dataset.amount;
-
-          }
-
-        );
-
-      }
-
-    );
-
-
-  /*
-  ====================================================
-  BUY
-  ====================================================
-  */
-
-  swapButton.addEventListener(
-    "click",
-
+  frame.addEventListener(
+    "load",
     function(){
 
-      if(!accountId){
-
-        msg(
-          "Connect your NEAR wallet first."
-        );
-
-        return;
-
-      }
-
-
-      msg(
-        "Wallet connected. BUY transaction will be added next."
-      );
+      loading.style.display =
+        "none";
 
     }
-
   );
 
-
-  /*
-  ====================================================
-  INITIAL
-  ====================================================
-  */
-
-  dbg(
-    "Wallet system ready. Tap CONNECT WALLET."
-  );
 
 })();
 
