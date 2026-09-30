@@ -1,257 +1,549 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-
 <meta charset="utf-8">
-
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Swap — MEEP</title>
+<meta name="description" content="MEEP decentralized swap is coming soon.">
+<meta name="theme-color" content="#050706">
 
-<meta
-  name="description"
-  content="Swap MEEP on NEAR."
->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Swap — MEEP">
+<meta property="og:description" content="MEEP decentralized swap is coming soon.">
+<meta property="og:image" content="../assets/meep-logo.png">
 
-<meta
-  name="theme-color"
-  content="#050706"
->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@MEEPNear">
 
-<link
-  rel="icon"
-  type="image/png"
-  href="../assets/favicon.png"
->
+<link rel="icon" type="image/png" href="../assets/favicon.png">
 
-<link
-  rel="preconnect"
-  href="https://fonts.googleapis.com"
->
-
-<link
-  rel="preconnect"
-  href="https://fonts.gstatic.com"
-  crossorigin
->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link
   rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap"
 >
 
-<link
-  rel="stylesheet"
-  href="../style.css"
->
-
+<link rel="stylesheet" href="../style.css">
 
 <style>
 
-/* ================================================
-   MEEP RHEA EMBED
-================================================ */
+/* =========================================
+   SWAP PAGE
+========================================= */
 
-.rhea-page{
-
-  width:100%;
-
-  max-width:620px;
-
-  margin:0 auto;
-
+.swap-page {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
 }
 
 
-/* ================================================
-   RHEA CARD
-================================================ */
+/* =========================================
+   CONNECT WALLET
+========================================= */
 
-.rhea-card{
+.swap-wallet {
+  width: 100%;
+  margin: 0 auto 18px;
+}
 
-  width:100%;
+.connect-wallet {
+  width: 100%;
+  height: 56px;
 
-  box-sizing:border-box;
+  border: 1px solid rgba(114,232,187,.25);
+  border-radius: 18px;
 
-  padding:12px;
+  background: rgba(114,232,187,.045);
 
-  border:
-    1px solid rgba(255,255,255,.09);
+  color: #72e8bb;
 
-  border-radius:26px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
 
-  background:
-    rgba(255,255,255,.018);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  cursor: not-allowed;
+}
+
+.wallet-icon {
+  width: 23px;
+  height: 23px;
+
+  border: 2px solid #72e8bb;
+  border-radius: 7px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
+}
+
+.soon-badge {
+  padding: 5px 9px;
+
+  border-radius: 8px;
+
+  background: rgba(255,255,255,.07);
+
+  color: rgba(255,255,255,.5);
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+
+/* =========================================
+   SWAP CARD
+========================================= */
+
+.swap-card {
+  width: 100%;
+
+  padding: 18px;
+
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 25px;
+
+  background: rgba(255,255,255,.018);
 
   box-shadow:
     0 20px 60px rgba(0,0,0,.25);
 
+  box-sizing: border-box;
 }
 
 
-/* ================================================
-   EMBED
-================================================ */
+/* =========================================
+   HEADER
+========================================= */
 
-.rhea-frame{
+.swap-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-  display:block;
+  margin-bottom: 16px;
+}
 
-  width:100%;
+.swap-card-title {
+  font-size: 18px;
+  font-weight: 700;
+}
 
-  height:760px;
+.swap-status {
+  padding: 7px 10px;
 
-  border:0;
+  border-radius: 10px;
 
-  border-radius:20px;
+  background: rgba(114,232,187,.07);
 
-  background:#050706;
+  color: #72e8bb;
 
+  font-size: 9px;
+  font-weight: 700;
 }
 
 
-/* ================================================
-   LOADING
-================================================ */
+/* =========================================
+   TOKEN BOX
+========================================= */
 
-.rhea-loading{
+.token-box {
+  width: 100%;
 
-  padding:15px;
+  min-height: 154px;
 
-  text-align:center;
+  padding: 17px;
 
-  color:
-    rgba(255,255,255,.45);
+  box-sizing: border-box;
 
-  font-size:12px;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 19px;
 
+  background: #080d0b;
 }
 
 
-/* ================================================
-   FALLBACK
-================================================ */
+/* =========================================
+   TOKEN TOP
+========================================= */
 
-.rhea-fallback{
+.token-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-  margin-top:14px;
+  margin-bottom: 14px;
+}
 
-  padding:15px;
+.token-label {
+  color: rgba(255,255,255,.55);
 
-  border:
-    1px solid rgba(114,232,187,.12);
+  font-size: 13px;
+  font-weight: 600;
+}
 
-  border-radius:16px;
+.token-balance {
+  color: rgba(255,255,255,.38);
 
-  background:
-    rgba(114,232,187,.035);
-
-  text-align:center;
-
+  font-size: 11px;
 }
 
 
-.rhea-fallback p{
+/* =========================================
+   TOKEN INPUT ROW
+========================================= */
 
-  margin:0 0 12px;
+.token-input-row {
+  width: 100%;
 
-  color:
-    rgba(255,255,255,.45);
+  display: flex;
+  align-items: center;
 
-  font-size:11px;
-
-  line-height:1.5;
-
+  gap: 12px;
 }
 
 
-.rhea-button{
+/* =========================================
+   INPUT
+========================================= */
 
-  display:inline-flex;
+.token-input,
+.token-output {
+  flex: 1 1 auto;
 
-  align-items:center;
+  width: 0;
+  min-width: 0;
 
-  justify-content:center;
+  height: 52px;
 
-  min-width:190px;
+  padding: 0;
 
-  height:48px;
+  border: 0;
+  outline: 0;
 
-  padding:0 20px;
+  background: transparent;
 
-  box-sizing:border-box;
+  color: #fff;
 
-  border-radius:14px;
+  font-family: inherit;
 
-  background:#72e8bb;
+  font-size: 38px;
+  font-weight: 700;
 
-  color:#06100c;
+  line-height: 52px;
 
-  text-decoration:none;
-
-  font-family:inherit;
-
-  font-size:14px;
-
-  font-weight:700;
-
+  text-align: left;
 }
 
 
-/* ================================================
+/* Remove number arrows */
+
+.token-input::-webkit-outer-spin-button,
+.token-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.token-input {
+  -moz-appearance: textfield;
+}
+
+
+/* =========================================
+   TOKEN SELECTOR
+========================================= */
+
+.token-select {
+  flex: 0 0 142px;
+
+  height: 52px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  gap: 9px;
+
+  padding: 7px 12px;
+
+  border-radius: 15px;
+
+  background: rgba(255,255,255,.065);
+
+  color: #fff;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+
+/* =========================================
+   NEAR LOGO
+========================================= */
+
+.near-logo {
+  width: 30px;
+  height: 30px;
+
+  flex: 0 0 30px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  color: #111;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 17px;
+  font-weight: 900;
+}
+
+
+/* =========================================
+   MEEP LOGO
+========================================= */
+
+.meep-logo {
+  width: 30px;
+  height: 30px;
+
+  flex: 0 0 30px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+}
+
+
+/* =========================================
+   TOKEN ARROW
+========================================= */
+
+.token-arrow {
+  margin-left: auto;
+
+  color: rgba(255,255,255,.45);
+
+  font-size: 10px;
+}
+
+
+/* =========================================
+   SWAP ARROW
+========================================= */
+
+.swap-arrow-wrap {
+  height: 0;
+
+  position: relative;
+
+  z-index: 10;
+}
+
+.swap-arrow {
+  width: 43px;
+  height: 43px;
+
+  position: relative;
+
+  top: -22px;
+
+  margin: 0 auto;
+
+  border: 4px solid #050706;
+
+  border-radius: 50%;
+
+  background: #72e8bb;
+
+  color: #06100c;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 17px;
+  font-weight: 900;
+
+  box-shadow:
+    0 5px 20px rgba(0,0,0,.45);
+}
+
+
+/* =========================================
+   RATE
+========================================= */
+
+.swap-rate {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin: 18px 3px 0;
+
+  color: rgba(255,255,255,.5);
+
+  font-size: 12px;
+}
+
+.swap-rate strong {
+  color: rgba(255,255,255,.78);
+
+  white-space: nowrap;
+}
+
+
+/* =========================================
    INFO
-================================================ */
+========================================= */
 
-.rhea-info{
+.swap-info {
+  margin-top: 17px;
 
-  margin-top:15px;
+  padding-top: 14px;
 
-  padding:13px 15px;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
 
-  border:
-    1px solid rgba(255,255,255,.06);
+.swap-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-  border-radius:14px;
+  min-height: 31px;
 
-  background:
-    rgba(255,255,255,.02);
+  color: rgba(255,255,255,.48);
 
-  color:
-    rgba(255,255,255,.40);
+  font-size: 12px;
+}
 
-  font-size:11px;
-
-  line-height:1.5;
-
-  text-align:center;
-
+.swap-info-row strong {
+  color: rgba(255,255,255,.78);
 }
 
 
-/* ================================================
+/* =========================================
+   SWAP BUTTON
+========================================= */
+
+.swap-main {
+  width: 100%;
+  height: 58px;
+
+  margin-top: 16px;
+
+  border: 0;
+  border-radius: 17px;
+
+  background: #72e8bb;
+
+  color: #06100c;
+
+  font-family: inherit;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  opacity: .65;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.swap-message {
+  min-height: 20px;
+
+  margin: 10px 0 0;
+
+  text-align: center;
+
+  font-size: 12px;
+}
+
+
+/* =========================================
+   WARNING
+========================================= */
+
+.swap-warning {
+  margin: 16px auto 0;
+
+  padding: 12px 15px;
+
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 14px;
+
+  background: rgba(255,255,255,.02);
+
+  color: rgba(255,255,255,.42);
+
+  text-align: center;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================
    MOBILE
-================================================ */
+========================================= */
 
-@media(max-width:600px){
+@media (max-width: 600px) {
 
-  .rhea-card{
-
-    padding:7px;
-
-    border-radius:20px;
-
+  .swap-page {
+    max-width: 100%;
   }
 
-  .rhea-frame{
+  .swap-card {
+    padding: 14px;
+  }
 
-    height:720px;
+  .token-box {
+    min-height: 148px;
 
-    border-radius:15px;
+    padding: 15px;
+  }
 
+  .token-input,
+  .token-output {
+    font-size: 34px;
+  }
+
+  .token-select {
+    flex-basis: 132px;
+    height: 50px;
+  }
+
+  .near-logo,
+  .meep-logo {
+    width: 28px;
+    height: 28px;
+
+    flex-basis: 28px;
   }
 
 }
@@ -264,52 +556,34 @@
 <body class="page">
 
 
-<!-- ================================================
+<!-- =========================================
      NAV
-================================================ -->
+========================================= -->
 
-<nav
-  class="nav"
-  aria-label="Pages"
->
+<nav class="nav" aria-label="Pages">
 
-  <a href="../">
-    Home
-  </a>
+  <a href="../">Home</a>
 
-  <a href="../swap/">
-    Swap
-  </a>
+  <a href="../swap/">Swap</a>
 
-  <a href="../nft/">
-    NFT
-  </a>
+  <a href="../nft/">NFT</a>
 
-  <a href="../airdrop/">
-    Airdrop
-  </a>
+  <a href="../airdrop/">Airdrop</a>
 
-  <a href="../#community">
-    Community
-  </a>
+  <a href="../#community">Community</a>
 
-  <a href="../#roadmap">
-    Roadmap
-  </a>
+  <a href="../#roadmap">Roadmap</a>
 
 </nav>
 
 
-<!-- ================================================
+<!-- =========================================
      HEADER
-================================================ -->
+========================================= -->
 
 <header class="page-head">
 
-  <a
-    href="../"
-    aria-label="MEEP home"
-  >
+  <a href="../" aria-label="MEEP home">
 
     <img
       src="../assets/meep-logo.png"
@@ -323,180 +597,314 @@
 </header>
 
 
-<!-- ================================================
+<!-- =========================================
      MAIN
-================================================ -->
+========================================= -->
 
 <main>
 
 <section id="swap">
 
+  <h1 class="title">SWAP</h1>
 
-<h1 class="title">
-  SWAP
-</h1>
-
-
-<p class="soon">
-  MEEP / NEAR
-</p>
+  <p class="soon">LAUNCHING SOON</p>
 
 
-<div class="rhea-page">
+  <div class="swap-page">
 
 
-  <!-- ============================================
-       RHEA
-  ============================================= -->
+    <!-- CONNECT WALLET -->
 
-  <div class="rhea-card">
+    <div class="swap-wallet">
 
+      <button
+        class="connect-wallet"
+        type="button"
+        disabled
+      >
 
-    <div
-      id="rhea-loading"
-      class="rhea-loading"
-    >
-      Loading Rhea Swap...
+        <span class="wallet-icon">
+          ◇
+        </span>
+
+        CONNECT WALLET
+
+        <span class="soon-badge">
+          SOON
+        </span>
+
+      </button>
+
     </div>
 
 
-    <iframe
-      id="rhea-frame"
-      class="rhea-frame"
-      title="Rhea Swap"
-      src="https://app.rhea.finance/"
-      loading="eager"
-      allow="clipboard-read; clipboard-write"
-      referrerpolicy="strict-origin-when-cross-origin"
-    ></iframe>
+    <!-- SWAP CARD -->
+
+    <div class="swap-card">
 
 
-  </div>
+      <div class="swap-card-head">
+
+        <span class="swap-card-title">
+          Swap
+        </span>
+
+        <span class="swap-status">
+          COMING SOON
+        </span>
+
+      </div>
 
 
-  <!-- ============================================
-       FALLBACK
-  ============================================= -->
+      <!-- NEAR -->
 
-  <div class="rhea-fallback">
+      <div class="token-box">
 
-    <p>
+        <div class="token-top">
 
-      If the Rhea Swap interface does not load
-      inside this page, open Rhea directly.
+          <span class="token-label">
+            You pay
+          </span>
 
-    </p>
+          <span class="token-balance">
+            Balance: —
+          </span>
+
+        </div>
 
 
-    <a
-      class="rhea-button"
-      href="https://app.rhea.finance/"
-      target="_blank"
-      rel="noopener noreferrer"
+        <div class="token-input-row">
+
+
+          <input
+            id="pay"
+            class="token-input"
+            type="number"
+            inputmode="decimal"
+            min="0"
+            step="any"
+            value="1"
+            aria-label="NEAR amount"
+          >
+
+
+          <div class="token-select">
+
+            <span class="near-logo">
+              Ⓝ
+            </span>
+
+            <span>
+              NEAR
+            </span>
+
+            <span class="token-arrow">
+              ▼
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ARROW -->
+
+      <div class="swap-arrow-wrap">
+
+        <div class="swap-arrow">
+          ↓
+        </div>
+
+      </div>
+
+
+      <!-- MEEP -->
+
+      <div class="token-box">
+
+        <div class="token-top">
+
+          <span class="token-label">
+            You receive
+          </span>
+
+          <span class="token-balance">
+            Balance: —
+          </span>
+
+        </div>
+
+
+        <div class="token-input-row">
+
+
+          <output
+            id="recv"
+            class="token-output"
+            for="pay"
+          >
+            970
+          </output>
+
+
+          <div class="token-select">
+
+            <img
+              class="meep-logo"
+              src="../assets/meep-logo.png"
+              alt="MEEP"
+            >
+
+            <span>
+              MEEP
+            </span>
+
+            <span class="token-arrow">
+              ▼
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- RATE -->
+
+      <div
+        id="rate-note"
+        class="swap-rate"
+      >
+
+        <span>
+          Exchange rate
+        </span>
+
+        <strong>
+          1 NEAR = 1,000 MEEP
+        </strong>
+
+      </div>
+
+
+      <!-- INFO -->
+
+      <div class="swap-info">
+
+        <div class="swap-info-row">
+
+          <span>Network</span>
+
+          <strong>NEAR</strong>
+
+        </div>
+
+
+        <div class="swap-info-row">
+
+          <span>Tax</span>
+
+          <strong>3%</strong>
+
+        </div>
+
+
+        <div class="swap-info-row">
+
+          <span>Price impact</span>
+
+          <strong>—</strong>
+
+        </div>
+
+
+        <div class="swap-info-row">
+
+          <span>Minimum received</span>
+
+          <strong>—</strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- BUTTON -->
+
+      <button
+        id="swap-btn"
+        class="swap-main"
+        type="button"
+        disabled
+      >
+        SWAP COMING SOON
+      </button>
+
+
+      <p
+        id="swap-msg"
+        class="swap-message mut"
+        role="status"
+      ></p>
+
+    </div>
+
+
+    <!-- WARNING -->
+
+    <div class="swap-warning">
+
+      🔒 Wallet connection and token swapping
+      are not active yet.
+
+      <br>
+
+      Nothing on this page can move your funds.
+
+    </div>
+
+
+    <!-- BACK -->
+
+    <div
+      class="row"
+      style="margin-top:22px;"
     >
-      OPEN RHEA SWAP
-    </a>
+
+      <a
+        class="btn ghost"
+        href="../"
+      >
+        BACK HOME
+      </a>
+
+    </div>
+
 
   </div>
-
-
-  <!-- ============================================
-       INFO
-  ============================================= -->
-
-  <div class="rhea-info">
-
-    MEEP contract:
-
-    <strong>
-      meep-2.nearlytrade.near
-    </strong>
-
-    <br>
-
-    Network:
-
-    <strong>
-      NEAR Mainnet
-    </strong>
-
-  </div>
-
-
-  <div
-    class="row"
-    style="margin-top:22px;"
-  >
-
-    <a
-      class="btn ghost"
-      href="../"
-    >
-      BACK HOME
-    </a>
-
-  </div>
-
-
-</div>
 
 </section>
 
 </main>
 
 
-<!-- ================================================
-     FOOTER
-================================================ -->
-
 <footer>
 
   <p class="mut">
 
-    MEEP is a meme.
-    Nothing here is financial advice
-    or a promise of returns.
+    MEEP is a meme. Nothing here is financial
+    advice or a promise of returns.
 
   </p>
 
 </footer>
 
 
-<!-- ================================================
-     JAVASCRIPT
-================================================ -->
-
-<script>
-
-(function(){
-
-  const frame =
-    document.getElementById(
-      "rhea-frame"
-    );
-
-  const loading =
-    document.getElementById(
-      "rhea-loading"
-    );
-
-
-  frame.addEventListener(
-    "load",
-    function(){
-
-      loading.style.display =
-        "none";
-
-    }
-  );
-
-
-})();
-
-</script>
-
+<script src="../config.js"></script>
+<script src="../app.js"></script>
 
 </body>
-
 </html>
